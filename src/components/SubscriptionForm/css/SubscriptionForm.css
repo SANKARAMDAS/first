@@ -46,3 +46,12 @@
     border: none;
     cursor: pointer;
   }
+  .page .coming-soon .content button[type=submit] {
+    padding: 8px 30px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #8358dc;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
