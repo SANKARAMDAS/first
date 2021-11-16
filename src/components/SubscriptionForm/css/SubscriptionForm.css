@@ -1,0 +1,48 @@
+/*App.js styles go here*/
+.page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6e6e6e;
+  }
+  .page .coming-soon {
+    display: flex;
+    flex: end;
+    justify-content: end;
+    width: 70%;
+    height: 80%;
+    background-image: url('../../../images/coming-soon.png');
+    background-size: contain;
+    background-position: center left;
+    background-repeat: no-repeat;
+  }
+  @media screen and (max-width: 786px) {
+    .page .coming-soon {
+      background-position: center bottom;
+      justify-content: start;
+      width: 90%;
+    }
+  }
+  .page .coming-soon .content .content__title {
+    font-weight: normal;
+    font-size: 2.3rem;
+  }
+  .page .coming-soon .content form input[type=email] {
+    display: block;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #6e6e6e;
+    margin: 30px 0;
+  }
+  .page .coming-soon .content form input[type=submit] {
+    padding: 8px 30px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #8358dc;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
