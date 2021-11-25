@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { sha256 } from "js-sha256";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import './Auth.css';
@@ -16,8 +17,15 @@ const Auth = () => {
 
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
+
+    const hashedPassword = sha256(password);
+
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/auth/emailverification`, { name, email, password, password2 })
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/emailverification`, {
+        name,
+        email,
+        password: hashedPassword
+      })
       .then((res) => {
         console.log(res);
         setHash(res.data.hash);
@@ -32,8 +40,11 @@ const Auth = () => {
 
   const handleOtpSubmit = (e) => {
     e.preventDefault();
+
+    const hashedPassword = sha256(password);
+
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password, otp, hash })
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, otp, hash })
       .then((res) => {
         console.log(res);
         window.location.href = '/'
@@ -42,10 +53,16 @@ const Auth = () => {
 
   const handleLogInSubmit = async (e) => {
     e.preventDefault();
+    const hashedPassword = sha256(password);
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/auth/signin`, { email, password })
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/signin`, {
+        email,
+        password: hashedPassword
+      })
       .then((res) => {
         console.log(res);
+      }).catch((error) => {
+        console.log(error.response.data)
       })
   }
 
