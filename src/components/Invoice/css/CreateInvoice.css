@@ -1,0 +1,14 @@
+.input-range {
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+  .input-range__label{
+      visibility: hidden;
+  }
+  .input-range__track{
+    background: #565656;
+}
+  .input-range__slider{
+    background: #A9A9A9;
+    border: 1px solid #A9A9A9;
+  }
