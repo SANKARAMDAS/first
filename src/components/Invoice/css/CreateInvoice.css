@@ -12,3 +12,15 @@
     background: #A9A9A9;
     border: 1px solid #A9A9A9;
   }
+  .add-item-btn{
+    margin: 20px;
+    font-size: 18px;
+    color: green;
+    cursor: pointer;
+  }
+  .remove-item-btn{
+    margin: 20px;
+    font-size: 18px;
+    color: red;
+    cursor: pointer;
+  }
