@@ -24,3 +24,8 @@
     color: red;
     cursor: pointer;
   }
+  .invoice-form-wrapper{
+    padding: 50px 70px;
+    border: 1px solid #bdbcbc;
+    border-radius: 20px;
+  }

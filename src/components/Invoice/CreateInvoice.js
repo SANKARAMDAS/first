@@ -11,6 +11,8 @@ import "./css/CreateInvoice.css"
 
 const CreateInvoice = () => {
 
+    const [previewObj, setPreviewObj] = useState({})
+
     //State Variables And Handler Variables for CLIENT DETAILS
 
     const [clientValues, setClientValues] = useState({
@@ -49,6 +51,7 @@ const CreateInvoice = () => {
     })
 
     const [dueDate, setDueDate] = useState(new Date())
+    const [notes, setNotes] = useState("")
 
     let selectionHandler = {}
 
@@ -148,11 +151,14 @@ const CreateInvoice = () => {
     }
 
     //Due Date Handler
-
     const handleDueDateChange = (date) => {
         setDueDate(date)
     }
 
+    //Notes Handler
+    const handleNotesInput = (e) => {
+        setNotes(e.target.value)
+    }
 
     //Proportion Slider Render Methods
     const renderTwoSliderLabels = () => {
@@ -277,104 +283,125 @@ const CreateInvoice = () => {
     //Handle Submission To Preview Invoice
     const handlePreviewInvoice = (e) => {
         e.preventDefault()
+
         console.log(clientValues)
         console.log(proportionValues)
         console.log(items)
         console.log(dateFormat(dueDate, "dd/mm/yyyy"))
+        console.log(notes)
     }
 
     return (
         <>
             <div style={{ marginTop: "70px", marginBottom: "70px" }} className="d-flex justify-content-center align-items-center">
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                    <h3 style={{ marginBottom: "20px" }}>Client Details</h3>
-                    <Form>
-                        <Form.Group onChange={handleClientDetails("name")} value={clientValues['name']} className="mb-3" controlId="formBasicNumber">
-                            <Form.Label>Name:</Form.Label>
-                            <Form.Control placeholder="Enter Client Name" />
-                        </Form.Group>
-                        <Form.Group onChange={handleClientDetails("email")} value={clientValues['email']} className="mb-3" controlId="formBasicNumber">
-                            <Form.Label>Email:</Form.Label>
-                            <Form.Control placeholder="Enter Client Email" />
-                        </Form.Group>
-                        <h3 style={{ marginBottom: "20px" }}>Product/Service Details</h3>
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="table table-responsive">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                items.length === 0 ? <></> :
-                                                    items.map((item, index) => {
-                                                        return (
-                                                            <tr key={index}>
-                                                                <td>{item.name}</td>
-                                                                <td>{item.price}</td>
-                                                                <td>{item.quantity}</td>
-                                                                <td><FontAwesomeIcon onClick={() => { deleteItem(index) }} className="remove-item-btn" icon={faTrash} /></td>
-                                                            </tr>
-                                                        )
-                                                    }
-                                                    )}
-                                            <tr>
-                                                <td>
-                                                    <Form.Control value={itemDetails['name']} onChange={handleItemDetails("name")} placeholder="Enter Name" />
-                                                </td>
-                                                <td>
-                                                    <Form.Control value={itemDetails['price']} onChange={handleItemDetails("price")} placeholder="Enter Price" />
-                                                </td>
-                                                <td>
-                                                    <Form.Control value={itemDetails['quantity']} onChange={handleItemDetails("quantity")} placeholder="Enter Quantity" type="number" min="1" step="1" />
-                                                </td>
-                                                <td><FontAwesomeIcon onClick={addItem} className="add-item-btn" icon={faPlus} /></td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <div className="invoice-form-wrapper">
+                        <div style={{ marginBottom: "20px" }} className="col-12 text-center">
+                            <h2>CREATE YOUR INVOICE</h2>
                         </div>
-                        <h3 style={{ marginBottom: "20px" }}>Payment Details</h3>
-                        <div className="row">
-                            <Form.Label>Select Currencies:</Form.Label>
+                        <hr />
+                        <h5 style={{ marginTop: "50px", marginBottom: "20px" }}>Client Details</h5>
+                        <Form>
                             <div style={{ marginBottom: "20px" }} className="row">
-                                <div className="col-lg-4 col-md-4 col-sm-12">
-                                    <Form.Check defaultChecked={true} onChange={handleSelection} type="checkbox" name="FIAT" label="FIAT" />
+                                <div className="col-12">
+                                    <Form.Group onChange={handleClientDetails("name")} value={clientValues['name']} className="mb-3" controlId="formBasicName">
+                                        <Form.Label>Name: </Form.Label>
+                                        <Form.Control placeholder="Enter Client Name" />
+                                    </Form.Group>
                                 </div>
-                                <div className="col-lg-4 col-md-4 col-sm-12">
-                                    <Form.Check onChange={handleSelection} type="checkbox" name="BTC" label="BTC" />
-                                </div>
-                                <div className="col-lg-4 col-md-4 col-sm-12">
-                                    <Form.Check onChange={handleSelection} type="checkbox" name="ETH" label="ETH" />
+                                <div className="col-12">
+                                    <Form.Group onChange={handleClientDetails("email")} value={clientValues['email']} className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Email: </Form.Label>
+                                        <Form.Control placeholder="Enter Client Email" />
+                                    </Form.Group>
                                 </div>
                             </div>
-                            {renderSlider()}
-                            <div className="col-lg-12">
-                                <Form.Group className="mb-3" controlId="formBasicCVV">
-                                    <Form.Label>Invoice Due Date:</Form.Label>
-                                    <DatePicker
-                                        value={dueDate}
-                                        selected={dueDate}
-                                        onChange={(date) => handleDueDateChange(date)}
-                                        placeholderText="DD/MM/YY"
-                                        dateFormat="dd/MM/yyyy"
-                                    />
-                                </Form.Group>
-                            </div>
-                        </div>
-                        <button onClick={handlePreviewInvoice} className="me-btn inner-text" type="submit">
-                            Preview Your Invoice
-                        </button>
+                            <h5 style={{ marginBottom: "30px" }}>Product/Service Details</h5>
+                            <div style={{ marginBottom: "20px" }} className="row">
+                                <div className="col-12">
+                                    <div className="table table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    items.length === 0 ? <></> :
+                                                        items.map((item, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>{item.name}</td>
+                                                                    <td>{item.price}</td>
+                                                                    <td>{item.quantity}</td>
+                                                                    <td><FontAwesomeIcon onClick={() => { deleteItem(index) }} className="remove-item-btn" icon={faTrash} /></td>
+                                                                </tr>
+                                                            )
+                                                        }
+                                                        )}
+                                                <tr>
+                                                    <td>
+                                                        <Form.Control value={itemDetails['name']} onChange={handleItemDetails("name")} placeholder="Enter Name" />
+                                                    </td>
+                                                    <td>
+                                                        <Form.Control value={itemDetails['price']} onChange={handleItemDetails("price")} placeholder="Enter Price" />
+                                                    </td>
+                                                    <td>
+                                                        <Form.Control value={itemDetails['quantity']} onChange={handleItemDetails("quantity")} placeholder="Enter Quantity" type="number" min="1" step="1" />
+                                                    </td>
+                                                    <td><FontAwesomeIcon onClick={addItem} className="add-item-btn" icon={faPlus} /></td>
+                                                </tr>
 
-                    </Form>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 style={{ marginBottom: "20px" }}>Payment Details</h5>
+                            <div style={{ marginBottom: "30px" }} className="row">
+                                <Form.Label>Select Currencies: </Form.Label>
+                                <div style={{ marginBottom: "20px" }} className="row">
+                                    <div className="col-lg-4 col-md-4 col-sm-12">
+                                        <Form.Check defaultChecked={true} onChange={handleSelection} type="checkbox" name="FIAT" label="FIAT" />
+                                    </div>
+                                    <div className="col-lg-4 col-md-4 col-sm-12">
+                                        <Form.Check onChange={handleSelection} type="checkbox" name="BTC" label="BTC" />
+                                    </div>
+                                    <div className="col-lg-4 col-md-4 col-sm-12">
+                                        <Form.Check onChange={handleSelection} type="checkbox" name="ETH" label="ETH" />
+                                    </div>
+                                </div>
+                                {renderSlider()}
+                                <div className="col-lg-12">
+                                    <Form.Group className="mb-3" controlId="formBasicDate">
+                                        <Form.Label>Invoice Due Date: </Form.Label>
+                                        <DatePicker
+                                            value={dueDate}
+                                            selected={dueDate}
+                                            onChange={(date) => handleDueDateChange(date)}
+                                            placeholderText="DD/MM/YY"
+                                            dateFormat="dd/MM/yyyy"
+                                        />
+                                    </Form.Group>
+                                </div>
+                                <div className="col-lg-12">
+                                    <Form.Group className="mb-3" controlId="formBasicNotes">
+                                        <Form.Label>Extra Notes: </Form.Label>
+                                        <Form.Control value={notes} onChange={handleNotesInput} as="textarea" />
+                                    </Form.Group>
+                                </div>
+                            </div>
+                            <div className="col-12 text-center">
+                                <button className="btn btn-primary" onClick={handlePreviewInvoice} type="submit">
+                                    Preview Your Invoice
+                                </button>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
             </div>
         </>
