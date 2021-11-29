@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Form } from 'react-bootstrap';
 import InputRange from 'react-input-range';
@@ -9,9 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css"
 
-const CreateInvoice = () => {
+var CryptoJS = require("crypto-js");
 
-    const [previewObj, setPreviewObj] = useState({})
+const CreateInvoice = () => {
 
     //State Variables And Handler Variables for CLIENT DETAILS
 
@@ -281,14 +282,32 @@ const CreateInvoice = () => {
     }
 
     //Handle Submission To Preview Invoice
-    const handlePreviewInvoice = (e) => {
+    const handlePreviewInvoice = async (e) => {
         e.preventDefault()
-
-        console.log(clientValues)
-        console.log(proportionValues)
-        console.log(items)
-        console.log(dateFormat(dueDate, "dd/mm/yyyy"))
-        console.log(notes)
+        const backendObj = {
+            "freelancerEmail": "tarang.padia2@gmail.com",
+            "clientEmail": clientValues.email,
+            "freelancerName": "Tarang",
+            "clientName": clientValues.name,
+            "ETH": proportionValues.ETH.proportion,
+            "BTC": proportionValues.BTC.proportion,
+            "FIAT": proportionValues.FIAT.proportion,
+            "item": items,
+            "dueDate": dateFormat(dueDate, "dd/mm/yyyy"),
+            "creationDate": dateFormat(Date.now(), "dd/mm/yyyy"),
+            "memo": notes
+        }
+        await axios.post(`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`, backendObj)
+            .then((res) => {
+                console.log(res.data)
+                const decodedValue = decodeURIComponent(res.data)
+                const bytes = CryptoJS.AES.decrypt(decodedValue, process.env.REACT_APP_DECRYPT_SECRET);
+                console.log(bytes)
+                const plainText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)).invoiceId
+                console.log(plainText)
+                window.localStorage.setItem("transactionId", plainText)
+            })
+            .catch((err) => { console.log(err) })
     }
 
     return (
