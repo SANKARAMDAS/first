@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { Form } from 'react-bootstrap';
 import InputRange from 'react-input-range';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dateFormat from "dateformat";
 import "react-input-range/lib/css/index.css"
+import { Spinner } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css"
 
 const CreateInvoice = (props) => {
-
     //For React Router history object
 
     let history = useHistory()
+
+    //Loading
+    const [isLoading, setIsLoading] = useState(true)
+
+    //Checking onboaring
+    const [hasOnboarded, setHasOnboarded] = useState(false)
 
     //State Variables And Handler Variables for CLIENT DETAILS
 
@@ -57,6 +64,25 @@ const CreateInvoice = (props) => {
     const [notes, setNotes] = useState("")
 
     let selectionHandler = {}
+
+    useEffect(() => {
+        //Check charges_enable
+        const didOnboard = async () => {
+            console.log("Checking Charges Enabled....")
+            setHasOnboarded(false)
+            setIsLoading(false)
+            await axios.post(`${process.env.REACT_APP_BACKEND_API}/stripe-onBoarding/chargesEnabled`, {
+                email: "tarang.padia2@gmail.com"
+            }).then((res) => {
+                console.log(res.data)
+                setHasOnboarded(res.data)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
+        didOnboard()
+    }, [])
 
     /* CLIENT DETAILS' METHODS */
 
@@ -306,134 +332,176 @@ const CreateInvoice = (props) => {
                 backendObj
             }
         })
-        // await axios.post(`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`, backendObj)
-        //     .then((res) => {
-        //         console.log(res.data)
-        //         const decodedValue = decodeURIComponent(res.data)
-        //         const bytes = CryptoJS.AES.decrypt(decodedValue, process.env.REACT_APP_DECRYPT_SECRET);
-        //         console.log(bytes)
-        //         const plainText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)).invoiceId
-        //         console.log(plainText)
-        //         window.localStorage.setItem("transactionId", plainText)
-        //     })
-        //     .catch((err) => { console.log(err) })
+    }
+
+    const handleOnboard = async () => {
+        console.log("Start Onboarding...")
+        await axios.post(`${process.env.REACT_APP_BACKEND_API}/stripe-onBoarding/onBoarding`, {
+            email: window.localStorage.getItem("email")
+        }).then((res) => {
+            console.log(res.data)
+            window.location.href = res.data
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    const renderCreateInvoice = () => {
+        if (isLoading) {
+            return (
+                <div className="container text-center">
+                    <Spinner
+                        style={{
+                            marginTop: "340px",
+                            marginBottom: "10px",
+                            color: "blue",
+                        }}
+                        animation="border"
+                    />
+                    <div style={{ marginBottom: "700px" }}>
+                        <p>Checking Onboard...</p>
+                    </div>
+                </div>
+            )
+        } else {
+            if (!hasOnboarded) {
+                return (
+                    <>
+                        <p>
+                            Please onboard before creating invoice
+                        </p>
+                        <button className="btn btn-primary" onClick={handleOnboard} type="submit">
+                            Onboard
+                        </button>
+                    </>
+                )
+            } else {
+                return (
+                    <>
+                        <div style={{ marginTop: "70px", marginBottom: "70px" }} className="d-flex justify-content-center align-items-center">
+                            <div className="col-lg-6 col-md-6 col-sm-6">
+                                <div className="invoice-form-wrapper">
+                                    <div style={{ marginBottom: "20px" }} className="col-12 text-center">
+                                        <h2>CREATE YOUR INVOICE</h2>
+                                    </div>
+                                    <hr />
+                                    <h5 style={{ marginTop: "50px", marginBottom: "20px" }}>Client Details</h5>
+                                    <Form>
+                                        <div style={{ marginBottom: "20px" }} className="row">
+                                            <div className="col-12">
+                                                <Form.Group onChange={handleClientDetails("name")} value={clientValues['name']} className="mb-3" controlId="formBasicName">
+                                                    <Form.Label>Name: </Form.Label>
+                                                    <Form.Control placeholder="Enter Client Name" />
+                                                </Form.Group>
+                                            </div>
+                                            <div className="col-12">
+                                                <Form.Group onChange={handleClientDetails("email")} value={clientValues['email']} className="mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Email: </Form.Label>
+                                                    <Form.Control placeholder="Enter Client Email" />
+                                                </Form.Group>
+                                            </div>
+                                        </div>
+                                        <h5 style={{ marginBottom: "30px" }}>Product/Service Details</h5>
+                                        <div style={{ marginBottom: "20px" }} className="row">
+                                            <div className="col-12">
+                                                <div className="table table-responsive">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {
+                                                                items.length === 0 ? <></> :
+                                                                    items.map((item, index) => {
+                                                                        return (
+                                                                            <tr key={index}>
+                                                                                <td>{item.name}</td>
+                                                                                <td>{item.price}</td>
+                                                                                <td>{item.quantity}</td>
+                                                                                <td><FontAwesomeIcon onClick={() => { deleteItem(index) }} className="remove-item-btn" icon={faTrash} /></td>
+                                                                            </tr>
+                                                                        )
+                                                                    }
+                                                                    )}
+                                                            <tr>
+                                                                <td>
+                                                                    <Form.Control value={itemDetails['name']} onChange={handleItemDetails("name")} placeholder="Enter Name" />
+                                                                </td>
+                                                                <td>
+                                                                    <Form.Control value={itemDetails['price']} onChange={handleItemDetails("price")} placeholder="Enter Price" />
+                                                                </td>
+                                                                <td>
+                                                                    <Form.Control value={itemDetails['quantity']} onChange={handleItemDetails("quantity")} placeholder="Enter Quantity" type="number" min="1" step="1" />
+                                                                </td>
+                                                                <td><FontAwesomeIcon onClick={addItem} className="add-item-btn" icon={faPlus} /></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 style={{ marginBottom: "20px" }}>Payment Details</h5>
+                                        <div style={{ marginBottom: "30px" }} className="row">
+                                            <Form.Label>Select Currencies: </Form.Label>
+                                            <div style={{ marginBottom: "20px" }} className="row">
+                                                <div className="col-lg-4 col-md-4 col-sm-12">
+                                                    <Form.Check defaultChecked={true} onChange={handleSelection} type="checkbox" name="FIAT" label="FIAT" />
+                                                </div>
+                                                <div className="col-lg-4 col-md-4 col-sm-12">
+                                                    <Form.Check onChange={handleSelection} type="checkbox" name="BTC" label="BTC" />
+                                                </div>
+                                                <div className="col-lg-4 col-md-4 col-sm-12">
+                                                    <Form.Check onChange={handleSelection} type="checkbox" name="ETH" label="ETH" />
+                                                </div>
+                                            </div>
+                                            {renderSlider()}
+                                            <div className="col-lg-12">
+                                                <Form.Group className="mb-3" controlId="formBasicDate">
+                                                    <Form.Label>Invoice Due Date: </Form.Label>
+                                                    <DatePicker
+                                                        value={dueDate}
+                                                        selected={dueDate}
+                                                        onChange={(date) => handleDueDateChange(date)}
+                                                        placeholderText="DD/MM/YY"
+                                                        dateFormat="dd/MM/yyyy"
+                                                    />
+                                                </Form.Group>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <Form.Group className="mb-3" controlId="formBasicNotes">
+                                                    <Form.Label>Extra Notes: </Form.Label>
+                                                    <Form.Control value={notes} onChange={handleNotesInput} as="textarea" />
+                                                </Form.Group>
+                                            </div>
+                                        </div>
+                                        <div className="col-12 text-center">
+                                            <button className="btn btn-primary" onClick={handlePreviewInvoice} type="submit">
+                                                Preview Your Invoice
+                                            </button>
+                                        </div>
+                                    </Form>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                );
+            }
+        }
+
     }
 
     return (
         <>
-            <div style={{ marginTop: "70px", marginBottom: "70px" }} className="d-flex justify-content-center align-items-center">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                    <div className="invoice-form-wrapper">
-                        <div style={{ marginBottom: "20px" }} className="col-12 text-center">
-                            <h2>CREATE YOUR INVOICE</h2>
-                        </div>
-                        <hr />
-                        <h5 style={{ marginTop: "50px", marginBottom: "20px" }}>Client Details</h5>
-                        <Form>
-                            <div style={{ marginBottom: "20px" }} className="row">
-                                <div className="col-12">
-                                    <Form.Group onChange={handleClientDetails("name")} value={clientValues['name']} className="mb-3" controlId="formBasicName">
-                                        <Form.Label>Name: </Form.Label>
-                                        <Form.Control placeholder="Enter Client Name" />
-                                    </Form.Group>
-                                </div>
-                                <div className="col-12">
-                                    <Form.Group onChange={handleClientDetails("email")} value={clientValues['email']} className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Email: </Form.Label>
-                                        <Form.Control placeholder="Enter Client Email" />
-                                    </Form.Group>
-                                </div>
-                            </div>
-                            <h5 style={{ marginBottom: "30px" }}>Product/Service Details</h5>
-                            <div style={{ marginBottom: "20px" }} className="row">
-                                <div className="col-12">
-                                    <div className="table table-responsive">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    items.length === 0 ? <></> :
-                                                        items.map((item, index) => {
-                                                            return (
-                                                                <tr key={index}>
-                                                                    <td>{item.name}</td>
-                                                                    <td>{item.price}</td>
-                                                                    <td>{item.quantity}</td>
-                                                                    <td><FontAwesomeIcon onClick={() => { deleteItem(index) }} className="remove-item-btn" icon={faTrash} /></td>
-                                                                </tr>
-                                                            )
-                                                        }
-                                                        )}
-                                                <tr>
-                                                    <td>
-                                                        <Form.Control value={itemDetails['name']} onChange={handleItemDetails("name")} placeholder="Enter Name" />
-                                                    </td>
-                                                    <td>
-                                                        <Form.Control value={itemDetails['price']} onChange={handleItemDetails("price")} placeholder="Enter Price" />
-                                                    </td>
-                                                    <td>
-                                                        <Form.Control value={itemDetails['quantity']} onChange={handleItemDetails("quantity")} placeholder="Enter Quantity" type="number" min="1" step="1" />
-                                                    </td>
-                                                    <td><FontAwesomeIcon onClick={addItem} className="add-item-btn" icon={faPlus} /></td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <h5 style={{ marginBottom: "20px" }}>Payment Details</h5>
-                            <div style={{ marginBottom: "30px" }} className="row">
-                                <Form.Label>Select Currencies: </Form.Label>
-                                <div style={{ marginBottom: "20px" }} className="row">
-                                    <div className="col-lg-4 col-md-4 col-sm-12">
-                                        <Form.Check defaultChecked={true} onChange={handleSelection} type="checkbox" name="FIAT" label="FIAT" />
-                                    </div>
-                                    <div className="col-lg-4 col-md-4 col-sm-12">
-                                        <Form.Check onChange={handleSelection} type="checkbox" name="BTC" label="BTC" />
-                                    </div>
-                                    <div className="col-lg-4 col-md-4 col-sm-12">
-                                        <Form.Check onChange={handleSelection} type="checkbox" name="ETH" label="ETH" />
-                                    </div>
-                                </div>
-                                {renderSlider()}
-                                <div className="col-lg-12">
-                                    <Form.Group className="mb-3" controlId="formBasicDate">
-                                        <Form.Label>Invoice Due Date: </Form.Label>
-                                        <DatePicker
-                                            value={dueDate}
-                                            selected={dueDate}
-                                            onChange={(date) => handleDueDateChange(date)}
-                                            placeholderText="DD/MM/YY"
-                                            dateFormat="dd/MM/yyyy"
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div className="col-lg-12">
-                                    <Form.Group className="mb-3" controlId="formBasicNotes">
-                                        <Form.Label>Extra Notes: </Form.Label>
-                                        <Form.Control value={notes} onChange={handleNotesInput} as="textarea" />
-                                    </Form.Group>
-                                </div>
-                            </div>
-                            <div className="col-12 text-center">
-                                <button className="btn btn-primary" onClick={handlePreviewInvoice} type="submit">
-                                    Preview Your Invoice
-                                </button>
-                            </div>
-                        </Form>
-                    </div>
-                </div>
-            </div>
+            {renderCreateInvoice()}
         </>
-    );
+    )
+
 }
 
 export default CreateInvoice;
