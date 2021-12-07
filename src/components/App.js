@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import Auth from './Auth/Auth';
 import ForgotPassword from './Auth/ForgotPassword';
 import InvoiceRoutes from './Invoice/InvoiceRoutes';
+import ResetPassword from './Auth/ResetPassword';
 import ClientInvoice from './Invoice/ClientInvoice';
 
 const App = () => {
@@ -19,6 +20,9 @@ const App = () => {
         <Route path="/auth/forgot-password" >
           <ForgotPassword />
         </Route> {/* public */}
+        <Route path="/auth/reset-password">
+          <ResetPassword />
+        </Route>
         <Route path="/create-invoice">
           <InvoiceRoutes />
         </Route> {/* after authentication */}

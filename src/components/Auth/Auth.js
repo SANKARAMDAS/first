@@ -3,6 +3,7 @@ import { sha256 } from "js-sha256";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import './Auth.css';
+import Header from '../Header';
 
 const Auth = () => {
 
@@ -270,13 +271,16 @@ const Auth = () => {
   }
 
   return (
-    <div className="auth-page">
-      <div className="box">
-        {renderForm === "login"
-          ? <h1 className="box__heading">Log In</h1>
-          : <h1 className="box__heading">Sign Up</h1>
-        }
-        {handleAuth()}
+    <div className="page">
+      <Header />
+      <div className="auth-page">
+        <div className="box">
+          {renderForm === "login"
+            ? <h1 className="box__heading">Log In</h1>
+            : <h1 className="box__heading">Sign Up</h1>
+          }
+          {handleAuth()}
+        </div>
       </div>
     </div>
   );
