@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Form } from 'react-bootstrap';
 import InputRange from 'react-input-range';
@@ -6,13 +5,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dateFormat from "dateformat";
 import "react-input-range/lib/css/index.css"
+import { useHistory } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css"
 
-var CryptoJS = require("crypto-js");
+const CreateInvoice = (props) => {
 
-const CreateInvoice = () => {
+    //For React Router history object
+
+    let history = useHistory()
 
     //State Variables And Handler Variables for CLIENT DETAILS
 
@@ -297,17 +299,24 @@ const CreateInvoice = () => {
             "creationDate": dateFormat(Date.now(), "dd/mm/yyyy"),
             "memo": notes
         }
-        await axios.post(`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`, backendObj)
-            .then((res) => {
-                console.log(res.data)
-                const decodedValue = decodeURIComponent(res.data)
-                const bytes = CryptoJS.AES.decrypt(decodedValue, process.env.REACT_APP_DECRYPT_SECRET);
-                console.log(bytes)
-                const plainText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)).invoiceId
-                console.log(plainText)
-                window.localStorage.setItem("transactionId", plainText)
-            })
-            .catch((err) => { console.log(err) })
+
+        history.push({
+            pathname: `${props.path}/preview-invoice`,
+            state: {
+                backendObj
+            }
+        })
+        // await axios.post(`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`, backendObj)
+        //     .then((res) => {
+        //         console.log(res.data)
+        //         const decodedValue = decodeURIComponent(res.data)
+        //         const bytes = CryptoJS.AES.decrypt(decodedValue, process.env.REACT_APP_DECRYPT_SECRET);
+        //         console.log(bytes)
+        //         const plainText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)).invoiceId
+        //         console.log(plainText)
+        //         window.localStorage.setItem("transactionId", plainText)
+        //     })
+        //     .catch((err) => { console.log(err) })
     }
 
     return (
