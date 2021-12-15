@@ -48,6 +48,7 @@ const Auth = () => {
       .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, otp, hash })
       .then((res) => {
         console.log(res);
+        //ask user 
         window.location.href = '/'
       })
   }
@@ -62,6 +63,7 @@ const Auth = () => {
       })
       .then((res) => {
         console.log(res);
+        //go to freelancer or business
       }).catch((error) => {
         console.log(error.response.data)
       })
@@ -82,53 +84,6 @@ const Auth = () => {
 
   const handleAuth = () => {
     switch (renderForm) {
-      case "login": {
-        return (
-          <>
-            <form onSubmit={handleLogInSubmit}>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                className="box__input"
-                placeholder="Email Address"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                className="box__input"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <GoogleLogin
-                clientId="365821624725-ke89ac5mckkrpg3nu76cein2vrss33tg.apps.googleusercontent.com"
-                render={(renderProps) => (
-                  <button className="box__googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                    <svg viewBox="0 0 22 22">
-                      <path
-                        fill="currentColor"
-                        d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"
-                      />
-                    </svg>
-                    <span>Log In With Google</span>
-                  </button>
-                )}
-                onSuccess={googleSuccess}
-                onFailure={googleFailure}
-                cookiePolicy={'single_host_origin'}
-              />
-              <button className="box__button" type="submit">Log In</button>
-              <button className="box__toggle" onClick={() => setRenderForm("signup")}>Don't have an account? Sign Up.</button>
-            </form>
-          </>
-        )
-      }
       case "signup": {
         return (
           <>
@@ -264,7 +219,49 @@ const Auth = () => {
       }
       default: {
         return (
-          <></>
+          <>
+            <form onSubmit={handleLogInSubmit}>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                className="box__input"
+                placeholder="Email Address"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                className="box__input"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <GoogleLogin
+                clientId="365821624725-ke89ac5mckkrpg3nu76cein2vrss33tg.apps.googleusercontent.com"
+                render={(renderProps) => (
+                  <button className="box__googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                    <svg viewBox="0 0 22 22">
+                      <path
+                        fill="currentColor"
+                        d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"
+                      />
+                    </svg>
+                    <span>Log In With Google</span>
+                  </button>
+                )}
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy={'single_host_origin'}
+              />
+              <button className="box__button" type="submit">Log In</button>
+              <button className="box__toggle" onClick={() => setRenderForm("signup")}>Don't have an account? Sign Up.</button>
+            </form>
+          </>
         )
       }
     }

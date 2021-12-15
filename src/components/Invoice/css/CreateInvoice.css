@@ -1,3 +1,76 @@
+.details-wrapper{
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.invoice-form-wrapper{
+  margin: 70px 0;
+  padding: 30px 50px;
+    border: 1px solid #bdbcbc;
+}
+.invoice-details{
+  float: right;
+  clear: both;
+  margin-right: 10px;
+}
+.client-invoice-details{
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  float: right;
+  margin-right: 10px;
+  clear: both;
+}
+.freelancer-details{
+  margin-top: 1px;
+}
+.freelancer-address{
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+}
+.freelancer-email{
+  font-size: 14px;
+  margin-top: 10px;
+}
+.client-details{
+  padding-top: 0;
+  text-align: end;
+  border: none;
+  font-size: 1.25rem; 
+  font-weight: 500;
+}
+.client-details:active{
+  outline: none;
+}
+.client-details:focus{
+  outline: none;
+  box-shadow: none;
+}
+.client-name{
+  padding: 5px;
+}
+.client-company{
+  padding: 5px;
+  padding-bottom: 0;
+}
+.client-email{
+  padding-top: 0;
+  font-size: 14px; 
+  font-weight: 400;
+}
+.intro-textarea{
+  padding: 0;
+  margin: 0;
+  resize: none;
+  border: none;
+  height: 200px;
+  font-size: 13px;
+}
+.intro-textarea:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
 .input-range {
     margin-top: 40px;
     margin-bottom: 60px;
@@ -13,19 +86,12 @@
     border: 1px solid #A9A9A9;
   }
   .add-item-btn{
-    margin: 20px;
     font-size: 18px;
     color: green;
     cursor: pointer;
   }
   .remove-item-btn{
-    margin: 20px;
     font-size: 18px;
     color: red;
     cursor: pointer;
-  }
-  .invoice-form-wrapper{
-    padding: 50px 70px;
-    border: 1px solid #bdbcbc;
-    border-radius: 20px;
   }
