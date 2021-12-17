@@ -15,6 +15,8 @@ const CreateInvoice = (props) => {
 
     let history = useHistory()
 
+    const [title, setTitle] = useState("Invoice Title")
+
     //State Variables And Handler Variables for CLIENT DETAILS
 
     const [clientValues, setClientValues] = useState({
@@ -64,9 +66,12 @@ const CreateInvoice = (props) => {
         FreeLancer Name
         `
     )
-    const [notes, setNotes] = useState("")
 
     let selectionHandler = {}
+
+    const handleTitle = (e) => {
+        setTitle(e.target.val)
+    }
 
     /* CLIENT DETAILS' METHODS */
 
@@ -171,11 +176,6 @@ const CreateInvoice = (props) => {
     //Intro Handler
     const handleIntroInput = (e) => {
         setIntro(e.target.value)
-    }
-
-    //Notes Handler
-    const handleNotesInput = (e) => {
-        setNotes(e.target.value)
     }
 
     //Proportion Slider Render Methods
@@ -312,7 +312,6 @@ const CreateInvoice = (props) => {
             "item": items,
             "dueDate": dateFormat(dueDate, "dd/mm/yyyy"),
             "creationDate": dateFormat(Date.now(), "dd/mm/yyyy"),
-            "memo": notes
         }
 
         history.push({
@@ -330,7 +329,7 @@ const CreateInvoice = (props) => {
                     <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="invoice-form-wrapper">
                             <div style={{ marginBottom: "20px" }} className="col-12 text-center">
-                                <h4>Invoice Title</h4>
+                                <Form.Control onChange={handleTitle} className="invoice-title" value={title} />
                             </div>
                             <Form>
                                 <div className="row details-wrapper">
@@ -361,12 +360,14 @@ const CreateInvoice = (props) => {
                                         <Form.Control className="intro-textarea" value={intro} onChange={handleIntroInput} as="textarea" />
                                     </div>
                                     <div className="col-12">
-                                        <Table striped>
-                                            <thead>
+                                        <Table className="invoice-table" striped>
+                                            <thead className="invoice-table-head">
                                                 <tr>
+                                                    <th>Sr No.</th>
                                                     <th>Name</th>
                                                     <th>Price</th>
-                                                    <th>Quantity</th>
+                                                    <th>Qty</th>
+                                                    <th>Total</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -376,25 +377,29 @@ const CreateInvoice = (props) => {
                                                         items.map((item, index) => {
                                                             return (
                                                                 <tr key={index}>
+                                                                    <td>{index + 1}</td>
                                                                     <td>{item.name}</td>
                                                                     <td>{item.price}</td>
                                                                     <td>{item.quantity}</td>
+                                                                    <td>{parseInt(item.price) * parseInt(item.quantity)}</td>
                                                                     <td><FontAwesomeIcon onClick={() => { deleteItem(index) }} className="remove-item-btn" icon={faTrash} /></td>
                                                                 </tr>
                                                             )
                                                         }
                                                         )}
                                                 <tr>
+                                                    <td style={{ paddingTop: "9px", paddingLeft: "10px" }}>Auto</td>
                                                     <td>
-                                                        <Form.Control value={itemDetails['name']} onChange={handleItemDetails("name")} placeholder="Enter Name" />
+                                                        <Form.Control value={itemDetails['name']} className="product-input" onChange={handleItemDetails("name")} placeholder="Enter Name" />
                                                     </td>
                                                     <td>
-                                                        <Form.Control value={itemDetails['price']} onChange={handleItemDetails("price")} placeholder="Enter Price" />
+                                                        <Form.Control value={itemDetails['price']} className="product-input" onChange={handleItemDetails("price")} placeholder="Enter Price" />
                                                     </td>
                                                     <td>
-                                                        <Form.Control value={itemDetails['quantity']} onChange={handleItemDetails("quantity")} placeholder="Enter Quantity" type="number" min="1" step="1" />
+                                                        <Form.Control value={itemDetails['quantity']} className="product-input quantity" onChange={handleItemDetails("quantity")} placeholder="Enter Quantity" type="number" min="1" step="1" />
                                                     </td>
-                                                    <td><FontAwesomeIcon onClick={addItem} className="add-item-btn" icon={faPlus} /></td>
+                                                    <td style={{ paddingTop: "8px" }}>Auto</td>
+                                                    <td style={{ paddingTop: "10px" }}><FontAwesomeIcon onClick={addItem} className="add-item-btn" icon={faPlus} /></td>
                                                 </tr>
 
                                             </tbody>
@@ -425,12 +430,6 @@ const CreateInvoice = (props) => {
                                                 placeholderText="DD/MM/YY"
                                                 dateFormat="dd/MM/yyyy"
                                             />
-                                        </Form.Group>
-                                    </div>
-                                    <div className="col-lg-12">
-                                        <Form.Group className="mb-3" controlId="formBasicNotes">
-                                            <Form.Label>Extra Notes: </Form.Label>
-                                            <Form.Control value={notes} onChange={handleNotesInput} as="textarea" />
                                         </Form.Group>
                                     </div>
                                 </div>
