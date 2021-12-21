@@ -9,12 +9,19 @@ const Auth = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [tokenId, setTokenId] = useState("")
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [otp, setOtp] = useState("");
   const [hash, setHash] = useState("");
 
   const [renderForm, setRenderForm] = useState("login");
+
+  useEffect(() => {
+    if (hash !== "") {
+      setRenderForm("otp");
+    }
+  }, [hash]);
 
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
@@ -28,16 +35,12 @@ const Auth = () => {
         password: hashedPassword
       })
       .then((res) => {
-        console.log(res);
-        setHash(res.data.hash);
+        console.log(res.data.data.otp);
+        setHash(res.data.data.hash);
+      }).catch((err) => {
+        console.log(err)
       })
   }
-
-  useEffect(() => {
-    if (hash !== "") {
-      setRenderForm("otp");
-    }
-  }, [hash]);
 
   const handleOtpSubmit = (e) => {
     e.preventDefault();
@@ -45,16 +48,38 @@ const Auth = () => {
     const hashedPassword = sha256(password);
 
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, otp, hash })
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/verifyOtp`, { name, email, password: hashedPassword, otp, hash })
       .then((res) => {
         console.log(res);
-        //ask user 
-        window.location.href = '/'
+        setRenderForm("roleChoice")
+      }).catch((err) => {
+        console.log(err.data)
       })
+  }
+
+  const handleRoleChoice = (role) => {
+    const hashedPassword = sha256(password);
+
+    if (tokenId === "") {
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, role })
+        .then((res) => {
+          console.log(res);
+          setRenderForm("roleChoice")
+        })
+    } else {
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleSignup`, { name, email, role })
+        .then((res) => {
+          console.log(res);
+          setRenderForm("roleChoice")
+        })
+    }
   }
 
   const handleLogInSubmit = async (e) => {
     e.preventDefault();
+    axios.defaults.withCredentials = true;
     const hashedPassword = sha256(password);
     axios
       .post(`${process.env.REACT_APP_BACKEND_API}/auth/signin`, {
@@ -69,12 +94,34 @@ const Auth = () => {
       })
   }
 
-  const googleSuccess = async (res) => {
-    const tokenId = res.tokenId;
+  const googleSuccessRegister = async (res) => {
+    const tokenIdLocal = res.tokenId;
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleLogin`, { tokenId })
+      .post(`${process.env.REACT_APP_BACKEND_API}/google-api/verifyEmailGoogleAuth`, { tokenId: tokenIdLocal })
       .then((response) => {
+        //To store tokenId in state
+        //Change state to role choice
         console.log(response);
+        setTokenId(tokenIdLocal)
+        setEmail(response.data.data.email)
+        setName(response.data.data.name)
+        setRenderForm("roleChoice")
+      }).catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const googleSuccess = async (res) => {
+    const tokenIdLocal = res.tokenId;
+    axios.defaults.withCredentials = true;
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleLogin`, { tokenId: tokenIdLocal })
+      .then((response) => {
+        //To store tokenId in state
+        //Change state to role choice
+        console.log(response);
+      }).catch((err) => {
+        console.log(err)
       })
   }
   const googleFailure = (error) => {
@@ -141,7 +188,7 @@ const Auth = () => {
                     <span>Sign Up With Google</span>
                   </button>
                 )}
-                onSuccess={googleSuccess}
+                onSuccess={googleSuccessRegister}
                 onFailure={googleFailure}
                 cookiePolicy='single_host_origin'
               />
@@ -208,12 +255,28 @@ const Auth = () => {
                     <span>Sign Up With Google</span>
                   </button>
                 )}
-                onSuccess={googleSuccess}
+                onSuccess={googleSuccessRegister}
                 onFailure={googleFailure}
                 cookiePolicy='single_host_origin'
               />
               <button className="box__button" type="submit" onClick={handleOtpSubmit}>Create Account</button>
             </form>
+          </>
+        )
+      }
+      case "roleChoice": {
+        return (
+          <>
+            <button className="role__button" onClick={(e) => {
+              e.preventDefault()
+              handleRoleChoice("freelancer")
+            }
+            }>Are you a contractor wanting to send invoice?</button>
+            <button className="role__button" style={{ marginTop: "50px" }} onClick={(e) => {
+              e.preventDefault()
+              handleRoleChoice("business")
+            }
+            }>Are you a business wanting to pay contractor very easily?</button>
           </>
         )
       }
@@ -274,7 +337,11 @@ const Auth = () => {
         <div className="box">
           {renderForm === "login"
             ? <h1 className="box__heading">Log In</h1>
-            : <h1 className="box__heading">Sign Up</h1>
+            : (
+              renderForm === "roleChoice"
+                ? <></>
+                : <h1 className="box__heading">Sign Up</h1>
+            )
           }
           {handleAuth()}
         </div>
