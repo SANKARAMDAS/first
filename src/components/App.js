@@ -5,7 +5,6 @@ import Auth from './Auth/Auth';
 import ForgotPassword from './Auth/ForgotPassword';
 import InvoiceRoutes from './Invoice/InvoiceRoutes';
 import ResetPassword from './Auth/ResetPassword';
-import ClientInvoice from './Invoice/ClientInvoice';
 
 const App = () => {
   return (
@@ -26,9 +25,6 @@ const App = () => {
         <Route path="/create-invoice">
           <InvoiceRoutes />
         </Route> {/* after authentication */}
-        <Route exact path="/pay-invoice">
-          <ClientInvoice />
-        </Route> {/* public */}
       </Switch>
     </Router>
   );

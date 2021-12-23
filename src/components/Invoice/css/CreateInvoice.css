@@ -18,6 +18,20 @@
   padding: 30px 50px;
     border: 1px solid #bdbcbc;
 }
+.back-button{
+  float: left;
+  cursor: pointer;
+}
+.print-button{
+  float: right;
+  cursor: pointer;
+}
+/* .print-invoice{
+  width: 210mm; 
+  min-height: 297mm; 
+  margin-left: auto;
+  margin-right: auto;
+} */
 .invoice-details{
   float: right;
   clear: both;
@@ -70,10 +84,12 @@
   font-weight: 400;
 }
 .intro-textarea{
+  width: 100%;
   padding: 0;
   margin: 0;
   resize: none;
   border: none;
+  overflow:auto;
   height: 170px;
   font-size: 13px;
 }
@@ -128,4 +144,12 @@
     font-size: 14px;
     color: red;
     cursor: pointer;
+  }
+  .payment-proportions{
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .payment-duedate{
+    font-size: 13px;
+    margin-bottom: 40px;
   }
