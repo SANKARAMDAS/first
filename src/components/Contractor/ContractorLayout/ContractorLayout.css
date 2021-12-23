@@ -1,0 +1,14 @@
+.ContractorLayout .Dashboard {
+  display: flex;
+}
+.ContractorLayout .Dashboard .Sidebar {
+  height: 100vh;
+  background-color: #d5d2ff;
+  padding: 20px 15px;
+}
+.ContractorLayout .Dashboard .Sidebar .button {
+  display: block;
+}
+.ContractorLayout .Dashboard main {
+  padding: 20px;
+}
