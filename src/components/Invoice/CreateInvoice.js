@@ -36,6 +36,7 @@ const CreateInvoice = (props) => {
 	//State Variables And Handler Variables for PRODUCT/SERVICE DETAILS
 
 	const [items, setItems] = useState([]);
+	const [base64, setBase64] = useState("");
 
 	const [itemDetails, setItemDetails] = useState({
 		name: "",
@@ -314,20 +315,33 @@ Your Name
 		}
 	};
 
+	const getBase64 = async (file) => {
+		let reader = new FileReader();
+		await reader.readAsDataURL(file);
+
+		reader.onload = () => {
+			console.log(reader.result.split(",")[1]);
+			setBase64(reader.result.split(",")[1]);
+		};
+		reader.onerror = function (error) {
+			console.log("Error: ", error);
+		};
+	};
+
 	//Handle Submission To Preview Invoice
 	const handleSendInvoice = async (e) => {
 		e.preventDefault();
 		htmlToImage
 			.toPng(componentRef.current, { quality: 1 })
-			.then(function (dataUrl) {
+			.then(async function (dataUrl) {
 				const pdf = new jsPDF();
-				const imgProps = pdf.getImageProperties(dataUrl);
-				const pdfWidth = pdf.internal.pageSize.getWidth();
-				const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-				pdf.addImage(dataUrl, "PNG", 0, 0, pdfWidth, pdfHeight);
-				var out = pdf.output();
-				// var url = "data:application/pdf;base64," + btoa(out);
-				var url = out.toString("base64");
+				// const imgProps = pdf.getImageProperties(dataUrl);
+				// const pdfWidth = pdf.internal.pageSize.getWidth();
+				// const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+				pdf.addImage(dataUrl, "PNG", 0, 0);
+				var out = pdf.output("blob");
+
+				await getBase64(out);
 
 				const backendObj = {
 					invoiceTitle: title,
@@ -342,16 +356,12 @@ Your Name
 					item: items,
 					dueDate: dateFormat(dueDate, "dd/mm/yyyy"),
 					creationDate: dateFormat(Date.now(), "dd/mm/yyyy"),
-					pdfFile: url,
+					pdfFile: base64,
 					invoiceId: invoiceId,
 				};
 
-				// const json = JSON.stringify(backendObj);
-				// const backendObjBlob = new Blob([json], {
-				// 	type: "application/json",
-				// });
-				// fd.append("backendObj", backendObjBlob);
-				// console.log(backendObj);
+				console.log(backendObj);
+
 				axios
 					.post(
 						`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`,
