@@ -12,7 +12,7 @@ const ContractorLayout = ({children}) => {
           <Link className="button" to="/">Invoices</Link>
           <Link className="button" to="/">Payment Methods</Link>
           <Link className="button" to="/contractor-profile">Profile</Link>
-          <Link className="button" to="/">Settings</Link>
+          <Link className="button" to="/contractor-settings">Settings</Link>
         </div>
         <main>{children}</main>
       </div>
