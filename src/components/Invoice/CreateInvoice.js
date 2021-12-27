@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css";
 
-const CreateInvoice = (props) => {
+const CreateInvoice = () => {
 	const [step, setStep] = useState(1);
 
 	const [title, setTitle] = useState("Invoice Title");
@@ -335,9 +335,6 @@ Your Name
 			.toPng(componentRef.current, { quality: 1 })
 			.then(async function (dataUrl) {
 				const pdf = new jsPDF();
-				// const imgProps = pdf.getImageProperties(dataUrl);
-				// const pdfWidth = pdf.internal.pageSize.getWidth();
-				// const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 				pdf.addImage(dataUrl, "PNG", 0, 0);
 				var out = pdf.output("blob");
 
@@ -359,8 +356,6 @@ Your Name
 					pdfFile: base64,
 					invoiceId: invoiceId,
 				};
-
-				console.log(backendObj);
 
 				axios
 					.post(
