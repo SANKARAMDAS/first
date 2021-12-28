@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Form, Table } from "react-bootstrap";
 import InputRange from "react-input-range";
+import ContractorLayout from "../Contractor/ContractorLayout/ContractorLayout";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dateFormat from "dateformat";
@@ -444,7 +445,6 @@ Your Name
 				<>
 					<div ref={componentRef} style={{ padding: "40px" }}>
 						<div
-							style={{ marginBottom: "20px" }}
 							className="col-12 text-center"
 						>
 							<Form.Control
@@ -631,57 +631,59 @@ Your Name
 
 	return (
 		<>
-			<div className="d-flex justify-content-center align-items-center">
-				<div className="col-lg-6 col-md-6 col-sm-6">
-					<div className="invoice-form-wrapper">
-						{step === 1 ? (
-							<></>
-						) : (
-							<div className="row">
-								<div className="col-6">
-									<FontAwesomeIcon
-										onClick={handleBack}
-										className="back-button"
-										icon={faArrowLeft}
-									/>
-								</div>
-								<div className="col-6">
-									<FontAwesomeIcon
-										onClick={handlePrint}
-										className="print-button"
-										icon={faPrint}
-									/>
-								</div>
-							</div>
-						)}
-
-						<Form>
-							{renderCreateInvoice()}
+			<ContractorLayout>
+				<div className="d-flex justify-content-center align-items-center">
+					<div className="col-lg-7 col-md-7 col-sm-7">
+						<div className="invoice-form-wrapper">
 							{step === 1 ? (
-								<div className="col-12 text-center">
-									<button
-										className="btn btn-primary"
-										onClick={handleGoToStep2}
-										type="submit"
-									>
-										Next
-									</button>
-								</div>
+								<></>
 							) : (
-								<div className="col-12 text-center">
-									<button
-										className="btn btn-primary"
-										onClick={handleSendInvoice}
-										type="submit"
-									>
-										Send Invoice
-									</button>
+								<div className="row">
+									<div className="col-6">
+										<FontAwesomeIcon
+											onClick={handleBack}
+											className="back-button"
+											icon={faArrowLeft}
+										/>
+									</div>
+									<div className="col-6">
+										<FontAwesomeIcon
+											onClick={handlePrint}
+											className="print-button"
+											icon={faPrint}
+										/>
+									</div>
 								</div>
 							)}
-						</Form>
+
+							<Form>
+								{renderCreateInvoice()}
+								{step === 1 ? (
+									<div className="col-12 text-center">
+										<button
+											className="btn btn-primary"
+											onClick={handleGoToStep2}
+											type="submit"
+										>
+											Next
+										</button>
+									</div>
+								) : (
+									<div className="col-12 text-center">
+										<button
+											className="btn btn-primary"
+											onClick={handleSendInvoice}
+											type="submit"
+										>
+											Send Invoice
+										</button>
+									</div>
+								)}
+							</Form>
+						</div>
 					</div>
 				</div>
-			</div>
+			</ContractorLayout>
 		</>
 	);
 };

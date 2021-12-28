@@ -3,7 +3,7 @@ import './App.css';
 import Home from './Home/Home';
 import Auth from './Auth/Auth';
 import ForgotPassword from './Auth/ForgotPassword';
-import InvoiceRoutes from './Invoice/InvoiceRoutes';
+import CreateInvoice from './Invoice/CreateInvoice';
 import ResetPassword from './Auth/ResetPassword';
 import ContractorProfile from './Contractor/ContractorProfile';
 import ContractorSettings from './Contractor/ContractorSettings';
@@ -25,7 +25,7 @@ const App = () => {
           <ResetPassword />
         </Route>
         <Route path="/create-invoice">
-          <InvoiceRoutes />
+          <CreateInvoice />
         </Route> {/* after authentication */}
         <Route exact path="/contractor-profile">
           <ContractorProfile />

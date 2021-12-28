@@ -1,5 +1,5 @@
 .details-wrapper{
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 .invoice-title{
@@ -14,7 +14,8 @@
   box-shadow: none;
 }
 .invoice-form-wrapper{
-  margin: 70px 0;
+  width:100%;
+  margin: 0px 20px;
   padding: 30px 50px;
     border: 1px solid #bdbcbc;
 }
@@ -26,12 +27,6 @@
   float: right;
   cursor: pointer;
 }
-/* .print-invoice{
-  width: 210mm; 
-  min-height: 297mm; 
-  margin-left: auto;
-  margin-right: auto;
-} */
 .invoice-details{
   float: right;
   clear: both;
@@ -151,5 +146,5 @@
   }
   .payment-duedate{
     font-size: 13px;
-    margin-bottom: 40px;
+    margin-bottom: 0px;
   }
