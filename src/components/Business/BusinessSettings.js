@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ContractorLayout from "./ContractorLayout/ContractorLayout";
-import "./css/ContractorSettings.css";
+import BusinessLayout from "./BusinessLayout/BusinessLayout";
+import "./css/BusinessSettings.css";
 
-const ContractorSettings = () => {
+const BusinessSettings = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,8 +29,8 @@ const ContractorSettings = () => {
   }
 
   return(
-    <ContractorLayout>
-      <h3>Contractor Settings</h3>
+    <BusinessLayout>
+      <h3>Business Settings</h3>
       <form onSubmit={handleSubmit}>
         <input
           id="email"
@@ -60,8 +60,8 @@ const ContractorSettings = () => {
           Reset Password
         </button>
       </form>
-    </ContractorLayout>
+    </BusinessLayout>
   )
 }
 
-export default ContractorSettings;
+export default BusinessSettings;

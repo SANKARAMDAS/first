@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ContractorLayout from "./ContractorLayout/ContractorLayout";
-import "./css/ContractorProfile.css";
+import BusinessLayout from "./BusinessLayout/BusinessLayout";
+import "./css/BusinessProfile.css";
 
-const ContractorProfile = () => {
+const BusinessProfile = () => {
 
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -38,8 +38,8 @@ const ContractorProfile = () => {
   }
 
   return(
-    <ContractorLayout>
-      <h3>Update Contractor Profile</h3>
+    <BusinessLayout>
+      <h3>Update Business Profile</h3>
       <form onSubmit={handleSubmit}>
         <input
           id="email"
@@ -119,8 +119,8 @@ const ContractorProfile = () => {
           Update Profile
         </button>
       </form>
-    </ContractorLayout>
+    </BusinessLayout>
   )
 }
 
-export default ContractorProfile;
+export default BusinessProfile;

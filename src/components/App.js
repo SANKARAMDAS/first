@@ -7,6 +7,8 @@ import CreateInvoice from './Invoice/CreateInvoice';
 import ResetPassword from './Auth/ResetPassword';
 import ContractorProfile from './Contractor/ContractorProfile';
 import ContractorSettings from './Contractor/ContractorSettings';
+import BusinessProfile from './Business/BusinessProfile';
+import BusinessSettings from './Business/BusinessSettings';
 
 const App = () => {
   return (
@@ -32,6 +34,12 @@ const App = () => {
         </Route> {/* public */}
         <Route exact path="/contractor-settings">
           <ContractorSettings />
+        </Route> {/* public */}
+        <Route exact path="/business-profile">
+          <BusinessProfile />
+        </Route> {/* public */}
+        <Route exact path="/business-settings">
+          <BusinessSettings />
         </Route> {/* public */}
       </Switch>
     </Router>
