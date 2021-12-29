@@ -358,6 +358,8 @@ Your Name
 					invoiceId: invoiceId,
 				};
 
+				console.log(backendObj)
+
 				axios
 					.post(
 						`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`,

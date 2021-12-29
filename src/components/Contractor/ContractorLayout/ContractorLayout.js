@@ -9,6 +9,7 @@ const ContractorLayout = ({ children }) => {
       {/* <Header /> */}
       <div className="Dashboard">
         <div className="Sidebar">
+          <Link className="button" to="/invoices">Invoices</Link>
           <Link className="button" to="/create-invoice">Create Invoice</Link>
           <Link className="button" to="/contractor-profile">Profile</Link>
           <Link className="button" to="/contractor-settings">Settings</Link>
