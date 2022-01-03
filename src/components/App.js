@@ -9,6 +9,7 @@ import DisplayInvoices from './Invoice/DisplayInvoices';
 import ContractorProfile from './Contractor/ContractorProfile';
 import ContractorSettings from './Contractor/ContractorSettings';
 import BusinessInvoices from './Business/BusinessInvoices';
+import BusinessInvoiceDetails from './Business/BusinessInvoiceDetails';
 import BusinessProfile from './Business/BusinessProfile';
 import BusinessSettings from './Business/BusinessSettings';
 
@@ -42,6 +43,9 @@ const App = () => {
         </Route> {/* public */}
         <Route exact path="/business-invoices">
           <BusinessInvoices />
+        </Route> {/* public */}
+        <Route path="/business-invoices/:invoiceId">
+          <BusinessInvoiceDetails />
         </Route> {/* public */}
         <Route exact path="/business-profile">
           <BusinessProfile />

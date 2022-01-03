@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import "./css/BusinessInvoices.css"
 import BusinessLayout from "./BusinessLayout/BusinessLayout";
@@ -96,7 +97,7 @@ const BusinessInvoices = () => {
                                     invoices.map((invoice, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className="invoices_num">{invoice.invoiceId}</td>
+                                                <td className="invoices_num"><Link className="button" to={`/business-invoices/${invoice.invoiceId}`}>{invoice.invoiceId}</Link></td>
                                                 <td>{invoice.freelancerName}</td>
                                                 <td>{invoice.totalAmount}</td>
                                                 <td>
