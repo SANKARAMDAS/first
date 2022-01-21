@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import "./css/DisplayInvoices.css"
-import ContractorLayout from "../Contractor/ContractorLayout/ContractorLayout";
 
-const DisplayInvoices = () => {
+const DisplayInvoices = (props) => {
 
     const [invoices, setInvoices] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -47,7 +47,7 @@ const DisplayInvoices = () => {
                             <thead className="invoice-table-head">
                                 <tr>
                                     <th>Invoice No.</th>
-                                    <th>Business Name</th>
+                                    <th>{props.role === "freelancer" ? "Business Name" : "Freelancer Name"}</th>
                                     <th>Total Amount</th>
                                     <th>Status</th>
                                 </tr>
@@ -59,8 +59,8 @@ const DisplayInvoices = () => {
                                     invoices.map((invoice, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className="invoices_num">{invoice.invoiceId}</td>
-                                                <td>{invoice.businessName}</td>
+                                                <td className="invoices_num"><Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>{invoice.invoiceId}</Link></td>
+                                                <td>{props.role === "freelancer" ? invoice.businessName : invoice.freelancerName}</td>
                                                 <td>{invoice.totalAmount}</td>
                                                 <td>{invoice.status}</td>
                                             </tr>
@@ -76,9 +76,9 @@ const DisplayInvoices = () => {
     }
 
     return (
-        <ContractorLayout>
+        <>
             {renderInvoices()}
-        </ContractorLayout>
+        </>
     );
 }
 

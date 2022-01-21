@@ -1,0 +1,14 @@
+.Layout .Dashboard {
+    display: flex;
+}
+.Layout .Dashboard .Sidebar {
+    height: 100vh;
+    background-color: #d5d2ff;
+    padding: 20px 15px;
+}
+.Layout .Dashboard .Sidebar .button {
+    display: block;
+}
+.Layout .Dashboard main {
+    padding: 20px;
+}

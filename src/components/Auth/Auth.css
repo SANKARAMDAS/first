@@ -26,6 +26,13 @@
   max-width: 100%;
   border: none;
 }
+.auth-page .box .box__input.password_box{
+  margin-bottom: auto;
+}
+.auth-page .box .forgot_password{
+  margin-left: 60px;
+  font-size: 12px;
+}
 .auth-page .box .box__button {
   padding: 10px;
   display: block;

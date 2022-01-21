@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { sha256 } from "js-sha256";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import './Auth.css';
 import Header from '../Header';
+import { useHistory } from "react-router-dom";
 
-const Auth = () => {
+const Auth = (props) => {
+
+  const history = useHistory()
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,12 +19,6 @@ const Auth = () => {
   const [hash, setHash] = useState("");
 
   const [renderForm, setRenderForm] = useState("login");
-
-  useEffect(() => {
-    if (hash !== "") {
-      setRenderForm("otp");
-    }
-  }, [hash]);
 
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +34,7 @@ const Auth = () => {
       .then((res) => {
         console.log(res.data.data.otp);
         setHash(res.data.data.hash);
+        setRenderForm("otp");
       }).catch((err) => {
         console.log(err)
       })
@@ -88,7 +86,11 @@ const Auth = () => {
       })
       .then((res) => {
         console.log(res);
-        //go to freelancer or business
+        if (res.data.role === "freelancer") {
+          history.push('/contractor')
+        } else {
+          history.push('/business')
+        }
       }).catch((error) => {
         console.log(error.response.data)
       })
@@ -117,8 +119,6 @@ const Auth = () => {
     axios
       .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleLogin`, { tokenId: tokenIdLocal })
       .then((response) => {
-        //To store tokenId in state
-        //Change state to role choice
         console.log(response);
       }).catch((err) => {
         console.log(err)
@@ -203,36 +203,6 @@ const Auth = () => {
           <>
             <form onSubmit={handleOtpSubmit}>
               <input
-                id="name"
-                name="name"
-                type="text"
-                value={name}
-                className="box__input"
-                placeholder="Name"
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                className="box__input"
-                placeholder="Email Address"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                className="box__input"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <input
                 id="otp"
                 name="otp"
                 type="number"
@@ -241,23 +211,6 @@ const Auth = () => {
                 placeholder="OTP"
                 onChange={(e) => setOtp(e.target.value)}
                 required
-              />
-              <GoogleLogin
-                clientId="365821624725-ke89ac5mckkrpg3nu76cein2vrss33tg.apps.googleusercontent.com"
-                render={(renderProps) => (
-                  <button className="box__googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                    <svg viewBox="0 0 22 22">
-                      <path
-                        fill="currentColor"
-                        d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"
-                      />
-                    </svg>
-                    <span>Sign Up With Google</span>
-                  </button>
-                )}
-                onSuccess={googleSuccessRegister}
-                onFailure={googleFailure}
-                cookiePolicy='single_host_origin'
               />
               <button className="box__button" type="submit" onClick={handleOtpSubmit}>Create Account</button>
             </form>
@@ -299,11 +252,12 @@ const Auth = () => {
                 name="password"
                 type="password"
                 value={password}
-                className="box__input"
+                className="box__input password_box"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <a className="forgot_password" href={`${props.url}/forgot-password`} >Forgot Password?</a>
               <GoogleLogin
                 clientId="365821624725-ke89ac5mckkrpg3nu76cein2vrss33tg.apps.googleusercontent.com"
                 render={(renderProps) => (
