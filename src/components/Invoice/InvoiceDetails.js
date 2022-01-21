@@ -28,7 +28,7 @@ const InvoiceDetails = (props) => {
 
     useEffect(() => {
         getInvoiceDetails()
-    }, [])
+    }, [getInvoiceDetails])
 
     const handleCancelInvoice = () => {
         axios

@@ -17,7 +17,11 @@ const Header = () => {
   const renderLink = () => {
     console.log(userAuth)
     if (Object.keys(userAuth) !== 0 && userAuth.authenticated) {
-      return <Link to="/contractor">Dashboard</Link>
+      if (userAuth.role === "freelancer") {
+        return <Link to="/contractor">Dashboard</Link>
+      } else {
+        return <Link to="/business">Dashboard</Link>
+      }
     } else {
       return <Link to="/auth">Sign In/Sign Up</Link>
     }
