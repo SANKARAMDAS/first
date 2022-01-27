@@ -63,14 +63,20 @@ const Auth = (props) => {
         .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, role })
         .then((res) => {
           console.log(res);
-          setRenderForm("roleChoice")
+          setRenderForm("login")
+          alert("Account Created Successfully!")
+          setEmail("")
+          setPassword("")
         })
     } else {
       axios
         .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleSignup`, { name, email, role })
         .then((res) => {
           console.log(res);
-          setRenderForm("roleChoice")
+          setRenderForm("login")
+          alert("Account Created Successfully!")
+          setEmail("")
+          setPassword("")
         })
     }
   }

@@ -1,18 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Profile.css";
 
 const Profile = (props) => {
 
-    const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [country, setCountry] = useState("");
     const [taxId, setTaxId] = useState("");
-    const [bitcoin, setBitcoin] = useState("");
-    const [ethereum, setEthereum] = useState("");
+
+    useEffect(() => {
+        const getProfile = async () => {
+            axios
+            .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+                email: props.email
+            })
+            .then((res) => {
+                setAddress(res.data.data.address)
+                setCity(res.data.data.city)
+                setState(res.data.data.state)
+                setZipCode(res.data.data.zipCode)
+                setCountry(res.data.data.country)
+                setTaxId(res.data.data.taxId)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+        getProfile()
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,12 +42,11 @@ const Profile = (props) => {
                 state,
                 zipCode,
                 country,
-                taxId,
-                bitcoin,
-                ethereum
+                taxId
             })
             .then((res) => {
                 console.log(res.data);
+                alert(res.data.msg);
             })
             .catch((err) => {
                 console.log(err);
@@ -40,14 +57,6 @@ const Profile = (props) => {
         <>
             <h3>Update Profile</h3>
             <form onSubmit={handleSubmit}>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={email}
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
                 <input
                     id="address"
                     name="address"
@@ -95,22 +104,6 @@ const Profile = (props) => {
                     value={taxId}
                     placeholder="Tax ID"
                     onChange={(e) => setTaxId(e.target.value)}
-                />
-                <input
-                    id="bitcoin"
-                    name="bitcoin"
-                    type="text"
-                    value={bitcoin}
-                    placeholder="Bitcoin Wallet Address"
-                    onChange={(e) => setBitcoin(e.target.value)}
-                />
-                <input
-                    id="ethereum"
-                    name="ethereum"
-                    type="text"
-                    value={ethereum}
-                    placeholder="Ethereum Wallet Address"
-                    onChange={(e) => setEthereum(e.target.value)}
                 />
                 <button
                     type="submit"

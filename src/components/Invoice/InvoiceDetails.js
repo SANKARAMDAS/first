@@ -198,26 +198,16 @@ const InvoiceDetails = (props) => {
                                     <div className="col-12 payment-proportions">
                                         The payment will be processed in the following proportions:
                                         <div className="row">
-                                            {invoiceInfo.BTC !== 0 ? (
-                                                <div className="col-4">
-                                                    {invoiceInfo.BTC}% BTC
-                                                </div>
-                                            ) : (
+                                            { invoiceInfo.proportions.length === 0 ? (
                                                 <></>
-                                            )}
-                                            {invoiceInfo.ETH !== 0 ? (
-                                                <div className="col-4">
-                                                    {invoiceInfo.ETH}% ETH
-                                                </div>
                                             ) : (
-                                                <></>
-                                            )}
-                                            {invoiceInfo.FIAT !== 0 ? (
-                                                <div className="col-4">
-                                                    {invoiceInfo.FIAT}% FIAT
-                                                </div>
-                                            ) : (
-                                                <></>
+                                                invoiceInfo.proportions.map((item, index) => {
+                                                    return(
+                                                        <div className="col-4">
+                                                            {item.percentage}% {item.currency}
+                                                        </div>
+                                                    )
+                                                })
                                             )}
                                         </div>
                                     </div>
