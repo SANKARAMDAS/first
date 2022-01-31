@@ -8,9 +8,10 @@ const ForgotPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/auth/forgotpassword`, { email })
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/forgotpassword`, { user_email: email })
       .then((res) => {
         console.log(res);
+        alert('Password Reset Link has been sent successfully to your email!');
       })
   }
 

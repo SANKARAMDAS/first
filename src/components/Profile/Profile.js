@@ -19,7 +19,7 @@ const Profile = (props) => {
                     email: props.email
                 })
                 .then((res) => {
-                    console.log(res.data.data)
+                    console.log(res.data)
                     setAddress(res.data.data.address)
                     setCity(res.data.data.city)
                     setState(res.data.data.state)

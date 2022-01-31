@@ -36,7 +36,7 @@ const BusinessRoutes = () => {
                         <DisplayInvoices email={userAuth.email} role={userAuth.role} url={url} />
                     </Route>
                     <Route path={`${path}/invoices/:invoiceId`}>
-                        <InvoiceDetails role={userAuth.role} url={url} />
+                        <InvoiceDetails role={userAuth.role} />
                     </Route>
                 </Layout>
             )
