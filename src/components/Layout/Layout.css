@@ -1,14 +1,22 @@
-.Layout .Dashboard {
+.layout .dashboard {
     display: flex;
 }
-.Layout .Dashboard .Sidebar {
+.layout .dashboard .sidebar {
+    width: 15%;
     height: 100vh;
     background-color: #d5d2ff;
     padding: 20px 15px;
 }
-.Layout .Dashboard .Sidebar .button {
+.layout .dashboard .sidebar .button {
+    padding: 20px 0;
     display: block;
+    text-decoration: none;
+    color: black;
 }
-.Layout .Dashboard main {
+.layout .dashboard main {
     padding: 20px;
+}
+.layout .dashboard .sidebar .button.logout-btn{
+    background-color: #d5d2ff;
+    border: none;
 }

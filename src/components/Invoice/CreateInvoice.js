@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css";
 
-const CreateInvoice = () => {
+const CreateInvoice = (props) => {
 	const [step, setStep] = useState(1);
 
 	const [title, setTitle] = useState("Invoice Title");
@@ -342,7 +342,7 @@ Your Name
 
 				const backendObj = {
 					invoiceTitle: title,
-					freelancerEmail: "tarang.padia2@gmail.com",
+					freelancerEmail: props.email,
 					businessEmail: "sanchitashirur4@gmail.com",
 					freelancerName: "Tarang",
 					businessName: clientValues.name,
@@ -463,7 +463,7 @@ Your Name
 										<p className="freelancer-address">Address Line 1</p>
 										<p className="freelancer-address">Address Line 2</p>
 										<p className="freelancer-address">Address Line 3</p>
-										<p className="freelancer-email">freelancer@example.com</p>
+										<p className="freelancer-email">{props.email}</p>
 									</div>
 								</div>
 							</div>

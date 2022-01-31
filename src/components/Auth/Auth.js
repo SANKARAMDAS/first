@@ -57,7 +57,9 @@ const Auth = (props) => {
 
   const handleRoleChoice = (role) => {
     const hashedPassword = sha256(password);
-
+    console.log({
+      name, email, password: hashedPassword, role
+    })
     if (tokenId === "") {
       axios
         .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, role })

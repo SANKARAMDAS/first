@@ -20,9 +20,9 @@ const Layout = (props) => {
     }
 
     return (
-        <div className="Layout">
-            <div className="Dashboard">
-                <div className="Sidebar">
+        <div className="layout">
+            <div className="dashboard">
+                <div className="sidebar">
                     <Link className="button" to={`${props.url}/invoices`}>Invoices</Link>
                     {
                         props.role === "freelancer"

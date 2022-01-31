@@ -12,6 +12,7 @@ const DisplayInvoices = (props) => {
     useEffect(() => {
         const getInvoices = async () => {
             console.log("Getting Invoices")
+            console.log(props)
             await axios
                 .post(
                     `${process.env.REACT_APP_BACKEND_API}/invoice/getInvoices`,

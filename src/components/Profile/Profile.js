@@ -13,21 +13,23 @@ const Profile = (props) => {
 
     useEffect(() => {
         const getProfile = async () => {
+            console.log(props.email)
             axios
-            .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
-                email: props.email
-            })
-            .then((res) => {
-                setAddress(res.data.data.address)
-                setCity(res.data.data.city)
-                setState(res.data.data.state)
-                setZipCode(res.data.data.zipCode)
-                setCountry(res.data.data.country)
-                setTaxId(res.data.data.taxId)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+                    email: props.email
+                })
+                .then((res) => {
+                    console.log(res.data.data)
+                    setAddress(res.data.data.address)
+                    setCity(res.data.data.city)
+                    setState(res.data.data.state)
+                    setZipCode(res.data.data.zipCode)
+                    setCountry(res.data.data.country)
+                    setTaxId(res.data.data.taxId)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
         getProfile()
     }, []);
