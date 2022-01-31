@@ -22,6 +22,7 @@ const DisplayInvoices = (props) => {
                 )
                 .then((response) => {
                     setInvoices(response.data.data)
+                    console.log(response.data)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -56,9 +57,9 @@ const DisplayInvoices = (props) => {
                                 {invoices.length === 0 ? (
                                     <></>
                                 ) : (
-                                    invoices.map((invoice, index) => {
+                                    invoices.map(invoice => {
                                         return (
-                                            <tr key={index}>
+                                            <tr key={invoice.invoiceId}>
                                                 <td className="invoices_num"><Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>{invoice.invoiceId}</Link></td>
                                                 <td>{props.role === "freelancer" ? invoice.businessName : invoice.freelancerName}</td>
                                                 <td>{invoice.totalAmount}</td>

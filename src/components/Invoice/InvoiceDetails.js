@@ -18,7 +18,6 @@ const InvoiceDetails = (props) => {
             )
             .then((res) => {
                 setInvoiceInfo(res.data)
-                console.log(res.data)
             })
             .catch((err) => {
                 console.log(err);
@@ -96,7 +95,7 @@ const InvoiceDetails = (props) => {
                 if (props.role === "freelancer") {
                     return (
                         <>
-                            <button onClick={handleCancelInvoice}>Edit</button>
+                            <button>Edit</button>
                         </>
                     )
                 } else {
@@ -203,7 +202,7 @@ const InvoiceDetails = (props) => {
                                             ) : (
                                                 invoiceInfo.proportions.map((item, index) => {
                                                     return(
-                                                        <div className="col-4">
+                                                        <div className="col-4" key={item.currency}>
                                                             {item.percentage}% {item.currency}
                                                         </div>
                                                     )

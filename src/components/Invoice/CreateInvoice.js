@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { Form, Table } from "react-bootstrap";
 import InputRange from "react-input-range";
 import DatePicker from "react-datepicker";
@@ -18,7 +19,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css";
 
-const CreateInvoice = () => {
+const CreateInvoice = (props) => {
+
+	const history = useHistory();
+
 	const [step, setStep] = useState(1);
 
 	const [title, setTitle] = useState("Invoice Title");
@@ -29,6 +33,14 @@ const CreateInvoice = () => {
 		name: "Client Name",
 		email: "clientname@example.com",
 		company: "Client Company Name",
+	});
+
+	const [freelancerValues, setFreelancerValues] = useState({
+		name: '',
+		email: props.email,
+		address1: '',
+		address2: '',
+		address3: ''
 	});
 
 	let clientValuesHandler = {};
@@ -65,15 +77,7 @@ const CreateInvoice = () => {
 	const [invoiceId, setInvoiceId] = useState("");
 
 	const [dueDate, setDueDate] = useState(new Date());
-	const [intro, setIntro] = useState(
-		`
-Dear Client Name,
-Please find below a cost-breakdown for the recent work completed. Please make payment before or on the given due date, and do not hesitate to contact me with any questions.
-
-Many Thanks,
-Your Name
-        `
-	);
+	const [intro, setIntro] = useState(``);
 
 	let selectionHandler = {};
 
@@ -81,6 +85,25 @@ Your Name
 
 	useEffect(() => {
 		setInvoiceId(`${parseInt(Date.now() / 1000)}`);
+		axios
+		.post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+			email: props.email
+		})
+		.then((res) => {
+			setFreelancerValues({
+				name: res.data.data.name,
+				email: props.email,
+				address1: res.data.data.address,
+				address2: res.data.data.city+' '+res.data.data.state,
+				address3: res.data.data.country+' '+res.data.data.zipCode
+			})
+			setIntro(`Dear Client Name,
+Please find below a cost-breakdown for the recent work completed. Please make payment before or on the given due date, and do not hesitate to contact me with any questions.
+			
+Many Thanks,\n`
++`${res.data.data.name}`
+			)
+		})
 	}, []);
 
 	const handleTitle = (e) => {
@@ -342,9 +365,9 @@ Your Name
 
 				const backendObj = {
 					invoiceTitle: title,
-					freelancerEmail: "tarang.padia2@gmail.com",
-					businessEmail: "sanchitashirur4@gmail.com",
-					freelancerName: "Tarang",
+					freelancerEmail: freelancerValues.email,
+					businessEmail: clientValues.email,
+					freelancerName: freelancerValues.name,
 					businessName: clientValues.name,
 					ETH: proportionValues.ETH.proportion,
 					BTC: proportionValues.BTC.proportion,
@@ -366,6 +389,8 @@ Your Name
 					)
 					.then((response) => {
 						console.log(response);
+						alert('The invoice has been sent to the client');
+						history.push('/contractor');
 					})
 					.catch((err) => {
 						console.log(err);
@@ -459,11 +484,11 @@ Your Name
 							<div className="col-6">
 								<div className="col-12">
 									<div className="freelancer-details">
-										<h5>Freelancer Name</h5>
-										<p className="freelancer-address">Address Line 1</p>
-										<p className="freelancer-address">Address Line 2</p>
-										<p className="freelancer-address">Address Line 3</p>
-										<p className="freelancer-email">freelancer@example.com</p>
+										<h5>{freelancerValues.name}</h5>
+										<p className="freelancer-address">{ freelancerValues['address1'] }</p>
+										<p className="freelancer-address">{ freelancerValues['address2'] }</p>
+										<p className="freelancer-address">{ freelancerValues['address3'] }</p>
+										<p className="freelancer-email">{ freelancerValues['email'] }</p>
 									</div>
 								</div>
 							</div>
