@@ -4,6 +4,9 @@ import Profile from '../Profile/Profile';
 import Settings from '../Settings/Settings';
 import DisplayInvoices from '../Invoice/DisplayInvoices'
 import InvoiceDetails from '../Invoice/InvoiceDetails';
+import PayInvoice from '../Invoice/PayInvoice';
+import DebitCard from '../PaymentMethods/DebitCard';
+import ACHTransfer from '../PaymentMethods/ACHTransfer';
 import Layout from '../Layout/Layout';
 import { Route, useRouteMatch } from 'react-router-dom';
 
@@ -35,8 +38,17 @@ const BusinessRoutes = () => {
                     <Route path={`${path}/invoices`} exact >
                         <DisplayInvoices email={userAuth.email} role={userAuth.role} url={url} />
                     </Route>
-                    <Route path={`${path}/invoices/:invoiceId`}>
-                        <InvoiceDetails role={userAuth.role} />
+                    <Route path={`${path}/invoices/:invoiceId`} exact >
+                        <InvoiceDetails role={userAuth.role} url={url} />
+                    </Route>
+                    <Route path={`${path}/invoices/:invoiceId/pay`} exact >
+                        <PayInvoice url={url} />
+                    </Route>
+                    <Route path={`${path}/invoices/:invoiceId/pay/debit-card`} exact >
+                        <DebitCard />
+                    </Route>
+                    <Route path={`${path}/invoices/:invoiceId/pay/ach-transfer`} exact >
+                        <ACHTransfer />
                     </Route>
                 </Layout>
             )

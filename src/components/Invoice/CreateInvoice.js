@@ -393,7 +393,7 @@ Many Thanks,\n`
 						history.push('/contractor');
 					})
 					.catch((err) => {
-						console.log(err);
+						console.log('Error: ',err);
 					});
 			});
 	};

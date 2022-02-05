@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import "./css/InvoiceDetails.css";
@@ -80,13 +80,13 @@ const InvoiceDetails = (props) => {
                 if (props.role === "freelancer") {
                     return (
                         <>
-                            <div>Status: Pending</div>
+                            <div>Status: Resolved</div>
                         </>
                     )
                 } else {
                     return (
                         <>
-                            <button>Pay Now</button>
+                            <Link to={`${props.url}/invoices/${invoiceInfo.invoiceId}/pay`}>Pay Now</Link>
                         </>
                     )
                 }
