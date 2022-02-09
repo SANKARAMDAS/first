@@ -8,6 +8,9 @@ const ACHTransfer = () => {
   //const { invoiceId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [view, setView] = useState('');
+  const [paymentMethods, setPaymentMethods] = useState('');
+  const [paymentMethodId, setPaymentMethodId] = useState('');
+  const [file, setFile] = useState(null);
 
   // Individual Account
   const [InFirstName, setInFirstName] = useState('');
@@ -35,6 +38,14 @@ const ACHTransfer = () => {
 
   useEffect(() => {
     const getPaymentMethods = () => {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-payment/paymentMethods`)
+      .then(res => {
+        console.log(res);
+        setPaymentMethods(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
       setIsLoading(false)
     }
     getPaymentMethods()
@@ -44,7 +55,7 @@ const ACHTransfer = () => {
     e.preventDefault();
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_API}/createPaymentMethodIN`,
+        `${process.env.REACT_APP_BACKEND_API}/wyre-payment/createPaymentMethodIN`,
         {
           firstName: InFirstName,
           lastName: InLastName,
@@ -64,7 +75,8 @@ const ACHTransfer = () => {
       )
       .then(res => {
         console.log(res);
-        alert('Payment Method Created Successfully!');
+        setPaymentMethodId(res.data.paymentMethodId);
+        setView('upload-bank-document');
       })
       .catch(err => {
         console.log(err);
@@ -72,11 +84,34 @@ const ACHTransfer = () => {
       })
   }
 
+  const handleUploadBankDocument = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('File', file);
+
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_API}/wyre-payment/uploadBankDocument`,
+        {
+          paymentMethodId,
+          formData
+        }
+      )
+      .then(res => {
+        console.log(res);
+        alert('Payment Method Created Successfully!');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   const handleCreateCorporatePaymentMethod = (e) => {
     e.preventDefault();
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_API}/createPaymentMethodCO`,
+        `${process.env.REACT_APP_BACKEND_API}/wyre-payment/createPaymentMethodCO`,
         {
           company: CoCompany,
           email: CoEmail,
@@ -88,7 +123,8 @@ const ACHTransfer = () => {
       )
       .then(res => {
         console.log(res);
-        alert('Payment Method created Successfully');
+        setPaymentMethodId(res.data.paymentMethodId);
+        setView('upload-bank-document');
       })
       .catch(err => {
         console.log(err);
@@ -267,7 +303,7 @@ const ACHTransfer = () => {
                   </Row>
                   <Row>
                     <Col>
-                      <button type="submit">Create</button>
+                      <button type="submit">Next</button>
                     </Col>
                   </Row>
                 </Container>
@@ -342,6 +378,18 @@ const ACHTransfer = () => {
                     </Col>
                   </Row>
                 </Container>
+                <button type="submit">Next</button>
+              </Form>
+            </>
+          )
+        }
+        case 'upload-bank-document': {
+          return(
+            <>
+              <h5>Upload bank document</h5>
+              <Form onSubmit={handleUploadBankDocument}>
+                <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+                <br /><br />
                 <button type="submit">Create</button>
               </Form>
             </>
@@ -351,6 +399,7 @@ const ACHTransfer = () => {
           return(
             <>
               <button onClick={() => setView('create-payment-methods')}>Create Payment Method</button>
+              {paymentMethods}
             </>
           )
         }
