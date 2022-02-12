@@ -1,14 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import dateFormat from "dateformat";
+import { Table, Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faTrash,
+    faPlus
+} from "@fortawesome/free-solid-svg-icons";
 import "./css/InvoiceDetails.css";
 
 const InvoiceDetails = (props) => {
 
     const { invoiceId } = useParams();
     const [isLoading, setIsLoading] = useState(true);
+    const [editable, setEditable] = useState(false)
     const [invoiceInfo, setInvoiceInfo] = useState({});
+    const [title, setTitle] = useState("Invoice Title");
+    const [clientValues, setClientValues] = useState({
+        name: "",
+        email: "",
+        company: "Client Company",
+    });
+    let clientValuesHandler = {};
+
+    const [intro, setIntro] = useState(``);
+
+    const [items, setItems] = useState([]);
+
+    const [itemDetails, setItemDetails] = useState({
+        name: "",
+        price: "",
+        quantity: 1,
+    });
+    let itemDetailsHandler = {};
+    let tempItems = [];
 
     const getInvoiceDetails = async () => {
         await axios
@@ -28,6 +54,61 @@ const InvoiceDetails = (props) => {
     useEffect(() => {
         getInvoiceDetails()
     }, [getInvoiceDetails])
+
+    const handleEdit = () => {
+        setTitle(invoiceInfo.invoiceTitle)
+        setClientValues({
+            name: invoiceInfo.businessName,
+            email: invoiceInfo.businessEmail,
+            company: "Client Company",
+        })
+        setIntro(invoiceInfo.memo)
+        setItems([...invoiceInfo.item])
+        setEditable(true)
+    }
+
+    const handleTitle = (e) => {
+        setTitle(e.target.val);
+    };
+
+    const handleClientDetails = (selectedInput) => (e) => {
+        clientValuesHandler = { ...clientValues };
+        clientValuesHandler[selectedInput] = e.target.value;
+        setClientValues({ ...clientValuesHandler });
+    };
+
+    const handleIntroInput = (e) => {
+        setIntro(e.target.value);
+    };
+
+    const handleItemDetails = (selectedInput) => (e) => {
+        itemDetailsHandler = { ...itemDetails };
+        itemDetailsHandler[selectedInput] = e.target.value;
+        setItemDetails({ ...itemDetailsHandler });
+    };
+
+    const addItem = () => {
+        setItems([...items, itemDetails]);
+        clearItemDetails();
+    };
+
+    const deleteItem = (index) => {
+        tempItems = [...items];
+        tempItems.splice(index, 1);
+        setItems([...tempItems]);
+    };
+
+    const clearItemDetails = () => {
+        setItemDetails({
+            name: "",
+            price: "",
+            quantity: 1,
+        });
+    };
+
+    const handleBack = () => {
+        setEditable(false)
+    }
 
     const handleCancelInvoice = () => {
         axios
@@ -80,7 +161,7 @@ const InvoiceDetails = (props) => {
                 if (props.role === "freelancer") {
                     return (
                         <>
-                            <div>Status: Resolved</div>
+                            <button onClick={handleEdit}>Edit</button>
                         </>
                     )
                 } else {
@@ -95,7 +176,7 @@ const InvoiceDetails = (props) => {
                 if (props.role === "freelancer") {
                     return (
                         <>
-                            <button>Edit</button>
+                            <div>Pending</div>
                         </>
                     )
                 } else {
@@ -123,9 +204,25 @@ const InvoiceDetails = (props) => {
                     <div className="col-lg-7 col-md-7 col-sm-7">
                         <div className="invoice-form-wrapper">
                             <div style={{ padding: "40px" }}>
-                                <div className="col-12 text-center invoice-title">
-                                    {invoiceInfo.invoiceTitle}
-                                </div>
+                                {editable === true
+                                    ? <>
+                                        <div
+                                            className="col-12 text-center"
+                                        >
+                                            <Form.Control
+                                                onChange={handleTitle}
+                                                className="invoice-title"
+                                                value={title}
+                                                maxLength="25"
+                                            />
+                                        </div>
+                                    </>
+                                    : <>
+                                        <div className="col-12 text-center invoice-title">
+                                            {invoiceInfo.invoiceTitle}
+                                        </div>
+                                    </>
+                                }
                                 <div>Invoice ID: {invoiceId}</div>
                                 <div className="row details-wrapper">
                                     <div className="col-6">
@@ -138,25 +235,70 @@ const InvoiceDetails = (props) => {
                                     </div>
                                     <div className="col-6">
                                         <div className="col-12">
-                                            <div className="client-details client-name">
-                                                {invoiceInfo.businessName}
-                                            </div>
-                                            <div className="client-details client-email">
-                                                {invoiceInfo.businessEmail}
-                                            </div>
-                                            <br />
-                                            <p className="client-invoice-details">
-                                                Date: {invoiceInfo.creationDate}
-                                            </p>
-                                            <p className="client-invoice-details">Invoice #{invoiceInfo.invoiceId}</p>
+                                            {
+                                                editable === true
+                                                    ? <>
+                                                        <Form.Control
+                                                            onChange={handleClientDetails("name")}
+                                                            value={clientValues["name"]}
+                                                            className="client-details client-name"
+                                                            maxLength="30"
+                                                        />
+                                                        <p className="client-invoice-details">
+                                                            Date: {dateFormat(Date.now(), "dd/mm/yyyy")}
+                                                        </p>
+                                                        <p className="client-invoice-details">Invoice #{invoiceId}</p>
+                                                        <br />
+                                                        <Form.Control
+                                                            onChange={handleClientDetails("company")}
+                                                            value={clientValues["company"]}
+                                                            className="client-details client-company"
+                                                            maxLength="25"
+                                                        />
+                                                        <Form.Control
+                                                            onChange={handleClientDetails("email")}
+                                                            className="client-details client-email"
+                                                            value={clientValues["email"]}
+                                                            maxLength="35"
+                                                        />
+                                                    </>
+                                                    : <>
+                                                        <div className="client-details client-name">
+                                                            {invoiceInfo.businessName}
+                                                        </div>
+                                                        <div className="client-details client-email">
+                                                            {invoiceInfo.businessEmail}
+                                                        </div>
+                                                        <br />
+                                                        <p className="client-invoice-details">
+                                                            Date: {invoiceInfo.creationDate}
+                                                        </p>
+                                                        <p className="client-invoice-details">Invoice #{invoiceInfo.invoiceId}</p>
+                                                    </>
+                                            }
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-12">
-                                        <div className="intro-textarea">
-                                            <div style={{ whiteSpace: "pre-wrap" }}>{invoiceInfo.memo}</div>
-                                        </div>
+                                        {
+                                            editable === true
+                                                ? <>
+                                                    <div className="col-12">
+                                                        <Form.Control
+                                                            className="intro-textarea"
+                                                            value={intro}
+                                                            onChange={handleIntroInput}
+                                                            as="textarea"
+                                                        />
+                                                    </div>
+                                                </>
+                                                : <>
+                                                    <div className="intro-textarea">
+                                                        <div style={{ whiteSpace: "pre-wrap" }}>{invoiceInfo.memo}</div>
+                                                    </div>
+                                                </>
+                                        }
                                     </div>
                                 </div>
                                 <div className="row">
@@ -172,23 +314,97 @@ const InvoiceDetails = (props) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {invoiceInfo.item.length === 0 ? (
-                                                    <></>
-                                                ) : (
-                                                    invoiceInfo.item.map((item, index) => {
-                                                        return (
-                                                            <tr key={index}>
-                                                                <td>{index + 1}</td>
-                                                                <td>{item.name}</td>
-                                                                <td>{item.price}</td>
-                                                                <td>{item.quantity}</td>
+                                                {
+                                                    editable === true
+                                                        ? <>
+                                                            {items.length === 0 ? (
+                                                                <></>
+                                                            ) : (
+                                                                items.map((item, index) => {
+                                                                    return (
+                                                                        <tr key={index}>
+                                                                            <td>{index + 1}</td>
+                                                                            <td>{item.name}</td>
+                                                                            <td>{item.price}</td>
+                                                                            <td>{item.quantity}</td>
+                                                                            <td>
+                                                                                {parseInt(item.price) * parseInt(item.quantity)}
+                                                                            </td>
+                                                                            <td>
+                                                                                <FontAwesomeIcon
+                                                                                    onClick={() => {
+                                                                                        deleteItem(index);
+                                                                                    }}
+                                                                                    className="remove-item-btn"
+                                                                                    icon={faTrash}
+                                                                                />
+                                                                            </td>
+                                                                        </tr>
+                                                                    );
+                                                                })
+                                                            )}
+                                                            <tr>
+                                                                <td style={{ paddingTop: "9px", paddingLeft: "10px" }}>
+                                                                    Auto
+                                                                </td>
                                                                 <td>
-                                                                    {parseInt(item.price) * parseInt(item.quantity)}
+                                                                    <Form.Control
+                                                                        value={itemDetails["name"]}
+                                                                        className="product-input"
+                                                                        onChange={handleItemDetails("name")}
+                                                                        placeholder="Enter Name"
+                                                                    />
+                                                                </td>
+                                                                <td>
+                                                                    <Form.Control
+                                                                        value={itemDetails["price"]}
+                                                                        className="product-input"
+                                                                        onChange={handleItemDetails("price")}
+                                                                        placeholder="Enter Price"
+                                                                    />
+                                                                </td>
+                                                                <td>
+                                                                    <Form.Control
+                                                                        value={itemDetails["quantity"]}
+                                                                        className="product-input quantity"
+                                                                        onChange={handleItemDetails("quantity")}
+                                                                        placeholder="Enter Quantity"
+                                                                        type="number"
+                                                                        min="1"
+                                                                        step="1"
+                                                                    />
+                                                                </td>
+                                                                <td style={{ paddingTop: "8px" }}>Auto</td>
+                                                                <td style={{ paddingTop: "10px" }}>
+                                                                    <FontAwesomeIcon
+                                                                        onClick={addItem}
+                                                                        className="add-item-btn"
+                                                                        icon={faPlus}
+                                                                    />
                                                                 </td>
                                                             </tr>
-                                                        );
-                                                    })
-                                                )}
+                                                        </>
+                                                        : <>
+                                                            {invoiceInfo.item.length === 0 ? (
+                                                                <></>
+                                                            ) : (
+                                                                invoiceInfo.item.map((item, index) => {
+                                                                    return (
+                                                                        <tr key={index}>
+                                                                            <td>{index + 1}</td>
+                                                                            <td>{item.name}</td>
+                                                                            <td>{item.price}</td>
+                                                                            <td>{item.quantity}</td>
+                                                                            <td>
+                                                                                {parseInt(item.price) * parseInt(item.quantity)}
+                                                                            </td>
+                                                                        </tr>
+                                                                    );
+                                                                })
+                                                            )}
+                                                        </>
+                                                }
+
                                             </tbody>
                                         </Table>
                                     </div>
@@ -197,11 +413,11 @@ const InvoiceDetails = (props) => {
                                     <div className="col-12 payment-proportions">
                                         The payment will be processed in the following proportions:
                                         <div className="row">
-                                            { invoiceInfo.proportions.length === 0 ? (
+                                            {invoiceInfo.proportions.length === 0 ? (
                                                 <></>
                                             ) : (
                                                 invoiceInfo.proportions.map((item, index) => {
-                                                    return(
+                                                    return (
                                                         <div className="col-4" key={item.currency}>
                                                             {item.percentage}% {item.currency}
                                                         </div>
