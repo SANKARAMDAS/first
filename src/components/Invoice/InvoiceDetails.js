@@ -110,6 +110,11 @@ const InvoiceDetails = (props) => {
         setEditable(false)
     }
 
+    const handleEditedInvoice = () => {
+        //Backend route is not present
+        console.log("Send the edited invoice")
+    }
+
     const handleCancelInvoice = () => {
         axios
             .post(
@@ -159,11 +164,20 @@ const InvoiceDetails = (props) => {
             }
             case "resolved": {
                 if (props.role === "freelancer") {
-                    return (
-                        <>
-                            <button onClick={handleEdit}>Edit</button>
-                        </>
-                    )
+                    if (editable) {
+                        return (
+                            <>
+                                <button onClick={handleEditedInvoice}>Send Edited Invoice</button>
+                                <button onClick={handleBack}>Back</button>
+                            </>
+                        )
+                    } else {
+                        return (
+                            <>
+                                <button onClick={handleEdit}>Edit</button>
+                            </>
+                        )
+                    }
                 } else {
                     return (
                         <>
