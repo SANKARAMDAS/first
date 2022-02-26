@@ -2,21 +2,40 @@
     display: flex;
 }
 .layout .dashboard .sidebar {
-    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
     height: 100vh;
-    background-color: #d5d2ff;
+    background-color: #fff;
     padding: 20px 15px;
 }
 .layout .dashboard .sidebar .button {
-    padding: 20px 0;
+    padding: 10px 0;
     display: block;
     text-decoration: none;
-    color: black;
+    color: #97999B;
+    font-size: 12px;
+}
+.layout .dashboard .sidebar .button:hover img {
+    background-color: #F5DF4D;
+    ;
+}
+.layout .dashboard .sidebar .button img {
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    border: 1px solid #F5F5F5;
+    border-radius: 8px;
 }
 .layout .dashboard main {
     padding: 20px;
 }
-.layout .dashboard .sidebar .button.logout-btn{
-    background-color: #d5d2ff;
+.layout .dashboard .sidebar .button.logout-btn {
     border: none;
+    background: none;
+    margin-bottom: auto;
+}
+.layout .dashboard .sidebar .button.logout-btn img {
+    background: #574AE2;
 }

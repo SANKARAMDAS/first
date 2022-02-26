@@ -3,7 +3,7 @@ import { sha256 } from "js-sha256";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import './Auth.css';
-import Header from '../Header';
+import Header from '../Header/Header';
 import { useHistory } from "react-router-dom";
 
 const Auth = (props) => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
-import Header from "../Header";
+import Header from "../Header/Header";
 
 const ContactUs = () => {
 

@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #1A1A1A;
+  color: #F5DF4D;
+}
+.header h4{
+  padding: 0;
+  margin: 0;
+}
+.header a {
+  color: #F5DF4D;
+  text-decoration: none;
+  font-size: 14px;
+}
+.header .menu a {
+  margin: 0 8px;
+}
+.header .auth a {
+  background: #F5DF4D;
+  color: #1A1A1A;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+@media (max-width:576px) {
+  .header {
+    padding: 15px 10px;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Header from "../Header";
+import Header from "../Header/Header";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

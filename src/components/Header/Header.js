@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import isAuthenticated from '../assets/js/auth'
+import isAuthenticated from '../../assets/js/auth';
 import { Link } from "react-router-dom";
+import "./Header.css";
 
 const Header = () => {
 
@@ -29,10 +30,14 @@ const Header = () => {
 
   return (
     <div className="header">
-      <h3>Polaris</h3>
-      <Link to="/">Home</Link>
-      <Link to="/contact-us">Contact Us</Link>
-      {renderLink()}
+      <Link to="/"><h4>Binamite</h4></Link>
+      <div className="menu">
+        <Link to="/">Apps</Link>
+        <Link to="/contact-us">Contact Us</Link>
+      </div>
+      <div className="auth">
+        {renderLink()}
+      </div>
     </div>
   )
 }
