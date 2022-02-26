@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import ContractorRoutes from './Contractor/ContractorRoutes'
 import BusinessRoutes from './Business/BusinessRoutes';
 import AuthRoutes from './Auth/AuthRoutes';
+import ContactUs from './ContactUs/ContactUs';
 
 const App = () => {
   return (
@@ -20,6 +21,9 @@ const App = () => {
         </Route>
         <Route path="/business">
           <BusinessRoutes />
+        </Route>
+        <Route path="/contact-us">
+          <ContactUs />
         </Route>
       </Switch>
     </Router>

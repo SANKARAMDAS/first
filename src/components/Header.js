@@ -31,6 +31,7 @@ const Header = () => {
     <div className="header">
       <h3>Polaris</h3>
       <Link to="/">Home</Link>
+      <Link to="/contact-us">Contact Us</Link>
       {renderLink()}
     </div>
   )
