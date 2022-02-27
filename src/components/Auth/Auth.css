@@ -1,75 +1,91 @@
-.auth-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #6e6e6e;
-}
-.auth-page .box {
+.box {
   display: flex;
   flex-direction: column;
-  background: #d5d2ff;
-  padding: 30px;
+  background: #fff;
+  padding: 40px 30px;
   border-radius: 15px;
-  border: 1px solid #8358dc;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
 }
-.auth-page .box .box__heading {
+.box .box__tagline {
+  color: #97999B;
+  font-size: 14px;
+  margin: 0;
+  text-transform: uppercase;
+}
+.box .box__heading {
   font-size: 36px;
-  font-weight: 600;
-  text-align: center;
+  font-weight: 700;
 }
-.auth-page .box .box__input {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 15px;
-  border-radius: 5px;
+.box .box__toggle {
+  color: #97999B;
+}
+.box .box__toggle-link {
+  color: #574AE2;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.box .box__toggle-link:hover {
+  color: #000;
+}
+.box .box__form-group {
+  margin: 10px 0;
+}
+.box .box__form-group label {
+  padding-bottom: 5px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.box .box__input {
+  background-color: #f5f5f5;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
   max-width: 100%;
   border: none;
+  padding: 12px 15px;
+  margin: 0;
+  color: #97999B;
+  font-size: 14px;
 }
-.auth-page .box .box__input.password_box{
-  margin-bottom: auto;
-}
-.auth-page .box .forgot_password{
-  margin-left: 60px;
-  font-size: 12px;
-}
-.auth-page .box .box__button {
-  padding: 10px;
+.box .box__forgot-password {
   display: block;
-  margin: 0 auto;
-  background: #8358dc;
-  border-radius: 5px;
+  font-size: 14px;
+  text-align: right;
+  color: #574AE2;
+  text-decoration: none;
+  font-weight: 600;
+}
+.box .box__forgot-password:hover {
+  color: #000;
+}
+.box button {
+  width: 100%;
+  border-radius: 16px;
+  padding: 10px;
+}
+.box .box__button {
+  margin: 10px 0;
+  background: #1A1A1A;
   border: none;
   color: white;
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
 }
-.auth-page .box .box__googleButton {
+.box .box__googleButton {
+  margin-top: 10px;
+  display: block;
   background: #fff;
-  width: 100%;
+  color: #000;
   border: 1px solid #6e6e6e;
-  border-radius: 5px;
-  padding: 10px;
   text-align: center;
-  margin: 15px 0 20px 0;
 }
-.auth-page .box .box__googleButton svg {
+.box .box__googleButton svg {
   height: 25px;
   width: 25px;
   padding-right: 10px;
-}
-.auth-page .box .box__toggle {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000;
-}
-.auth-page .box .box__toggle:hover {
-  color: #8358dc;
 }
 .auth-page .box .role__button {
   padding: 10px;
