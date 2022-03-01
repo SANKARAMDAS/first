@@ -231,7 +231,7 @@ const Auth = (props) => {
                 onChange={(e) => setOtp(e.target.value)}
                 required
               />
-              <button className="box__button" type="submit" onClick={handleOtpSubmit}>Create Account</button>
+              <button className="box__button" type="submit" onClick={handleOtpSubmit}>Next</button>
             </form>
           </>
         )
@@ -239,16 +239,34 @@ const Auth = (props) => {
       case "roleChoice": {
         return (
           <>
-            <button className="role__button" onClick={(e) => {
-              e.preventDefault()
-              handleRoleChoice("freelancer")
-            }
-            }>Are you a contractor wanting to send invoice?</button>
-            <button className="role__button" style={{ marginTop: "50px" }} onClick={(e) => {
-              e.preventDefault()
-              handleRoleChoice("business")
-            }
-            }>Are you a business wanting to pay contractor very easily?</button>
+            <Row className="justify-content-center my-5 roleChoice py-5 px-2">
+              <h2 className="roleChoice__heading">Manage Roles</h2>
+              <p className="roleChoice__tagline">Integer accumsan enim cursus, auctor leo quis, sollicitudin tellus.</p>
+              <Row className="justify-content-center pt-3">
+                <Col lg="3" md="5" sm="6" xs="10">
+                  <button className="role__button" onClick={(e) => {
+                      e.preventDefault()
+                      handleRoleChoice("freelancer")
+                    }
+                  }>
+                    <div className="circle circle-freelancer"></div>
+                    <h6>Are you a Freelancer?</h6>
+                    <p>Do you want to send invoices?</p>
+                  </button>
+                </Col>
+                <Col lg="3" md="5" sm="6" xs="10">
+                <button className="role__button" onClick={(e) => {
+                    e.preventDefault()
+                    handleRoleChoice("business")
+                  }
+                }>
+                  <div className="circle circle-business"></div>
+                  <h6>Are you a Business?</h6>
+                  <p>Do you wants to pay to contractors very easily?</p>
+                </button>
+                </Col>
+              </Row>
+            </Row>
           </>
         )
       }
@@ -312,23 +330,41 @@ const Auth = (props) => {
     <div className="page">
       <Header />
       <Container>
-        <Row className="justify-content-center my-5">
-          <Col lg="4" md="3"></Col>
-          <Col lg="4" md="5" sm="10" xs="10">
-            <div className="box">
-              <h6 className="box__tagline">Type something here</h6>
-              {renderForm === "login"
-                ? <h1 className="box__heading">Sign in with<br />Binamite</h1>
-                : (
-                  renderForm === "roleChoice"
-                    ? <></>
-                    : <h1 className="box__heading">Sign up with<br />Binamite</h1>
-                )
-              }
-              {handleAuth()}
-            </div>
-          </Col>
-        </Row>
+        {renderForm === "login"
+          ?
+          <>
+            <Row className="justify-content-center my-5">
+              <Col lg="4" md="3"></Col>
+              <Col lg="4" md="5" sm="10" xs="10">
+                <div className="box">
+                  <h6 className="box__tagline">Type something here</h6>
+                  <h1 className="box__heading">Sign in with<br />Binamite</h1>
+                  {handleAuth()}
+                </div>
+              </Col>
+            </Row>
+          </>
+          : (
+            renderForm === "roleChoice"
+              ? 
+              <>
+                {handleAuth()}
+              </>
+              :
+              <>
+                <Row className="justify-content-center my-5">
+                  <Col lg="4" md="3"></Col>
+                  <Col lg="4" md="5" sm="10" xs="10">
+                    <div className="box">
+                      <h6 className="box__tagline">Type something here</h6>
+                      <h1 className="box__heading">Sign up with<br />Binamite</h1>
+                      {handleAuth()}
+                    </div>
+                  </Col>
+                </Row>
+              </>
+          )
+        }
       </Container>
     </div>
   );
