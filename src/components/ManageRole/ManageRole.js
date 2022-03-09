@@ -17,6 +17,7 @@ const ManageRole = () => {
       axios
         .post(`${process.env.REACT_APP_BACKEND_API}/auth/verifyEmail`, { confirmationCode, role })
         .then((res) => {
+          console.log('Role: '+ role);
           console.log(res);
           alert("Account Created Successfully!")
           history.push('/auth')
@@ -46,7 +47,7 @@ const ManageRole = () => {
           <Col lg="3" md="5" sm="6" xs="10">
             <button className="role__button" onClick={(e) => {
                 e.preventDefault()
-                handleRoleChoice("freelancer")
+                handleRoleChoice("Freelancer")
               }
             }>
               <div className="circle circle-freelancer"></div>
@@ -57,7 +58,7 @@ const ManageRole = () => {
           <Col lg="3" md="5" sm="6" xs="10">
           <button className="role__button" onClick={(e) => {
               e.preventDefault()
-              handleRoleChoice("business")
+              handleRoleChoice("Business")
             }
           }>
             <div className="circle circle-business"></div>
