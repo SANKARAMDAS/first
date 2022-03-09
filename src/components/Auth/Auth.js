@@ -28,15 +28,14 @@ const Auth = (props) => {
     const hashedPassword = sha256(password);
 
     axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/auth/emailverification`, {
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, {
         name,
         email,
         password: hashedPassword
       })
       .then((res) => {
-        console.log(res.data.data.otp);
-        setHash(res.data.data.hash);
-        setRenderForm("otp");
+        console.log(res.data);
+        setRenderForm("confirmation");
       }).catch((err) => {
         console.log(err)
       })
@@ -214,6 +213,13 @@ const Auth = (props) => {
                 cookiePolicy={'single_host_origin'}
               />
             </Form>
+          </>
+        )
+      }
+      case "confirmation": {
+        return(
+          <>
+            <p>Confimation link has been sent to your email. Pls confirm your email by clicking on the link.</p>
           </>
         )
       }

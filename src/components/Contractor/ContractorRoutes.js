@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import isAuthenticated from '../../assets/js/auth'
+import isAuthenticated from '../../assets/js/auth';
+import FreelancerDashboard from '../Dashboard/FreelancerDashboard';
 import Profile from '../Profile/Profile';
 import Settings from '../Settings/Settings';
 import InvoiceDetails from '../Invoice/InvoiceDetails';
@@ -28,10 +29,13 @@ const ContractorRoutes = () => {
             return (
                 <Layout url={url} role="freelancer">
                     <Route path={path} exact >
-                        <Profile email={userAuth.email} />
+                        <FreelancerDashboard email={userAuth.email} />
                     </Route>
                     <Route path={`${path}/create-invoice`} exact >
                         <CreateInvoice email={userAuth.email} />
+                    </Route>
+                    <Route path={`${path}/profile`} exact >
+                        <Profile email={userAuth.email} />
                     </Route>
                     <Route path={`${path}/settings`} exact >
                         <Settings email={userAuth.email} />

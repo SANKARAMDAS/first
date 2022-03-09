@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import isAuthenticated from '../../assets/js/auth'
+import isAuthenticated from '../../assets/js/auth';
+import BusinessDashboard from '../Dashboard/BusinessDashboard';
 import Profile from '../Profile/Profile';
 import Settings from '../Settings/Settings';
 import DisplayInvoices from '../Invoice/DisplayInvoices'
@@ -30,6 +31,9 @@ const BusinessRoutes = () => {
             return (
                 <Layout url={url} role="business">
                     <Route path={path} exact >
+                        <BusinessDashboard email={userAuth.email} />
+                    </Route>
+                    <Route path={`${path}/profile`} exact >
                         <Profile email={userAuth.email} />
                     </Route>
                     <Route path={`${path}/settings`} exact >

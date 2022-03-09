@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import ContractorRoutes from './Contractor/ContractorRoutes'
 import BusinessRoutes from './Business/BusinessRoutes';
 import AuthRoutes from './Auth/AuthRoutes';
+import ManageRole from './ManageRole/ManageRole';
 import ContactUs from './ContactUs/ContactUs';
 
 const App = () => {
@@ -15,6 +16,9 @@ const App = () => {
         </Route>
         <Route path="/auth">
           <AuthRoutes />
+        </Route>
+        <Route path={`/confirm/:confirmationCode`}>
+          <ManageRole />
         </Route>
         <Route path="/contractor">
           <ContractorRoutes />

@@ -25,6 +25,10 @@ const Layout = (props) => {
     <div className="layout">
       <div className="dashboard">
         <div className="sidebar">
+          <Link className="button" to={`${props.url}`}>
+            <img src={settings} />
+            Dashboard
+          </Link>
           <Link className="button" to={`${props.url}/invoices`}>
             <img src={settings} />
             Invoices
@@ -34,7 +38,7 @@ const Layout = (props) => {
               ? <Link className="button" to={`${props.url}/create-invoice`}><img src={settings} />Create Invoice</Link>
               : <></>
           }
-          <Link className="button" to={`${props.url}`}>
+          <Link className="button" to={`${props.url}/profile`}>
             <img src={settings} />
             Profile
           </Link>

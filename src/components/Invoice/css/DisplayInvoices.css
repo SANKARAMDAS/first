@@ -1,3 +1,48 @@
-.invoices_num{
-    cursor: pointer;
+.displayInvoices {
+  margin: 0;
+}
+.displayInvoices .displayInvoices__heading {
+  font-weight: 700;
+  font-size: 28px;
+}
+.displayInvoices .displayInvoices__table {
+  border-collapse: separate;
+  border-spacing: 0 1em;
+  width: 100%;
+  text-align: center;
+  color: #1A1A1A;
+}
+.displayInvoices .displayInvoices__table thead {
+  border: none;
+}
+.displayInvoices .displayInvoices__table tbody {
+  border: none;
+}
+.displayInvoices .displayInvoices__table tbody tr {
+  background-color: #fff;
+  font-size: 14px;
+}
+.displayInvoices .displayInvoices__table tbody tr td {
+  padding: 15px 5px;
+}
+.displayInvoices .displayInvoices__table tbody tr td .cancel {
+  color: #D36480;
+}
+.displayInvoices .displayInvoices__table tbody tr td .resolved {
+  color: #5BA967;
+}
+.displayInvoices .displayInvoices__table tbody tr td .pending {
+  color: #F5DF4D;
+}
+.displayInvoices .displayInvoices__table tbody tr td a {
+  color: #1A1A1A;
+  text-decoration: none;
+}
+tr td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+tr td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
