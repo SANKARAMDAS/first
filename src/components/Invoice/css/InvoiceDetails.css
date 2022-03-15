@@ -1,16 +1,64 @@
 .details-wrapper{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .invoice-title{
-    border: none;
-    font-size: 1.20rem;
-    font-weight: 500;
-    text-align: center;
-  }
-  .invoice-form-wrapper{
-    width:100%;
-    margin: 0px 20px;
-    padding: 30px 50px;
-      border: 1px solid #bdbcbc;
-  }
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.invoiceDetails .invoiceWrap {
+  width:100%;
+  padding: 0;
+  margin: 0px 20px;
+  border-radius: 15px;
+  border: 1px solid #bdbcbc;
+}
+.invoiceDetails .invoiceWrap .invoiceTitle{
+  border: none;
+  font-size: 1.20rem;
+  font-weight: 500;
+  background: #1C448E;
+  color: #fff;
+  padding: 20px 15px;
+  border-radius: 15px 15px 0 0;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper {
+  background-color: #fff;
+  border-radius: 0 0 15px 15px;
+  padding: 30px;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .label {
+  color: #97999B;
+  font-size: 14px;
+  margin: 0;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .value {
+  color: #1A1A1A;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .invoiceTable {
+  font-size: 14px;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .invoiceTable thead {
+  background-color: #fff;
+  color: #97999B;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .invoiceTable thead tr th {
+  font-size: 13px;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .invoiceProportion {
+  background-color: #B8D1F6;
+  width: 150px;
+  margin: 5px 15px;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .invoiceButtons button,
+.invoiceDetails .invoiceWrap .invoiceDetailWrapper .invoiceButtons a {
+  border: none;
+  padding: 7px 25px;
+  margin: 10px;
+  background: #1C448E;
+  border-radius: 15px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}

@@ -12,7 +12,7 @@ const Profile = (props) => {
   const [country, setCountry] = useState("");
   const [taxId, setTaxId] = useState("");
 
-  useEffect(() => {
+  useEffect((props) => {
     const getProfile = async () => {
       console.log(props.email)
       axios
@@ -141,6 +141,19 @@ const Profile = (props) => {
                     onChange={(e) => setTaxId(e.target.value)}
                   />
                 </Form.Group>
+              </div>
+            </Col>
+            <Col lg="4">
+              <div className="profile__box">
+                <h6 className="profile__boxHeading">Profile</h6>
+                <div className="mt-3">
+                  <p className="profile__label">Email</p>
+                  <p>{props.email}</p>
+                </div>
+                <div>
+                  <p className="profile__label">Role</p>
+                  <p>{props.role}</p>
+                </div>
               </div>
             </Col>
           </Row>

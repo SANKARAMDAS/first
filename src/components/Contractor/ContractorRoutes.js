@@ -35,7 +35,7 @@ const ContractorRoutes = () => {
                         <CreateInvoice email={userAuth.email} />
                     </Route>
                     <Route path={`${path}/profile`} exact >
-                        <Profile email={userAuth.email} />
+                        <Profile email={userAuth.email} role={userAuth.role} />
                     </Route>
                     <Route path={`${path}/settings`} exact >
                         <Settings email={userAuth.email} />

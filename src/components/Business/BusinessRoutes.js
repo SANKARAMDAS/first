@@ -34,7 +34,7 @@ const BusinessRoutes = () => {
                         <BusinessDashboard email={userAuth.email} />
                     </Route>
                     <Route path={`${path}/profile`} exact >
-                        <Profile email={userAuth.email} />
+                        <Profile email={userAuth.email} role={userAuth.role} />
                     </Route>
                     <Route path={`${path}/settings`} exact >
                         <Settings email={userAuth.email} />
@@ -49,7 +49,7 @@ const BusinessRoutes = () => {
                         <PayInvoice url={url} />
                     </Route>
                     <Route path={`${path}/invoices/:invoiceId/pay/debit-card`} exact >
-                        <DebitCard />
+                        <DebitCard url={url} />
                     </Route>
                     <Route path={`${path}/invoices/:invoiceId/pay/ach-transfer`} exact >
                         <ACHTransfer />

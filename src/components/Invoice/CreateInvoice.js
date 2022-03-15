@@ -343,7 +343,7 @@ Many Thanks,\n`
 		await reader.readAsDataURL(file);
 
 		reader.onload = () => {
-			console.log(reader.result.split(",")[1]);
+			console.log('Reader: '+reader.result.split(",")[1]);
 			setBase64(reader.result.split(",")[1]);
 		};
 		reader.onerror = function (error) {
@@ -380,7 +380,8 @@ Many Thanks,\n`
 					invoiceId: invoiceId,
 				};
 
-				console.log(backendObj)
+				console.log('Backendobj: ');
+				console.log(backendObj);
 
 				axios
 					.post(
@@ -466,7 +467,7 @@ Many Thanks,\n`
 				</>
 			);
 		} else {
-			console.log(componentRef.current);
+			console.log('Component Ref: '+componentRef.current);
 			return (
 				<>
 					<div ref={componentRef} style={{ padding: "40px" }}>

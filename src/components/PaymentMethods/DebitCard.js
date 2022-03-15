@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Form } from "react-bootstrap";
+import "./css/DebitCard.css";
 
-const DebitCard = () => {
+const DebitCard = (props) => {
 
   const { invoiceId } = useParams();
   const [debitCard, setDebitCard] = useState({
@@ -49,7 +50,7 @@ const DebitCard = () => {
 
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_API}/debitCardQuote`,
+        `${process.env.REACT_APP_BACKEND_API}/wyre-payment/debitCardQuote`,
         {
           invoiceId,
           debitCard,
@@ -71,152 +72,210 @@ const DebitCard = () => {
   }
   
   return(
-    <>
-      <h3 className="pb-3">Pay using Debit Card</h3>
-      <Form onSubmit={handleDebitCardDetailsSubmit}>
-        <h5>Enter Debit Card Details</h5>
-        <Container>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="number"
-                value={debitCard.number}
-                placeholder="Debit Card Number"
-                onChange={handleDebitCardChange}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="year"
-                value={debitCard.year}
-                placeholder="Year of Expiry"
-                onChange={handleDebitCardChange}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="month"
-                value={debitCard.month}
-                placeholder="Month of Expiry"
-                onChange={handleDebitCardChange}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="cvv"
-                value={debitCard.cvv}
-                placeholder="CVV Number"
-                onChange={handleDebitCardChange}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col><h5>Other Details</h5></Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="currency"
-                value={currency}
-                placeholder="Currency"
-                onChange={(e) => setCurrency(e.target.value)}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="givenName"
-                value={givenName}
-                placeholder="Name"
-                onChange={(e) => setGivenName(e.target.value)}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="familyName"
-                value={familyName}
-                placeholder="Family Name"
-                onChange={(e) => setFamilyName(e.target.value)}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="phone"
-                value={phone}
-                placeholder="Phone Number"
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col><h5>Address</h5></Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="street"
-                value={address.street}
-                placeholder="Street"
-                onChange={handleAddressChange}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="city"
-                value={address.city}
-                placeholder="City"
-                onChange={handleAddressChange}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="state"
-                value={address.state}
-                placeholder="State"
-                onChange={handleAddressChange}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                name="postalCode"
-                value={address.postalCode}
-                placeholder="Postal Code"
-                onChange={handleAddressChange}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                name="country"
-                value={address.country}
-                placeholder="Country"
-                onChange={handleAddressChange}
-              />
-            </Col>
-          </Row>
-        </Container>
-        <button type="submit">Pay Now</button>
-      </Form>
-    </>
+    <div className="paymentDebitCard">
+      <h3 className="pb-3 heading">Payment Methods</h3>
+      <div className="tabs">
+        <div className="tab active">Card Payment</div>
+        {/*<Link className="tab" to={`${props.url}/invoices/${invoiceId}/pay/ach-transfer`}>ACH</Link>
+        */}
+      </div>
+      <div className="contentArea">
+        <h4 className="sub-heading">Debit Card</h4>
+        <Form onSubmit={handleDebitCardDetailsSubmit}>
+          <Container>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Card Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="number"
+                    className="input"
+                    value={debitCard.number}
+                    placeholder="eg: 0000-0000-0000-0000"
+                    onChange={handleDebitCardChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Name on Card</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="givenName"
+                    className="input"
+                    value={givenName}
+                    placeholder="Name"
+                    onChange={(e) => setGivenName(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Valid Till(Year)</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="year"
+                    className="input"
+                    value={debitCard.year}
+                    placeholder="YY"
+                    onChange={handleDebitCardChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Valid Till(Month)</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="month"
+                    className="input"
+                    value={debitCard.month}
+                    placeholder="MM"
+                    onChange={handleDebitCardChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>CVV</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="cvv"
+                    className="input"
+                    value={debitCard.cvv}
+                    placeholder="CVV Number"
+                    onChange={handleDebitCardChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              
+            </Row>
+            <Row>
+              <Col><h6 className="mt-3">Other Details</h6></Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Family Name</Form.Label>
+                  <Form.Control
+                  type="text"
+                  name="familyName"
+                  className="input"
+                  value={familyName}
+                  placeholder="Family Name"
+                  onChange={(e) => setFamilyName(e.target.value)}
+                />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="phone"
+                    className="input"
+                    value={phone}
+                    placeholder="Phone Number"
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Currency</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="currency"
+                    className="input"
+                    value={currency}
+                    placeholder="eg: USD"
+                    onChange={(e) => setCurrency(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col><h6 className="mt-3">Address</h6></Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Street</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="street"
+                    value={address.street}
+                    className="input"
+                    placeholder="Street"
+                    onChange={handleAddressChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="city"
+                    value={address.city}
+                    className="input"
+                    placeholder="City"
+                    onChange={handleAddressChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>State</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="state"
+                    value={address.state}
+                    className="input"
+                    placeholder="State"
+                    onChange={handleAddressChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Country</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="country"
+                    value={address.country}
+                    className="input"
+                    placeholder="Country"
+                    onChange={handleAddressChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Postal Code</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="postalCode"
+                    value={address.postalCode}
+                    className="input"
+                    placeholder="Postal Code"
+                    onChange={handleAddressChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
+          <button type="submit">Pay Now</button>
+        </Form>
+      </div>
+    </div>
   )
 }
 
