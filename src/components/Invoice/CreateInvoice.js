@@ -19,6 +19,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/CreateInvoice.css";
 
+axios.defaults.withCredentials = true
+
 const CreateInvoice = (props) => {
 
 	const history = useHistory();

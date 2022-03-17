@@ -12,9 +12,8 @@ const Profile = (props) => {
   const [country, setCountry] = useState("");
   const [taxId, setTaxId] = useState("");
 
-  useEffect((props) => {
+  useEffect(() => {
     const getProfile = async () => {
-      console.log(props.email)
       axios
         .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
             email: props.email
