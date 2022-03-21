@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import "./css/DebitCard.css";
@@ -76,8 +76,7 @@ const DebitCard = (props) => {
       <h3 className="pb-3 heading">Payment Methods</h3>
       <div className="tabs">
         <div className="tab active">Card Payment</div>
-        {/*<Link className="tab" to={`${props.url}/invoices/${invoiceId}/pay/ach-transfer`}>ACH</Link>
-        */}
+        <Link className="tab" to={`${props.url}/invoices/${invoiceId}/pay/ach-transfer`}>ACH</Link>
       </div>
       <div className="contentArea">
         <h4 className="sub-heading">Debit Card</h4>

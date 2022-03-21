@@ -52,7 +52,7 @@ const BusinessRoutes = () => {
                         <DebitCard url={url} />
                     </Route>
                     <Route path={`${path}/invoices/:invoiceId/pay/ach-transfer`} exact >
-                        <ACHTransfer />
+                        <ACHTransfer url={url} />
                     </Route>
                 </Layout>
             )

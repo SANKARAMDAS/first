@@ -1,4 +1,4 @@
-.header {
+.Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,19 +6,19 @@
   background-color: #1A1A1A;
   color: #F5DF4D;
 }
-.header h4{
+.Header h4{
   padding: 0;
   margin: 0;
 }
-.header a {
+.Header a {
   color: #F5DF4D;
   text-decoration: none;
   font-size: 14px;
 }
-.header .menu a {
+.Header .menu a {
   margin: 0 8px;
 }
-.header .auth a {
+.Header .auth a {
   background: #F5DF4D;
   color: #1A1A1A;
   font-weight: 600;
@@ -27,7 +27,7 @@
   white-space: nowrap;
 }
 @media (max-width:576px) {
-  .header {
+  .Header {
     padding: 15px 10px;
   }
 }

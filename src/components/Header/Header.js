@@ -29,7 +29,7 @@ const Header = () => {
   }
 
   return (
-    <div className="header">
+    <div className="Header">
       <Link to="/"><h4>Binamite</h4></Link>
       <div className="menu">
         <Link to="/">Apps</Link>
