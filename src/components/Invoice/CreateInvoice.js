@@ -109,7 +109,7 @@ Many Thanks,\n`
 	}, []);
 
 	const handleTitle = (e) => {
-		setTitle(e.target.val);
+		setTitle(e.target.value);
 	};
 
 	/* CLIENT DETAILS' METHODS */
@@ -261,11 +261,11 @@ Many Thanks,\n`
 			case 2:
 				return (
 					<>
-						<Form.Label style={{ marginTop: "20px" }}>
+						<Form.Label className="invoice-label" style={{ marginTop: "20px" }}>
 							Select Proportion:
 						</Form.Label>
 						{renderTwoSliderLabels()}
-						<div className="col-12">
+						<div className="col-12 invoice-range">
 							<InputRange
 								maxValue={99}
 								minValue={1}
@@ -284,7 +284,7 @@ Many Thanks,\n`
 							Select Proportion:
 						</Form.Label>
 						{renderThreeSliderLabels()}
-						<div className="col-12">
+						<div className="col-12 invoice-range">
 							<InputRange
 								maxValue={99}
 								minValue={1}
@@ -385,7 +385,10 @@ Many Thanks,\n`
 				console.log('Backendobj: ');
 				console.log(backendObj);
 
-				axios
+				axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+					withCredentials: true
+				}).then(() => {
+					axios
 					.post(
 						`${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`,
 						backendObj
@@ -393,11 +396,14 @@ Many Thanks,\n`
 					.then((response) => {
 						console.log(response);
 						alert('The invoice has been sent to the client');
-						history.push('/contractor');
+						history.push('/contractor/invoices');
 					})
 					.catch((err) => {
 						console.log('Error: ',err);
 					});
+				}).catch((error) => {
+					console.log(error)
+				})
 			});
 	};
 
@@ -418,12 +424,13 @@ Many Thanks,\n`
 		if (step === 1) {
 			return (
 				<>
-					<div style={{ marginBottom: "20px" }} className="col-12 text-center">
-						<div className="invoice-title">Payment Details</div>
+					<div className="col-12">
+						<div className="invoice-title">Create a New Invoice</div>
 					</div>
-					<div style={{ marginBottom: "30px" }} className="row">
-						<Form.Label>Select Currencies: </Form.Label>
-						<div style={{ marginBottom: "20px" }} className="row">
+					<div className="row">
+						<div className="invoice-subtitle">Payment Details</div>
+						<Form.Label className="invoice-label">Select Currencies: </Form.Label>
+						<div style={{ marginBottom: "20px" }} className="row checkboxes">
 							<div className="col-lg-4 col-md-4 col-sm-12">
 								<Form.Check
 									checked={proportionValues["FIAT"].selected}
@@ -455,13 +462,14 @@ Many Thanks,\n`
 						{renderSlider()}
 						<div className="col-lg-12">
 							<Form.Group className="mb-3" controlId="formBasicDate">
-								<Form.Label>Invoice Due Date: </Form.Label>
+								<Form.Label className="invoice-label">Invoice Due Date: </Form.Label>
 								<DatePicker
 									value={dueDate}
 									selected={dueDate}
 									onChange={(date) => handleDueDateChange(date)}
 									placeholderText="DD/MM/YY"
 									dateFormat="dd/MM/yyyy"
+									className="invoice-input"
 								/>
 							</Form.Group>
 						</div>
@@ -473,12 +481,10 @@ Many Thanks,\n`
 			return (
 				<>
 					<div ref={componentRef} style={{ padding: "40px" }}>
-						<div
-							className="col-12 text-center"
-						>
+						<div className="col-12">
 							<Form.Control
 								onChange={handleTitle}
-								className="invoice-title"
+								className="invoice-input"
 								value={title}
 								maxLength="25"
 							/>
@@ -500,26 +506,26 @@ Many Thanks,\n`
 									<Form.Control
 										onChange={handleClientDetails("name")}
 										value={clientValues["name"]}
-										className="client-details client-name"
+										className="invoice-input"
 										maxLength="30"
 									/>
-									<p className="client-invoice-details">
-										Date: {dateFormat(Date.now(), "dd/mm/yyyy")}
-									</p>
-									<p className="client-invoice-details">Invoice #{invoiceId}</p>
-									<br />
 									<Form.Control
 										onChange={handleClientDetails("company")}
 										value={clientValues["company"]}
-										className="client-details client-company"
+										className="invoice-input"
 										maxLength="25"
 									/>
 									<Form.Control
 										onChange={handleClientDetails("email")}
-										className="client-details client-email"
+										className="invoice-input"
 										value={clientValues["email"]}
 										maxLength="35"
 									/>
+									<br />
+									<p className="client-invoice-details">
+										Date: {dateFormat(Date.now(), "dd/mm/yyyy")}
+									</p>
+									<p className="client-invoice-details">Invoice ID: {invoiceId}</p>
 								</div>
 							</div>
 						</div>
@@ -535,13 +541,13 @@ Many Thanks,\n`
 						</div>
 						<div className="row">
 							<div className="col-12">
-								<Table className="invoice-table" striped>
+								<Table className="invoice-table">
 									<thead className="invoice-table-head">
 										<tr>
-											<th>Sr No.</th>
+											<th>SNo.</th>
 											<th>Name</th>
 											<th>Price</th>
-											<th>Qty</th>
+											<th>Quantity</th>
 											<th>Total</th>
 											<th></th>
 										</tr>
@@ -689,7 +695,7 @@ Many Thanks,\n`
 							{step === 1 ? (
 								<div className="col-12 text-center">
 									<button
-										className="btn btn-primary"
+										className="btn btn-primary invoice-button"
 										onClick={handleGoToStep2}
 										type="submit"
 									>
@@ -699,7 +705,7 @@ Many Thanks,\n`
 							) : (
 								<div className="col-12 text-center">
 									<button
-										className="btn btn-primary"
+										className="invoice-button"
 										onClick={handleSendInvoice}
 										type="submit"
 									>

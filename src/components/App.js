@@ -6,6 +6,7 @@ import BusinessRoutes from './Business/BusinessRoutes';
 import AuthRoutes from './Auth/AuthRoutes';
 import ManageRole from './ManageRole/ManageRole';
 import ContactUs from './ContactUs/ContactUs';
+import Test from './Test';
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
         </Route>
         <Route path="/contact-us">
           <ContactUs />
+        </Route>
+        <Route path="/test">
+          <Test />
         </Route>
       </Switch>
     </Router>

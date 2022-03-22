@@ -4,19 +4,52 @@
 }
 .invoice-title{
   border: none;
-  font-size: 1.20rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 .invoice-title:focus{
   border:none;
   outline:none;
   box-shadow: none;
 }
+.invoice-subtitle{
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 10px 0;
+}
+.invoice-label {
+  font-size: 0.9rem;
+}
 .invoice-form-wrapper{
   width:100%;
   margin: 0px 20px;
   padding: 30px 50px;
-    border: 1px solid #bdbcbc;
+  border: 1px solid #bdbcbc;
+  background: #fff;
+  border-radius: 15px;
+}
+.checkboxes input:checked {
+  background-color: #1a1a1a;
+}
+.invoice-input {
+  background: #F5F5F5;
+  border: 1px solid #E5E5E5;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 7px;
+  margin: 8px 0;
+}
+.invoice-button {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 14px;
+  border: none;
+  padding: 7px 18px;
+  font-weight: 600;
+}
+.invoice-button:hover {
+  background-color: #1C448E;
 }
 .back-button{
   float: left;
@@ -34,7 +67,8 @@
 .client-invoice-details{
   padding: 0;
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 600;
   float: right;
   margin-right: 10px;
   clear: both;
@@ -79,21 +113,21 @@
 }
 .intro-textarea{
   width: 100%;
-  padding: 0;
+  padding: 8px 14px;
   margin: 0;
   resize: none;
   border: none;
   overflow:auto;
   height: 170px;
-  font-size: 13px;
+  font-size: 0.9rem;
+  background: #F5F5F5;
+  border-radius: 7px;
+  margin: 8px 0;
 }
 .intro-textarea:focus{
   outline: none;
   border: none;
   box-shadow: none;
-}
-.invoice-table-head{
-  background-color: #bdbcbc;
 }
 .invoice-table-head tr th{
   font-size: 11px;
