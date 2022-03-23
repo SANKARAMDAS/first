@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import dateFormat from "dateformat";
 import { Table, Form } from "react-bootstrap";
@@ -12,8 +12,11 @@ import "./css/InvoiceDetails.css";
 
 const InvoiceDetails = (props) => {
 
+  const history = useHistory();
+
   const { invoiceId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   const [editable, setEditable] = useState(false)
   const [invoiceInfo, setInvoiceInfo] = useState({});
   const [title, setTitle] = useState("Invoice Title");
@@ -69,6 +72,10 @@ const InvoiceDetails = (props) => {
 
   const handleTitle = (e) => {
     setTitle(e.target.val);
+  };
+
+  const handleOnCheck = () => {
+    setIsChecked(!isChecked);
   };
 
   const handleClientDetails = (selectedInput) => (e) => {
@@ -184,7 +191,16 @@ const InvoiceDetails = (props) => {
         } else {
           return (
             <div className="my-3">
-              <Link to={`${props.url}/invoices/${invoiceInfo.invoiceId}/pay/debit-card`}>Pay Now</Link>
+              <div className="my-2">
+                <input
+                  type="checkbox"
+                  id="wyre-agreement"
+                  name="wyre-agreement"
+                  checked={isChecked}
+                  onChange={handleOnCheck}
+                /> I accept the <a className="text-black" href="https://www.sendwyre.com/user-agreement/" target="_blank">Wyre User agreement</a>.
+              </div>
+              <button onClick={() => { history.push(`${props.url}/invoices/${invoiceInfo.invoiceId}/pay/debit-card`) }} disabled={!isChecked}>Pay Now</button>
             </div>
           )
         }

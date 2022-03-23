@@ -7,7 +7,6 @@ const ACHTransfer = (props) => {
 
   const { invoiceId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
   const [view, setView] = useState('');
   const [paymentMethods, setPaymentMethods] = useState('');
   const [paymentMethodId, setPaymentMethodId] = useState('');
@@ -51,10 +50,6 @@ const ACHTransfer = (props) => {
     }
     getPaymentMethods()
   },[])
-
-  const handleOnCheck = () => {
-    setIsChecked(!isChecked);
-  };
 
   const handleCreateIndividualPaymentMethod = (e) => {
     e.preventDefault();
@@ -468,16 +463,7 @@ const ACHTransfer = (props) => {
         default: {
           return(
             <>
-              <div className="my-2">
-                <input
-                  type="checkbox"
-                  id="wyre-agreement"
-                  name="wyre-agreement"
-                  checked={isChecked}
-                  onChange={handleOnCheck}
-                /> I accept the <a className="text-black" href="https://www.sendwyre.com/user-agreement/" target="_blank">Wyre Referral agreement</a>.
-              </div>
-              <button onClick={() => setView('create-payment-methods')} disabled={!isChecked}>Create Payment Method</button>
+              <button onClick={() => setView('create-payment-methods')}>Create Payment Method</button>
               {paymentMethods}
             </>
           )
