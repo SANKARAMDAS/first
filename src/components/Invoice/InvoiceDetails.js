@@ -42,14 +42,14 @@ const InvoiceDetails = (props) => {
   const getInvoiceDetails = async () => {
     await axios
       .post(
-          `${process.env.REACT_APP_BACKEND_API}/invoice/getInvoiceInfo`,
-          { invoiceId: invoiceId }
+        `${process.env.REACT_APP_BACKEND_API}/invoice/getInvoiceInfo`,
+        { invoiceId: invoiceId }
       )
       .then((res) => {
-          setInvoiceInfo(res.data)
+        setInvoiceInfo(res.data)
       })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       });
     setIsLoading(false)
   }
@@ -177,14 +177,18 @@ const InvoiceDetails = (props) => {
           if (editable) {
             return (
               <>
+                {/*
                 <button onClick={handleEditedInvoice}>Send Edited Invoice</button>
                 <button onClick={handleBack}>Back</button>
+                */}
               </>
             )
           } else {
             return (
               <>
+                {/*
                 <button onClick={handleEdit}>Edit</button>
+                */}
               </>
             )
           }
@@ -237,7 +241,7 @@ const InvoiceDetails = (props) => {
     } else {
       return (
         <div className="d-flex justify-content-center align-items-center invoiceDetails">
-          <div className="col-lg-7 col-md-7 col-sm-7">
+          <div className="col-lg-7 col-md-7 col-12">
             <div className="invoiceWrap">
               <div>
                 {editable === true
@@ -263,7 +267,7 @@ const InvoiceDetails = (props) => {
                     <p className="value">{invoiceId}</p>
                   </div>
                   <div className="row details-wrapper">
-                    <div className="col-6">
+                    <div className="col-lg-6 col-md-6 col-12">
                       <div className="col-12">
                         <div>
                           <p className="label">Bill From</p>
@@ -277,7 +281,7 @@ const InvoiceDetails = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-6">
+                    <div className="col-lg-6 col-md-6 col-12">
                       <div className="col-12">
                         {
                           editable === true

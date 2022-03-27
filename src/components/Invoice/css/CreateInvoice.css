@@ -29,6 +29,12 @@
   background: #fff;
   border-radius: 15px;
 }
+@media (max-width: 400px) {
+  .invoice-form-wrapper {
+    padding: 30px 20px;
+    margin: 0 10px;
+  }
+}
 .checkboxes input:checked {
   background-color: #1a1a1a;
 }

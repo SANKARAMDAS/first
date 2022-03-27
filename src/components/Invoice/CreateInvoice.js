@@ -490,43 +490,39 @@ Many Thanks,\n`
 							/>
 						</div>
 						<div className="row details-wrapper">
-							<div className="col-6">
-								<div className="col-12">
-									<div className="freelancer-details">
-										<h5>{freelancerValues.name}</h5>
-										<p className="freelancer-address">{freelancerValues['address1']}</p>
-										<p className="freelancer-address">{freelancerValues['address2']}</p>
-										<p className="freelancer-address">{freelancerValues['address3']}</p>
-										<p className="freelancer-email">{freelancerValues['email']}</p>
-									</div>
+							<div className="col-lg-6 col-md-6 col-12">
+								<div className="freelancer-details">
+									<h5>{freelancerValues.name}</h5>
+									<p className="freelancer-address">{freelancerValues['address1']}</p>
+									<p className="freelancer-address">{freelancerValues['address2']}</p>
+									<p className="freelancer-address">{freelancerValues['address3']}</p>
+									<p className="freelancer-email">{freelancerValues['email']}</p>
 								</div>
 							</div>
-							<div className="col-6">
-								<div className="col-12">
-									<Form.Control
-										onChange={handleClientDetails("name")}
-										value={clientValues["name"]}
-										className="invoice-input"
-										maxLength="30"
-									/>
-									<Form.Control
-										onChange={handleClientDetails("company")}
-										value={clientValues["company"]}
-										className="invoice-input"
-										maxLength="25"
-									/>
-									<Form.Control
-										onChange={handleClientDetails("email")}
-										className="invoice-input"
-										value={clientValues["email"]}
-										maxLength="35"
-									/>
-									<br />
-									<p className="client-invoice-details">
-										Date: {dateFormat(Date.now(), "dd/mm/yyyy")}
-									</p>
-									<p className="client-invoice-details">Invoice ID: {invoiceId}</p>
-								</div>
+							<div className="col-lg-6 col-md-6 col-12">
+								<Form.Control
+									onChange={handleClientDetails("name")}
+									value={clientValues["name"]}
+									className="invoice-input"
+									maxLength="30"
+								/>
+								<Form.Control
+									onChange={handleClientDetails("company")}
+									value={clientValues["company"]}
+									className="invoice-input"
+									maxLength="25"
+								/>
+								<Form.Control
+									onChange={handleClientDetails("email")}
+									className="invoice-input"
+									value={clientValues["email"]}
+									maxLength="35"
+								/>
+								<br />
+								<p className="client-invoice-details">
+									Date: {dateFormat(Date.now(), "dd/mm/yyyy")}
+								</p>
+								<p className="client-invoice-details">Invoice ID: {invoiceId}</p>
 							</div>
 						</div>
 						<div className="row">
@@ -667,7 +663,7 @@ Many Thanks,\n`
 	return (
 		<>
 			<div className="d-flex justify-content-center align-items-center">
-				<div className="col-lg-7 col-md-7 col-sm-7">
+				<div className="col-lg-7 col-md-7 col-12">
 					<div className="invoice-form-wrapper">
 						{step === 1 ? (
 							<></>
