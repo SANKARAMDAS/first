@@ -196,7 +196,7 @@ const Auth = (props) => {
               </Form.Group>
               <button className="box__button" type="submit">Create an account</button>
               <GoogleLogin
-                clientId="365821624725-ke89ac5mckkrpg3nu76cein2vrss33tg.apps.googleusercontent.com"
+                clientId="110514586311-8ad5oqee3o0ef3lchqi7004jag9husjj.apps.googleusercontent.com"
                 render={(renderProps) => (
                   <button className="box__googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     <svg viewBox="0 0 22 22">
@@ -309,7 +309,7 @@ const Auth = (props) => {
               <Link className="box__forgot-password" to={`${props.url}/forgot-password`} >Forgot Password?</Link>
               <button className="box__button" type="submit">Log in</button>
               <GoogleLogin
-                clientId="365821624725-ke89ac5mckkrpg3nu76cein2vrss33tg.apps.googleusercontent.com"
+                clientId="110514586311-8ad5oqee3o0ef3lchqi7004jag9husjj.apps.googleusercontent.com/"
                 render={(renderProps) => (
                   <button className="box__googleButton" onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     <svg viewBox="0 0 22 22">
