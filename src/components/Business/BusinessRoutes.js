@@ -31,7 +31,7 @@ const BusinessRoutes = () => {
             return (
                 <Layout url={url} role="business">
                     <Route path={path} exact >
-                        <BusinessDashboard email={userAuth.email} />
+                        <BusinessDashboard email={userAuth.email} role={userAuth.role} url={url} />
                     </Route>
                     <Route path={`${path}/profile`} exact >
                         <Profile email={userAuth.email} role={userAuth.role} />
