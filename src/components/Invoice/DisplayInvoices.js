@@ -20,8 +20,8 @@ const DisplayInvoices = (props) => {
           .post(
             `${process.env.REACT_APP_BACKEND_API}/invoice/getInvoices`,
             {
-                role: props.role,
-                email: props.email
+              role: props.role,
+              email: props.email
             }
           )
           .then((response) => {

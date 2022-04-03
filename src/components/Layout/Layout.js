@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import "./Layout.css";
-//import dashboard from "./Icons/dashboard.svg";
+import dashboard from "./Icons/dashboard.svg";
 import invoice from "./Icons/invoice.svg";
 import profile from "./Icons/profile.svg";
 import settings from "./Icons/settings.svg";
@@ -28,12 +28,10 @@ const Layout = (props) => {
     <div className="layout">
       <div className="dashboard">
         <div className="sidebar">
-          {/*
           <Link className="button" to={`${props.url}`}>
             <img src={dashboard} />
             Dashboard
           </Link>
-          */}
           <Link className="button" to={`${props.url}/invoices`}>
             <img src={invoice} alt="invoice" />
             Invoices

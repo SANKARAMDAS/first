@@ -96,9 +96,9 @@ const Auth = (props) => {
       .then((res) => {
         console.log(res);
         if (res.data.role === "freelancer") {
-          history.push('/contractor/invoices')
+          history.push('/contractor')
         } else {
-          history.push('/business/invoices')
+          history.push('/business')
         }
       }).catch((error) => {
         console.log(error.response.data)
