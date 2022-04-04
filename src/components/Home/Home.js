@@ -82,16 +82,16 @@ const Home = () => {
         </Row>
       </Container>
       <Container fluid className="WhiteBg">
-        <Row className="justify-content-around">
-          <Col lg="3" md="3" xs="10">
+        <Row className="justify-content-center">
+          <Col lg="4" md="3" xs="10">
             <h2 className="WhiteBg--heading">15,000</h2>
             <p className="WhiteBg--title">Number of Contractors Paid Out.</p>
           </Col>
-          <Col lg="3" md="3" xs="10">
+          <Col lg="4" md="3" xs="10">
             <h2 className="WhiteBg--heading">2 Million</h2>
             <p className="WhiteBg--title">Number of Client’s Onboarded.</p>
           </Col>
-          <Col lg="3" md="3" xs="10">
+          <Col lg="4" md="3" xs="10">
             <h2 className="WhiteBg--heading">2 Million</h2>
             <p className="WhiteBg--title">Number of Client’s Onboarded.</p>
           </Col>

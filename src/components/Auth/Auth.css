@@ -3,22 +3,28 @@
   flex-direction: column;
   background: #fff;
   padding: 40px 30px;
-  border-radius: 15px;
+  border-radius: 16px;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
 }
 .box .box__tagline {
   color: #97999B;
   font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.2em;
   margin: 0;
   text-transform: uppercase;
 }
 .box .box__heading {
-  font-size: 36px;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 57px;
 }
 .box .box__toggle {
   color: #97999B;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
 }
 .box .box__toggle-link {
   color: #574AE2;
@@ -35,8 +41,9 @@
 .box .box__form-group label {
   padding-bottom: 5px;
   margin: 0;
+  font-weight: 400;
   font-size: 14px;
-  font-weight: 500;
+  line-height: 17px;
 }
 .box .box__input {
   background-color: #f5f5f5;
@@ -44,7 +51,8 @@
   border-radius: 8px;
   max-width: 100%;
   border: none;
-  padding: 12px 15px;
+  padding: 17px 20px;
+  height: 52px;
   margin: 0;
   color: #97999B;
   font-size: 14px;
@@ -64,14 +72,16 @@
   width: 100%;
   border-radius: 16px;
   padding: 10px;
+  height: 51px;
 }
 .box .box__button {
   margin: 10px 0;
   background: #1A1A1A;
   border: none;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
+  line-height: 19px;
   cursor: pointer;
 }
 .box .box__googleButton {
@@ -81,6 +91,9 @@
   color: #000;
   border: 1px solid #6e6e6e;
   text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
 }
 .box .box__googleButton svg {
   height: 25px;

@@ -69,7 +69,7 @@ const DisplayInvoices = (props) => {
       return (
         <Container fluid className="displayInvoices">
           <h3 className="displayInvoices__heading">Invoices List</h3>
-          <Row className="justify-content-center">
+          <Row className="justify-content-center mb-5">
             <Col lg="11" className="displayInvoices__topSection">
               <Form.Label>Search by Keyword</Form.Label>
               <Form onSubmit={handleFilter}>
@@ -81,6 +81,10 @@ const DisplayInvoices = (props) => {
                   onChange={(e) => setFilteredKeyword(e.target.value)}
                 />
                 <button type="submit"><img src={Filter} /> Filter</button>
+                {props.role === "freelancer" ?
+                  <Link className="displayInvoices__createNew" to="/contractor/create-invoice"><span className="plus">+</span> Create New</Link>
+                  : <></>
+                }
               </Form>
             </Col>
             <Col lg="11" className="mt-3">
@@ -108,19 +112,21 @@ const DisplayInvoices = (props) => {
                             <tr key={invoice.invoiceId}>
                               <td>
                                 <Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>
-                                  <b>{props.role === "freelancer" ? invoice.businessName : invoice.freelancerName}</b>
-                                  <br />
-                                  <span className="details">
-                                    {props.role === "freelancer" ? invoice.businessEmail : invoice.freelancerEmail}
-                                    <br />
-                                    #{invoice.invoiceId}
-                                    <br />
-                                    Generated at : {invoice.creationDate}
-                                  </span>
+                                  <div className="circle"></div>
+                                  <div>
+                                    <div className="name">{props.role === "freelancer" ? invoice.businessName : invoice.freelancerName}</div>
+                                    <span className="details">
+                                      {props.role === "freelancer" ? invoice.businessEmail : invoice.freelancerEmail}
+                                      <br />
+                                      #{invoice.invoiceId}
+                                      <br />
+                                      Generated at : {invoice.creationDate}
+                                    </span>
+                                  </div>
                                 </Link>
                               </td>
                               <td>{invoice.dueDate}</td>
-                              <td>{invoice.totalAmount}</td>
+                              <td>${invoice.totalAmount}</td>
                               <td>
                                 <span className="cancel">{invoice.status === "cancel" ? "Cancel" : ""}</span>
                                 <span className="resolved">{invoice.status === "resolved" ? "Resolved" : ""}</span>

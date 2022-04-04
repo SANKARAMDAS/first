@@ -6,14 +6,27 @@
   background-color: #1A1A1A;
   color: #F5DF4D;
 }
+.Header .center {
+  display: flex;
+  justify-content: center;
+}
+.Header .right {
+  display: flex;
+  justify-content: end;
+}
 .Header h4{
   padding: 0;
   margin: 0;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
 }
 .Header a {
   color: #F5DF4D;
   text-decoration: none;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
 }
 .Header .menu a {
   margin: 0 8px;
@@ -22,8 +35,11 @@
   background: #F5DF4D;
   color: #1A1A1A;
   font-weight: 600;
-  padding: 8px 20px;
-  border-radius: 12px;
+  font-size: 16px;
+  height: 47px;
+  line-height: 19px;
+  padding: 14px 24px;
+  border-radius: 16px;
   white-space: nowrap;
 }
 @media (max-width:576px) {

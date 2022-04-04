@@ -2,8 +2,9 @@
   margin: 0;
 }
 .settings .settings__heading {
-  font-weight: 700;
-  font-size: 28px;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
 }
 .settings .settings__box {
   background-color: #fff;

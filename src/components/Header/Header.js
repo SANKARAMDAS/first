@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import isAuthenticated from '../../assets/js/auth';
 import { Link } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 import "./Header.css";
 
 const Header = () => {
@@ -29,16 +30,24 @@ const Header = () => {
   }
 
   return (
-    <div className="Header">
-      <Link to="/"><h4>Binamite</h4></Link>
-      <div className="menu">
-        <Link to="/">Apps</Link>
-        <Link to="/contact-us">Contact Us</Link>
-      </div>
-      <div className="auth">
-        {renderLink()}
-      </div>
-    </div>
+    <Container fluid>
+      <Row className="Header justify-content-between">
+        <Col lg="2">
+          <Link to="/"><h4>Binamite</h4></Link>
+        </Col>
+        <Col className="center" lg="8">
+          <div className="menu">
+            <Link to="/">Apps</Link>
+            <Link to="/contact-us">Contact Us</Link>
+          </div>
+        </Col>
+        <Col className="right" lg="2">
+          <div className="auth">
+            {renderLink()}
+          </div>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
