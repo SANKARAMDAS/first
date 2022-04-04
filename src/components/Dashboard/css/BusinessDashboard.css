@@ -1,4 +1,37 @@
-.Dashboard .Dashboard__recentInvoices {
+.BusinessDashboard .BusinessDashboard__walletBalance {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  min-height: 100px;
+  border-radius: 16px;
+}
+.BusinessDashboard .BusinessDashboard__walletBalance .BusinessDashboard__walletBalance-section {
+  display: flex;
+  padding: 10px;
+}
+.BusinessDashboard .BusinessDashboard__walletBalance .BusinessDashboard__walletBalance-icon {
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  border: 1px solid #F5F5F5;
+  width: 60px;
+  height: 60px;
+  padding: 12px;
+}
+.BusinessDashboard .BusinessDashboard__walletBalance .BusinessDashboard__walletBalance-tagline {
+  color: #97999B;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 4px 0 0 0;
+}
+.BusinessDashboard .BusinessDashboard__walletBalance .BusinessDashboard__walletBalance-balance {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: #1A1A1A;
+  margin: 3px 0 0 0;
+}
+.BusinessDashboard .BusinessDashboard__recentInvoices {
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -6,16 +39,16 @@
   letter-spacing: 0em;
 }
 
-.Dashboard .Dashboard__table {
+.BusinessDashboard .BusinessDashboard__table {
   border-collapse: separate;
   border-spacing: 0 1em;
   width: 100%;
   color: #1A1A1A;
 }
-.Dashboard .Dashboard__table thead {
+.BusinessDashboard .BusinessDashboard__table thead {
   border: none;
 }
-.Dashboard .Dashboard__table thead tr th {
+.BusinessDashboard .BusinessDashboard__table thead tr th {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -24,24 +57,25 @@
   text-align: left;
   padding: 0 20px;
 }
-.Dashboard .Dashboard__table tbody {
+.BusinessDashboard .BusinessDashboard__table tbody {
   border: none;
 }
-.Dashboard .Dashboard__table tbody tr {
+.BusinessDashboard .BusinessDashboard__table tbody tr {
   background-color: #fff;
   font-size: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
-.Dashboard .Dashboard__table tbody tr td {
+.BusinessDashboard .BusinessDashboard__table tbody tr td {
   padding: 20px;
 }
-.Dashboard .Dashboard__table tbody tr td .name {
+.BusinessDashboard .BusinessDashboard__table tbody tr td .name {
   font-size: 16px;
   font-style: normal;
-  font-weight: 700;
   line-height: 24px;
   letter-spacing: 0em;
+  margin: 0;
 }
-.Dashboard .Dashboard__table tbody tr td .details {
+.BusinessDashboard .BusinessDashboard__table tbody tr td .details {
   color: #97999B;
   font-size: 12px;
   font-style: normal;
@@ -50,23 +84,23 @@
   letter-spacing: 0em;
   margin: 0;
 }
-.Dashboard .Dashboard__table tbody tr td .cancel {
-  color: #D36480;
-}
-.Dashboard .Dashboard__table tbody tr td .resolved {
-  color: #5BA967;
-}
-.Dashboard .Dashboard__table tbody tr td .pending {
+.BusinessDashboard .BusinessDashboard__table tbody tr td .cancel {
   color: #F5DF4D;
 }
-.Dashboard .Dashboard__table tbody tr td .status {
+.BusinessDashboard .BusinessDashboard__table tbody tr td .resolved {
+  color: #5BA967;
+}
+.BusinessDashboard .BusinessDashboard__table tbody tr td .pending {
+  color: #D36480;
+}
+.BusinessDashboard .BusinessDashboard__table tbody tr td .status {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
 }
-.Dashboard .Dashboard__table tbody tr td a {
+.BusinessDashboard .BusinessDashboard__table tbody tr td a {
   color: #1A1A1A;
   text-decoration: none;
 }
@@ -78,22 +112,40 @@ tr td:last-child {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+.BusinessDashboard .ViewAllButton {
+  background: #E5E5E5;
+  color: #1A1A1A;
+}
 
-.Dashboard .Dashboard__freelancersTeam {
+.BusinessDashboard .BusinessDashboard__freelancersTeam {
   background: #FFFFFF;
   border-radius: 16px;
   max-width: 100%;
   padding: 15px;
 }
-.Dashboard .Dashboard__freelancersTeam .freelancersTeamHeading {
+.BusinessDashboard .BusinessDashboard__freelancersTeam .freelancersTeamHeading {
   font-weight: 600;
   font-size: 18px;
   line-height: 26px;
   margin: 0 0 3px 0;
 }
-.Dashboard .Dashboard__freelancersTeam .freelancersTeamTagline {
+.BusinessDashboard .BusinessDashboard__freelancersTeam .freelancersTeamTagline {
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   color: #97999B;
+}
+.BusinessDashboard .BusinessDashboard__freelancersTeam .BusinessDashboard-freelancer {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #F5F5F5;
+}
+.BusinessDashboard .BusinessDashboard__freelancersTeam .circle {
+  width: 48px;
+  height: 48px;
+  background: #C4C4C4;
+  border-radius: 50%;
+}
+.BusinessDashboard .BusinessDashboard__freelancersTeam .name {
+  margin: 10px 0 0 10px;
 }

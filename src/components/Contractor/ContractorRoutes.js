@@ -29,7 +29,7 @@ const ContractorRoutes = () => {
             return (
                 <Layout url={url} role="freelancer">
                     <Route path={path} exact >
-                        <FreelancerDashboard email={userAuth.email} />
+                        <FreelancerDashboard email={userAuth.email} role={userAuth.role} url={url} />
                     </Route>
                     <Route path={`${path}/create-invoice`} exact >
                         <CreateInvoice email={userAuth.email} />
