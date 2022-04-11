@@ -92,9 +92,15 @@
   font-size: 16px;
   line-height: 21px;
 }
+.displayInvoices .displayInvoices__table tbody tr td .newInvoice {
+  color: #5BA967;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+}
 .displayInvoices .displayInvoices__table tbody tr td .name {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 21px;
   margin: 0;
 }

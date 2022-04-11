@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import "./css/DisplayInvoices.css"
 import Filter from "./images/Filter.svg";
+import Flag from "./images/Flag.svg";
 
 const DisplayInvoices = (props) => {
 
@@ -11,6 +12,16 @@ const DisplayInvoices = (props) => {
   const [filteredInvoices, setFilteredInvoices] = useState([])
   const [filterKeyword, setFilteredKeyword] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+
+  const current = new Date();
+  let month = "";
+  if (current.getMonth()+1 <= 9) {
+    const currMonth = current.getMonth()+1;
+    month = '0'+currMonth;
+  } else {
+    month = current.getMonth()+1;
+  }
+  const date = `${current.getDate()}/${month}/${current.getFullYear()}`;
 
   useEffect(() => {
     const getInvoices = async () => {
@@ -25,7 +36,7 @@ const DisplayInvoices = (props) => {
             }
           )
           .then((response) => {
-            setInvoices(response.data.data.reverse())
+            setInvoices(response.data.data)
             setFilteredInvoices(response.data.data.reverse())
             console.log(response.data)
           })
@@ -71,12 +82,12 @@ const DisplayInvoices = (props) => {
           <h3 className="displayInvoices__heading">Invoices List</h3>
           <Row className="justify-content-center mb-5">
             <Col lg="11" className="displayInvoices__topSection">
-              <Form.Label>Search by Keyword</Form.Label>
+              <Form.Label>Filter by Keyword</Form.Label>
               <Form onSubmit={handleFilter}>
                 <Form.Control
                   type="text"
                   value={filterKeyword}
-                  placeholder="Type search keyword..."
+                  placeholder="Type filter keyword..."
                   className="input"
                   onChange={(e) => setFilteredKeyword(e.target.value)}
                 />
@@ -97,8 +108,10 @@ const DisplayInvoices = (props) => {
                   <table className="displayInvoices__table mt-2">
                     <thead>
                       <tr>
+                        {props.role === "freelancer" ? <th>Invoice ID</th> : <></>}
                         <th>{props.role === "freelancer" ? "Business" : "Freelancer"}</th>
-                        <th>Due Date</th>
+                        {props.role === "freelancer" ? <></> : <th>Due Date</th>}
+                        <th>Email ID</th>
                         <th>Total Amount</th>
                         <th>Status</th>
                       </tr>
@@ -110,27 +123,33 @@ const DisplayInvoices = (props) => {
                         filteredInvoices.map(invoice => {
                           return (
                             <tr key={invoice.invoiceId}>
+                              {props.role === "freelancer" ? <td><Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>{invoice.invoiceId}</Link></td> : <></>}
                               <td>
                                 <Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>
                                   <div className="circle"></div>
                                   <div>
+                                    {invoice.creationDate === date && props.url === "business" ? 
+                                      <div className="newInvoice">
+                                        <img src={Flag} /> New Invoice
+                                      </div> 
+                                      : <></> 
+                                    }
                                     <div className="name">{props.role === "freelancer" ? invoice.businessName : invoice.freelancerName}</div>
                                     <span className="details">
-                                      {props.role === "freelancer" ? invoice.businessEmail : invoice.freelancerEmail}
-                                      <br />
-                                      #{invoice.invoiceId}
-                                      <br />
+                                      {props.role === "freelancer" ? <></> : <>#{invoice.invoiceId}<br /></>}
                                       Generated at : {invoice.creationDate}
                                     </span>
                                   </div>
                                 </Link>
                               </td>
-                              <td>{invoice.dueDate}</td>
+                              {props.role === "freelancer" ? <></> : <td>{invoice.dueDate}</td>}
+                              <td>{invoice.businessEmail}</td>
                               <td>${invoice.totalAmount}</td>
                               <td>
                                 <span className="cancel">{invoice.status === "cancel" ? "Cancel" : ""}</span>
                                 <span className="resolved">{invoice.status === "resolved" ? "Resolved" : ""}</span>
                                 <span className="pending">{invoice.status === "pending" ? "Pending" : ""}</span>
+                                {props.role === "freelancer" ? <><br />Invoice due on {invoice.dueDate}</> : <></>}
                               </td>
                             </tr>
                           );
