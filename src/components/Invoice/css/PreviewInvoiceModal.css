@@ -1,0 +1,118 @@
+.Modal .ModalContent {
+  background: #fff;
+  max-width: 600px;
+  border-radius: 16px;
+}
+@media (min-width: 768px) {
+  .Modal .ModalContent {
+    width: 600px;
+  }
+}
+.Modal .ModalContent .ModalHeader {
+  background: #1C448E;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 16px 16px 0 0;
+}
+.Modal .ModalContent .ModalHeader h4 {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
+}
+.Modal .ModalContent .ModalBody .label {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #97999B;
+  margin: 0;
+}
+.Modal .ModalContent .ModalBody .detail {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1A1A1A;
+}
+.Modal .ModalContent .ModalBody .ModalTable .ModalTable-header {
+  background: #F5F5F5;
+  border-radius: 6px 6px 0px 0px;
+  padding: 5px 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1A1A1A;
+}
+.Modal .ModalContent .ModalBody .ModalTable table {
+  width: 100%;
+}
+.Modal .ModalContent .ModalBody .ModalTable table thead th {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #97999B;
+  padding: 7px 5px;
+  border-bottom: 2px solid #F5F5F5;
+}
+.Modal .ModalContent .ModalBody .ModalTable table tbody tr td {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #1A1A1A;
+  padding: 8px 5px;
+  border-bottom: 2px solid #F5F5F5;
+}
+.Modal .ModalContent .ModalBody .ModalPaymentDetails .heading {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1A1A1A;
+  margin-top: 10px;
+}
+.Modal .ModalContent .ModalBody .ModalPaymentDetails .currency {
+  border-radius: 4px;
+  height: 29px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 5px 0;
+  color: #1A1A1A;
+}
+.Modal .ModalContent .ModalBody .ModalPaymentDetails .currency.FIAT {
+  background: #F5DF4D;
+}
+.Modal .ModalContent .ModalBody .ModalPaymentDetails .currency.BTC {
+  background: #F0C899;
+}
+.Modal .ModalContent .ModalBody .ModalPaymentDetails .currency.ETH {
+  background: #B8D1F6;
+}
+.Modal .ModalContent .ModalButtons input[type=checkbox] {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+}
+.Modal .ModalContent .ModalButtons .checkBoxText {
+  font-size: 14px;
+}
+.Modal .ModalContent .ModalButtons button {
+  border: none;
+  padding: 10px 24px;
+  margin: 0 5px;
+  background: #1C448E;
+  border-radius: 15px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration: none;
+}
+.Modal .ModalContent .ModalButtons button:disabled {
+  background: #97999B;
+}
+.Modal .ModalContent .ModalButtons .back {
+  background: #F5F5F5;
+  color: #97999B;
+}

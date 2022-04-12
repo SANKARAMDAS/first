@@ -82,6 +82,14 @@
 .displayInvoices .displayInvoices__table tbody {
   border: none;
 }
+.displayInvoices .displayInvoices__table tbody .modalButton {
+  border: none;
+  background: none;
+}
+.displayInvoices .displayInvoices__table tbody .business {
+  display: flex;
+  text-align: left;
+}
 .displayInvoices .displayInvoices__table tbody tr {
   background-color: #fff;
   font-size: 14px;
@@ -138,4 +146,17 @@ tr td:first-child {
 tr td:last-child {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.displayInvoices .Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
 }

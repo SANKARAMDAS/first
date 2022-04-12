@@ -5,6 +5,7 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import "./css/DisplayInvoices.css"
 import Filter from "./images/Filter.svg";
 import Flag from "./images/Flag.svg";
+import PreviewInvoiceModal from "./PreviewInvoiceModal";
 
 const DisplayInvoices = (props) => {
 
@@ -12,6 +13,8 @@ const DisplayInvoices = (props) => {
   const [filteredInvoices, setFilteredInvoices] = useState([])
   const [filterKeyword, setFilteredKeyword] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [modalInvoice, setModalInvoice] = useState({})
 
   const current = new Date();
   let month = "";
@@ -69,6 +72,11 @@ const DisplayInvoices = (props) => {
     setFilteredInvoices(f)
   }
 
+  const handleShowModal = (invoice) => {
+    setModalInvoice(invoice)
+    setShowModal(true)
+  }
+
   const renderInvoices = () => {
     if (isLoading) {
       return (
@@ -82,6 +90,7 @@ const DisplayInvoices = (props) => {
           <h3 className="displayInvoices__heading">Invoices List</h3>
           <Row className="justify-content-center mb-5">
             <Col lg="11" className="displayInvoices__topSection">
+              <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} />
               <Form.Label>Filter by Keyword</Form.Label>
               <Form onSubmit={handleFilter}>
                 <Form.Control
@@ -123,9 +132,9 @@ const DisplayInvoices = (props) => {
                         filteredInvoices.map(invoice => {
                           return (
                             <tr key={invoice.invoiceId}>
-                              {props.role === "freelancer" ? <td><Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>{invoice.invoiceId}</Link></td> : <></>}
+                              {props.role === "freelancer" ? <td><button className="modalButton" onClick={() => handleShowModal(invoice)}>{invoice.invoiceId}</button></td> : <></>}
                               <td>
-                                <Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>
+                                <button className="modalButton business" onClick={() => handleShowModal(invoice)}>
                                   <div className="circle"></div>
                                   <div>
                                     {invoice.creationDate === date && props.url === "business" ? 
@@ -140,7 +149,7 @@ const DisplayInvoices = (props) => {
                                       Generated at : {invoice.creationDate}
                                     </span>
                                   </div>
-                                </Link>
+                                </button>
                               </td>
                               {props.role === "freelancer" ? <></> : <td>{invoice.dueDate}</td>}
                               <td>{invoice.businessEmail}</td>
