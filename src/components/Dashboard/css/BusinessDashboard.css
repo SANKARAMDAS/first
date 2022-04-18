@@ -149,3 +149,21 @@ tr td:last-child {
 .BusinessDashboard .BusinessDashboard__freelancersTeam .name {
   margin: 10px 0 0 10px;
 }
+
+.BusinessDashboard .Modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+.BusinessDashboard .modalButton {
+  border: none;
+  background: none;
+  text-align: left;
+}

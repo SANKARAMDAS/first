@@ -7,6 +7,7 @@ import RightArrow from "./images/arrow.svg";
 import WalletIcon from "./images/wallet-outline.svg";
 import BTCIcon from "./images/Icon-BTC.svg";
 import ETHIcon from "./images/Icon-ETH.svg";
+import PreviewInvoiceModal from "../Invoice/PreviewInvoiceModal";
 
 const FreelancerDashboard = (props) => {
 
@@ -16,6 +17,8 @@ const FreelancerDashboard = (props) => {
   //const [BTCBalance, setBTCBalance] = useState(0.00);
   //const [ETHBalance, setETHBalance] = useState(0.00);
   const [businesses, setBusinesses] = useState();
+  const [showModal, setShowModal] = useState(false)
+  const [modalInvoice, setModalInvoice] = useState({})
 
   useEffect(() => {
     const getData = async () => {
@@ -50,6 +53,11 @@ const FreelancerDashboard = (props) => {
     getData()
   }, [])
 
+  const handleShowModal = (invoice) => {
+    setModalInvoice(invoice)
+    setShowModal(true)
+  }
+
   const renderTemplate = () => {
     if (isLoading) {
       return (
@@ -63,6 +71,7 @@ const FreelancerDashboard = (props) => {
           <h4 className="page-heading">Dashboard</h4>
           <Row className="justify-content-center">
             <Col className="px-2" lg="8" md="8" sm="12" xs="12">
+              <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
               <div className="FreelancerDashboard__recentInvoices">
                 <h5 className="FreelancerDashboard__recentInvoices-heading">Recent Invoices</h5>
                 {invoices.length === 0 ? (
@@ -80,7 +89,7 @@ const FreelancerDashboard = (props) => {
                             return (
                               <tr key={invoice.invoiceId}>
                                 <td>
-                                  <Link className="button" to={`/contractor/invoices/${invoice.invoiceId}`}>
+                                  <button className="modalButton" onClick={() => handleShowModal(invoice)}>
                                     <p className="name">{invoice.invoiceTitle}</p>
                                     <p className="details">
                                       Invoice ID : {invoice.invoiceId}
@@ -89,7 +98,7 @@ const FreelancerDashboard = (props) => {
                                         <span className="resolved">{invoice.status === "resolved" ? "Resolved" : ""}</span>
                                         <span className="pending">{invoice.status === "pending" ? "Pending" : ""}</span>
                                     </p>
-                                  </Link>
+                                  </button>
                                 </td>
                                 <td>
                                   <p className="name">{invoice.businessName}</p>

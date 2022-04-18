@@ -6,6 +6,7 @@ import "./css/DisplayInvoices.css"
 import Filter from "./images/Filter.svg";
 import Flag from "./images/Flag.svg";
 import PreviewInvoiceModal from "./PreviewInvoiceModal";
+import CreateInvoiceSlider from "./CreateInvoiceSlider";
 
 const DisplayInvoices = (props) => {
 
@@ -15,6 +16,7 @@ const DisplayInvoices = (props) => {
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [modalInvoice, setModalInvoice] = useState({})
+  const [sliderOpen, setSliderOpen] = useState(false)
 
   const current = new Date();
   let month = "";
@@ -90,7 +92,8 @@ const DisplayInvoices = (props) => {
           <h3 className="displayInvoices__heading">Invoices List</h3>
           <Row className="justify-content-center mb-5">
             <Col lg="11" className="displayInvoices__topSection">
-              <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} />
+              <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
+              <CreateInvoiceSlider show={sliderOpen} />
               <Form.Label>Filter by Keyword</Form.Label>
               <Form onSubmit={handleFilter}>
                 <Form.Control

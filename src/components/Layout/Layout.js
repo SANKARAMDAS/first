@@ -54,7 +54,7 @@ const Layout = (props) => {
             Logout
           </button>
         </div>
-        <main className="main" style={{ width: "100%", backgroundColor: "#DBDBDB" }}>{props.children}</main>
+        <main className="main" style={{ width: "100%", backgroundColor: "#F5F5F5" }}>{props.children}</main>
       </div>
     </div>
   )

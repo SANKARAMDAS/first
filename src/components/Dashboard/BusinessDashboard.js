@@ -6,6 +6,7 @@ import "./css/BusinessDashboard.css";
 import WalletIcon from "./images/wallet-outline.svg";
 import BTCIcon from "./images/Icon-BTC.svg";
 import ETHIcon from "./images/Icon-ETH.svg";
+import PreviewInvoiceModal from "../Invoice/PreviewInvoiceModal";
 
 const BusinessDashboard = (props) => {
 
@@ -15,6 +16,8 @@ const BusinessDashboard = (props) => {
   //const [BTCBalance, setBTCBalance] = useState(0.00);
   //const [ETHBalance, setETHBalance] = useState(0.00);
   const [freelancers, setFreelancers] = useState([]);
+  const [showModal, setShowModal] = useState(false)
+  const [modalInvoice, setModalInvoice] = useState({})
 
   useEffect(() => {
     const getData = async () => {
@@ -49,6 +52,11 @@ const BusinessDashboard = (props) => {
     getData()
   }, [])
 
+  const handleShowModal = (invoice) => {
+    setModalInvoice(invoice)
+    setShowModal(true)
+  }
+
   const renderTemplate = () => {
     if (isLoading) {
       return (
@@ -62,6 +70,7 @@ const BusinessDashboard = (props) => {
           <h4 className="page-heading">Dashboard</h4>
           <Row className="BusinessDashboard__walletBalance my-4 mx-1 justify-content-center">
             <Col className="BusinessDashboard__walletBalance-section" lg="4" md="6" xs="10">
+              <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
               <img className="BusinessDashboard__walletBalance-icon" src={WalletIcon} />
               <div className="mx-2">
                 <p className="BusinessDashboard__walletBalance-tagline">Wyre Wallet Balance</p>
@@ -104,16 +113,16 @@ const BusinessDashboard = (props) => {
                       {invoices.length === 0 ? (
                           <></>
                       ) : (
-                        invoices.map(invoice => {
+                        invoices.slice(0,3).map(invoice => {
                           return (
                             <tr key={invoice.invoiceId}>
                               <td>
-                                <Link className="button" to={`${props.url}/invoices/${invoice.invoiceId}`}>
+                                <button className="modalButton" onClick={() => handleShowModal(invoice)}>
                                   <p className="name"><b>{invoice.freelancerName}</b> sent an invoice {invoice.invoiceId}</p>
                                   <p className="details">
                                     Generated at : {invoice.creationDate}
                                   </p>
-                                </Link>
+                                </button>
                               </td>
                               <td className="status">${invoice.totalAmount}</td>
                               <td>
