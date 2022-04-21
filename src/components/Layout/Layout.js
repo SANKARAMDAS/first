@@ -36,11 +36,6 @@ const Layout = (props) => {
             <img src={invoice} alt="invoice" />
             Invoices
           </Link>
-          {
-            props.role === "freelancer"
-              ? <Link className="button" to={`${props.url}/create-invoice`}><img src={settings} alt="create-invoice" />Create Invoice</Link>
-              : <></>
-          }
           <Link className="button" to={`${props.url}/profile`}>
             <img src={profile} alt="profile" />
             Profile

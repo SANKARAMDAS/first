@@ -662,7 +662,7 @@ Many Thanks,\n`
 
 	return (
 		<>
-			<div className="d-flex justify-content-center align-items-center">
+			<div className="d-flex justify-content-center align-items-center CreateInvoice">
 				<div className="col-lg-7 col-md-7 col-12">
 					<div className="invoice-form-wrapper">
 						{step === 1 ? (

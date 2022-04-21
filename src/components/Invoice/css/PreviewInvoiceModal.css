@@ -116,3 +116,7 @@
   background: #F5F5F5;
   color: #97999B;
 }
+.Modal .ModalContent .ModalButtons .note {
+  color: #97999B;
+  font-size: 14px;
+}

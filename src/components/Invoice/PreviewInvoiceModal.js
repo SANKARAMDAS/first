@@ -85,8 +85,9 @@ const PreviewInvoiceModal = (props) => {
                   onChange={handleOnCheck}
                 /> <span className="checkBoxText">I accept the <a className="text-black" href="https://www.sendwyre.com/user-agreement/" target="_blank">Wyre User agreement</a>.</span>
               </div>
-              <button onClick={() => { history.push(`/business/invoices/${props.invoice.invoiceId}/pay/debit-card`) }} disabled={!isChecked}>Pay Now</button>
+              <button onClick={() => { history.push(`/business/invoices/${props.invoice.invoiceId}/pay/debit-card`) }} disabled="true">Pay Now</button>
               <button className="back" onClick={props.onClose}>Back</button>
+              <p className="mt-2 note">Note: Payment option is unavailable in Beta version</p>
             </div>
           )
         }

@@ -38,7 +38,7 @@
 .checkboxes input:checked {
   background-color: #1a1a1a;
 }
-.invoice-input {
+.CreateInvoice .invoice-input {
   background: #F5F5F5;
   border: 1px solid #E5E5E5;
   padding: 8px 14px;
@@ -155,7 +155,7 @@
 .product-input.quantity{
   width:40px;
 }
-.input-range {
+.CreateInvoice .input-range {
     margin-top: 40px;
     margin-bottom: 60px;
   }

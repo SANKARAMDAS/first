@@ -7,6 +7,7 @@ import Filter from "./images/Filter.svg";
 import Flag from "./images/Flag.svg";
 import PreviewInvoiceModal from "./PreviewInvoiceModal";
 import CreateInvoiceSlider from "./CreateInvoiceSlider";
+import Backdrop from "./Backdrop";
 
 const DisplayInvoices = (props) => {
 
@@ -50,8 +51,7 @@ const DisplayInvoices = (props) => {
           });
         setIsLoading(false)
     }
-
-  getInvoices()
+    getInvoices()
   }, [])
 
   const handleFilter = (e) => {
@@ -79,6 +79,14 @@ const DisplayInvoices = (props) => {
     setShowModal(true)
   }
 
+  const sliderToggle = () => {
+    setSliderOpen(!sliderOpen)
+  }
+
+  const backdropClickHandler = () => {
+    setSliderOpen(false)
+  }
+
   const renderInvoices = () => {
     if (isLoading) {
       return (
@@ -90,10 +98,11 @@ const DisplayInvoices = (props) => {
       return (
         <Container fluid className="displayInvoices">
           <h3 className="displayInvoices__heading">Invoices List</h3>
+          <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
+          <CreateInvoiceSlider onClose={() => setSliderOpen(false)} show={sliderOpen} email={props.email} />
+          {sliderOpen ? <Backdrop close={backdropClickHandler} /> : <></>}
           <Row className="justify-content-center mb-5">
             <Col lg="11" className="displayInvoices__topSection">
-              <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
-              <CreateInvoiceSlider show={sliderOpen} />
               <Form.Label>Filter by Keyword</Form.Label>
               <Form onSubmit={handleFilter}>
                 <Form.Control
@@ -105,7 +114,7 @@ const DisplayInvoices = (props) => {
                 />
                 <button type="submit"><img src={Filter} /> Filter</button>
                 {props.role === "freelancer" ?
-                  <Link className="displayInvoices__createNew" to="/contractor/create-invoice"><span className="plus">+</span> Create New</Link>
+                  <button className="displayInvoices__createNew" onClick={() => sliderToggle()}><span className="plus">+</span> Create New</button>
                   : <></>
                 }
               </Form>
