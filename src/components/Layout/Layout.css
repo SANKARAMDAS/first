@@ -1,6 +1,40 @@
 .layout .dashboard {
     display: flex;
 }
+.layout .dashboard .betaBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    background: #574AE2;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+.layout .dashboard .betaBar .tool-tip {
+    margin-left: 5px;
+}
+.layout .dashboard .betaBar .tool-tip img {
+    width: 18px;
+    height: 18px;
+}
+.layout .dashboard .betaBar .tool-tip .tool-tip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+.layout .dashboard .betaBar .tool-tip:hover .tool-tip-text {
+    visibility: visible;
+}
 .layout .dashboard .sidebar {
     position: fixed;
     display: flex;
@@ -31,7 +65,7 @@
     border-radius: 8px;
 }
 .layout .dashboard main {
-    padding: 20px;
+    padding: 0 0 20px 0;
 }
 .layout .dashboard .sidebar .button.logout-btn {
     border: none;
@@ -43,5 +77,5 @@
 }
 
 .layout .dashboard .main {
-    padding-left: 80px;
+    padding-left: 70px;
 }

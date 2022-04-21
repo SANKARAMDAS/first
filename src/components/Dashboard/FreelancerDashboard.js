@@ -70,7 +70,7 @@ const FreelancerDashboard = (props) => {
         <Container fluid className="FreelancerDashboard mb-5">
           <h4 className="page-heading">Dashboard</h4>
           <Row className="justify-content-center">
-            <Col className="px-2" lg="8" md="8" sm="12" xs="12">
+            <Col className="px-2" lg="8" md="12" sm="12" xs="12">
               <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
               <div className="FreelancerDashboard__recentInvoices">
                 <h5 className="FreelancerDashboard__recentInvoices-heading">Recent Invoices</h5>
@@ -140,7 +140,7 @@ const FreelancerDashboard = (props) => {
                 </div>
               </div>
             </Col>
-            <Col className="px-3" lg="4" md="4" sm="12" xs="12">
+            <Col className="px-3" lg="4" md="12" sm="12" xs="12">
               <div className="FreelancerDashboard__recentInvoices">
                 <h5 className="FreelancerDashboard__recentInvoices-heading">Binamite Wallet</h5>
                 <div className="FreelancerDashboard__wallet mt-3">

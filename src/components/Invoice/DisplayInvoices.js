@@ -102,21 +102,31 @@ const DisplayInvoices = (props) => {
           <CreateInvoiceSlider onClose={() => setSliderOpen(false)} show={sliderOpen} email={props.email} />
           {sliderOpen ? <Backdrop close={backdropClickHandler} /> : <></>}
           <Row className="justify-content-center mb-5">
-            <Col lg="11" className="displayInvoices__topSection">
+            <Col lg="11" md="12" sm="12" xs="12" className="displayInvoices__topSection">
               <Form.Label>Filter by Keyword</Form.Label>
               <Form onSubmit={handleFilter}>
-                <Form.Control
-                  type="text"
-                  value={filterKeyword}
-                  placeholder="Type filter keyword..."
-                  className="input"
-                  onChange={(e) => setFilteredKeyword(e.target.value)}
-                />
-                <button type="submit"><img src={Filter} /> Filter</button>
-                {props.role === "freelancer" ?
-                  <button className="displayInvoices__createNew" onClick={() => sliderToggle()}><span className="plus">+</span> Create New</button>
-                  : <></>
-                }
+                <Container className="p-0">
+                <Row>
+                  <Col lg="8" md="10" sm="12" xs="12">
+                    <Form.Control
+                      type="text"
+                      value={filterKeyword}
+                      placeholder="Type filter keyword..."
+                      className="input mt-3"
+                      onChange={(e) => setFilteredKeyword(e.target.value)}
+                    />
+                  </Col>
+                  <Col lg="2" md="2" sm="4" xs="6">
+                    <button type="submit" className="mt-3"><img src={Filter} /> Filter</button>
+                  </Col>
+                  <Col lg="2" md="4" sm="4" xs="6">
+                    {props.role === "freelancer" ?
+                      <button className="displayInvoices__createNew mt-3" onClick={() => sliderToggle()}><span className="plus">+</span> Create New</button>
+                      : <></>
+                    }
+                  </Col>
+                </Row>
+                </Container>
               </Form>
             </Col>
             <Col lg="11" className="mt-3">

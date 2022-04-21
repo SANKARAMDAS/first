@@ -51,7 +51,6 @@
   border-radius: 20px;
   padding: 0 24px;
   height: 48px;
-  width: 200px;
   margin-left:10px;
   border: none;
   color: #fff;
@@ -62,7 +61,14 @@
 .displayInvoices .displayInvoices__createNew .plus {
   color: #F5DF4D;
   margin-right: 10px;
-
+}
+@media (max-width: 768px) {
+  .displayInvoices .displayInvoices__topSection input {
+    width: 100%;
+  }
+  .displayInvoices .displayInvoices__createNew {
+    display: block;
+  }
 }
 .displayInvoices .displayInvoices__table {
   border-collapse: separate;
@@ -99,6 +105,14 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 21px;
+}
+@media (max-width: 768px) {
+  .displayInvoices .displayInvoices__table thead {
+    display: none;
+  }
+  .displayInvoices .displayInvoices__table tbody tr td {
+    display: block;
+  }
 }
 .displayInvoices .displayInvoices__table tbody tr td .newInvoice {
   color: #5BA967;

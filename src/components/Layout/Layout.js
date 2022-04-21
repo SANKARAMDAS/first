@@ -1,12 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import "./Layout.css";
 import dashboard from "./Icons/dashboard.svg";
 import invoice from "./Icons/invoice.svg";
 import profile from "./Icons/profile.svg";
 import settings from "./Icons/settings.svg";
 import logout from "./Icons/logout.svg";
+import question from "./Icons/question-mark.svg";
 
 const Layout = (props) => {
 
@@ -49,7 +51,14 @@ const Layout = (props) => {
             Logout
           </button>
         </div>
-        <main className="main" style={{ width: "100%", backgroundColor: "#F5F5F5" }}>{props.children}</main>
+        <main className="main" style={{ width: "100%", backgroundColor: "#F5F5F5" }}>
+          <Container fluid className="betaBar">
+            This is a beta version of Binamite. If you have some feedback let us know here. <span className="tool-tip"><img src={question} /> <span className="tool-tip-text">Binamite is currently in beta version. In beta version payment and payout methods are inactive.</span></span>
+          </Container>
+          <Container fluid className="py-4">
+            {props.children}
+          </Container>
+        </main>
       </div>
     </div>
   )

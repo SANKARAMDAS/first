@@ -195,6 +195,7 @@ const Auth = (props) => {
                 />
               </Form.Group>
               <button className="box__button" type="submit">Create an account</button>
+              {/*
               <GoogleLogin
                 clientId="110514586311-8ad5oqee3o0ef3lchqi7004jag9husjj.apps.googleusercontent.com"
                 render={(renderProps) => (
@@ -212,6 +213,7 @@ const Auth = (props) => {
                 onFailure={googleFailure}
                 cookiePolicy={'single_host_origin'}
               />
+              */}
             </Form>
           </>
         )
@@ -308,6 +310,7 @@ const Auth = (props) => {
               </Form.Group>
               <Link className="box__forgot-password" to={`${props.url}/forgot-password`} >Forgot Password?</Link>
               <button className="box__button" type="submit">Log in</button>
+              {/*
               <GoogleLogin
                 clientId="110514586311-8ad5oqee3o0ef3lchqi7004jag9husjj.apps.googleusercontent.com"
                 render={(renderProps) => (
@@ -325,6 +328,7 @@ const Auth = (props) => {
                 onFailure={googleFailure}
                 cookiePolicy={'single_host_origin'}
               />
+              */}
             </Form>
           </>
         )

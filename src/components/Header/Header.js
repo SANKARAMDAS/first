@@ -32,16 +32,18 @@ const Header = () => {
   return (
     <Container fluid>
       <Row className="Header justify-content-between">
-        <Col lg="2">
+        <Col lg="2" md="3" sm="6" xs="6">
           <Link to="/"><h4>Binamite</h4></Link>
         </Col>
+        {/*
         <Col className="center" lg="8">
           <div className="menu">
             <Link to="/">Apps</Link>
             <Link to="/contact-us">Contact Us</Link>
           </div>
         </Col>
-        <Col className="right" lg="2">
+        */}
+        <Col className="right" lg="2" md="3" sm="6" xs="6">
           <div className="auth">
             {renderLink()}
           </div>
