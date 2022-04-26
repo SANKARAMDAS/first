@@ -430,7 +430,7 @@ Many Thanks,\n`
                     onChange={handleClientDetails("name")}
                     value={clientValues["name"]}
                     className="invoice-input"
-                    maxLength="30"
+                    maxLength=" 30"
                   />
                 </Form.Group>
               </Col>
