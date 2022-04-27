@@ -9,6 +9,7 @@ import profile from "./Icons/profile.svg";
 import settings from "./Icons/settings.svg";
 import logout from "./Icons/logout.svg";
 import question from "./Icons/question-mark.svg";
+import payoutmethods from "./Icons/Payment-method-outline.svg";
 
 const Layout = (props) => {
 
@@ -38,6 +39,11 @@ const Layout = (props) => {
             <img src={invoice} alt="invoice" />
             Invoices
           </Link>
+          {
+            props.role === "freelancer"
+              ? <Link className="button" to={`${props.url}/payout`}><img src={payoutmethods} alt="payout-method" />Payout Methods</Link>
+              : <></>
+          }
           <Link className="button" to={`${props.url}/profile`}>
             <img src={profile} alt="profile" />
             Profile

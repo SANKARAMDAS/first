@@ -8,6 +8,7 @@ import DisplayInvoices from '../Invoice/DisplayInvoices'
 import CreateInvoice from '../Invoice/CreateInvoice'
 import Layout from '../Layout/Layout';
 import { Route, useRouteMatch } from 'react-router-dom';
+import WirePayout from '../PayoutMethods/WirePayout';
 
 const ContractorRoutes = () => {
 
@@ -33,6 +34,9 @@ const ContractorRoutes = () => {
                     </Route>
                     <Route path={`${path}/create-invoice`} exact >
                         <CreateInvoice email={userAuth.email} />
+                    </Route>
+                    <Route path={`${path}/payout`} exact >
+                        <WirePayout email={userAuth.email} role={userAuth.role} url={url}/>
                     </Route>
                     <Route path={`${path}/profile`} exact >
                         <Profile email={userAuth.email} role={userAuth.role} />

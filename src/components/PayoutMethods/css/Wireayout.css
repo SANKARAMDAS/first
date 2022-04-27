@@ -1,0 +1,54 @@
+.paymentDebitCard {
+    margin: 7px;
+  }
+  .paymentDebitCard .heading {
+    font-weight: 650;
+    font-size: 28px;
+  }
+  .paymentDebitCard .sub-heading {
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .paymentDebitCard .tabs {
+    display: flex;
+  }
+  .paymentDebitCard .tabs .tab {
+    padding: 5px 20px;
+    border-radius: 8px;
+    background: #F5F5F5;
+    border: 2px solid #E5E5E5;
+    text-decoration: none;
+    color: #000;
+  }
+  .paymentDebitCard .tabs .active {
+    background-color: #fff;
+    border: none;
+    border-radius: 8px 8px 0 0;
+  }
+  .paymentDebitCard .contentArea {
+    background-color: #fff;
+    padding: 40px;
+  }
+  .paymentDebitCard .contentArea label {
+    font-size: 14px;
+  }
+  .paymentDebitCard .contentArea .input {
+    background: #F5F5F5;
+    border: 1px solid #E5E5E5;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  .paymentDebitCard .contentArea button {
+    border: none;
+    padding: 7px 25px;
+    margin: 10px;
+    background: #1C448E;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .paymentDebitCard .contentArea button:disabled {
+    background: gray;
+  }
