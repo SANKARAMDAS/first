@@ -95,7 +95,7 @@ const Wireayout = (props) => {
           </Col>
           <Col>
           <button className="btn1 btn-sm btn-def" onClick={() => sliderToggle1()}>
-          Withdraw
+          Withdraw Funds
           <span className="fa-solid fa-arrow-right"></span>
           {/* <i class="fa-solid fa-arrow-right"></i> */}
         </button>
