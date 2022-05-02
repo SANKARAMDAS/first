@@ -1,281 +1,110 @@
-import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
-import { Container, Row, Col, Form } from "react-bootstrap";
-import "./css/Wireayout.css";
+import React, { useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import axios from 'axios'
+import { Container, Row, Col, Form } from 'react-bootstrap'
+import './css/Wireayout.css'
+import bankicon from './Icons/bank-outline.svg'
+import bitcoin from './Icons/logo-bitcoin.svg'
+import WireSlider from './WireSlider'
+import WithdrawFund from './WithdrawFund'
 
-const WirePayout = (props) => {
+const Wireayout = (props) => {
+  const [sliderOpenn, setsliderOpenn] = useState(false)
+  const [sliderOpennwith, setsliderOpennWith] = useState(false)
 
-  const { invoiceId } = useParams();
-  const [debitCard, setDebitCard] = useState({
-   number: "",
-   year: "",
-   month: "",
-   cvv: ""
-  });
-  const [currency, setCurrency] = useState('');
-  const [givenName, setGivenName] = useState('');
-  const [familyName, setFamilyName] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState({
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: ""
-   });
-
-  const handleDebitCardChange = (e) => {
-    const { name, value } = e.target;
-    setDebitCard(debitCard => ({
-      ...debitCard,
-      [name]: value,
-    }));
+  const sliderToggle = () => {
+    setsliderOpenn(!sliderOpenn)
   }
 
-  const handleAddressChange = (e) => {
-    const { name, value } = e.target;
-    setAddress(address => ({
-      ...address,
-      [name]: value,
-    }));
+  const sliderToggle1 = () => {
+    setsliderOpennWith(!sliderOpennwith)
   }
 
-  const handleDebitCardDetailsSubmit = async (e) => {
-    e.preventDefault();
-
-    //const ip = await axios.get('https://geolocation-db.com/json/');
-    setIpAddress('127.0.0.1');
-
-    axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_API}/wyre-payment/debitCardQuote`,
-        {
-          invoiceId,
-          debitCard,
-          currency,
-          givenName,
-          familyName,
-          ipAddress,
-          phone,
-          address
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        alert('Invoice paid successfully!');
-      })
-      .catch(err => {
-        console.log(err);
-      })
+  const renderView = () => {
+    return (
+      <>
+        <div className="boxx">
+          <Row>
+            <Col>
+              <div className="box-1">
+                <div className="row">
+                  <div className="col-sm-8">
+                    <h3>Account Name : Abcde {}</h3>
+                    <h3>Bank Name : SBI {}</h3>
+                    <h3>Account Number : 00030321545787 {}</h3>
+                    <h3>SWIFT Code : SBIN07070{}</h3>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </>
+    )
   }
-  
-  return(
+
+  return (
     <div className="paymentDebitCard">
       <h3 className="pb-3 heading">Payment Methods</h3>
+      <WireSlider
+        onClose={() => setsliderOpenn(false)}
+        show={sliderOpenn}
+        email={props.email}
+      />
       <div className="tabs">
-        <div className="tab active">Card Payment</div>
-        <Link className="tab" to={`${props.url}/invoices/${invoiceId}/pay/ach-transfer`}>ACH</Link>
+        <div className="tab active">
+          <img src={bankicon} alt="bank-icon" /> Wire Payout{' '}
+        </div>
+        <Link className="tab" to={`${props.url}/payout`}>
+          <img src={bitcoin} alt="bit-coin" /> Crypto Payout
+        </Link>
       </div>
+      <WithdrawFund
+        onClose={() => setsliderOpennWith(false)}
+        show={sliderOpennwith}
+        email={props.email}
+      />
       <div className="contentArea">
-        <h4 className="sub-heading">Debit Card</h4>
-        <Form onSubmit={handleDebitCardDetailsSubmit}>
-          <Container>
-            <Row>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Card Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="number"
-                    className="input"
-                    value={debitCard.number}
-                    placeholder="eg: 0000-0000-0000-0000"
-                    onChange={handleDebitCardChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Name on Card</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="givenName"
-                    className="input"
-                    value={givenName}
-                    placeholder="Name"
-                    onChange={(e) => setGivenName(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Valid Till(Year)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="year"
-                    className="input"
-                    value={debitCard.year}
-                    placeholder="YY"
-                    onChange={handleDebitCardChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Valid Till(Month)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="month"
-                    className="input"
-                    value={debitCard.month}
-                    placeholder="MM"
-                    onChange={handleDebitCardChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>CVV</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="cvv"
-                    className="input"
-                    value={debitCard.cvv}
-                    placeholder="CVV Number"
-                    onChange={handleDebitCardChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              
-            </Row>
-            <Row>
-              <Col><h6 className="mt-3">Other Details</h6></Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Family Name</Form.Label>
-                  <Form.Control
-                  type="text"
-                  name="familyName"
-                  className="input"
-                  value={familyName}
-                  placeholder="Family Name"
-                  onChange={(e) => setFamilyName(e.target.value)}
-                />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="phone"
-                    className="input"
-                    value={phone}
-                    placeholder="Phone Number"
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Currency</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="currency"
-                    className="input"
-                    value={currency}
-                    placeholder="eg: USD"
-                    onChange={(e) => setCurrency(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col><h6 className="mt-3">Address</h6></Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Street</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="street"
-                    value={address.street}
-                    className="input"
-                    placeholder="Street"
-                    onChange={handleAddressChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="city"
-                    value={address.city}
-                    className="input"
-                    placeholder="City"
-                    onChange={handleAddressChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>State</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="state"
-                    value={address.state}
-                    className="input"
-                    placeholder="State"
-                    onChange={handleAddressChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="country"
-                    value={address.country}
-                    className="input"
-                    placeholder="Country"
-                    onChange={handleAddressChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group>
-                  <Form.Label>Postal Code</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="postalCode"
-                    value={address.postalCode}
-                    className="input"
-                    placeholder="Postal Code"
-                    onChange={handleAddressChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-          </Container>
-          <button type="submit">Pay Now</button>
-        </Form>
+        <h4 className="sub-heading">Your Account</h4>
+        {renderView()}
+        <h4 className="text">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s,
+        </h4>
+        <hr  style={{
+    color: '#000000',
+    backgroundColor: '#000000',
+    height: .5,
+    borderColor : '#000000'
+}}/>
+        <h4 className="sub-heading">Your Account</h4>
+        <button type="add" className="button" onClick={() => sliderToggle()}>
+          + Add Bank Account
+        </button>
+        <hr  style={{
+    color: '#000000',
+    backgroundColor: '#000000',
+    height: 1,
+    borderColor : '#000000'
+}}/>
+        <h4 className="sub-heading">Wallet Balance</h4>
+        <Row> 
+          <Col>
+          <h6>$ 20.0045 </h6>
+          </Col>
+          <Col>
+          <button className="btn1 btn-sm btn-def" onClick={() => sliderToggle1()}>
+          Withdraw
+          <span className="fa-solid fa-arrow-right"></span>
+          {/* <i class="fa-solid fa-arrow-right"></i> */}
+        </button>
+          </Col>
+        </Row>
+        
       </div>
     </div>
   )
 }
 
-export default WirePayout;
+export default Wireayout

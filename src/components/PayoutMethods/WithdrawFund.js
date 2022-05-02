@@ -2,34 +2,20 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Form, Table, Container, Row, Col } from 'react-bootstrap'
-import InputRange from 'react-input-range'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import dateFormat from 'dateformat'
-import { useReactToPrint } from 'react-to-print'
-import * as htmlToImage from 'html-to-image'
-import { jsPDF } from 'jspdf'
 import 'react-input-range/lib/css/index.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTrash,
-  faPlus,
-  faPrint,
-  faArrowLeft,
-} from '@fortawesome/free-solid-svg-icons'
-import './css/CryptoSlider.css'
+import './css/WithdrawFund.css'
 
 axios.defaults.withCredentials = true
 
-const CryptoSlider = (props) => {
+const WithdrawFund = (props) => {
   const history = useHistory()
-
-  const [mycrypro, setMyCrypto] = useState("");
 
   const [title, setTitle] = useState('select')
   const [usern, setUsern] = useState('type here...')
   const [wallteid, setWallteid] = useState('type here..')
-  
+  const [ifscCode, setIfscCode] = useState('type here....')
+
   const handleTitle = (e) => {
     setTitle(e.target.value)
   }
@@ -42,12 +28,16 @@ const CryptoSlider = (props) => {
     setWallteid(e.target.value)
   }
 
+  const handleIFscNm = (e) => {
+    setIfscCode(e.target.value)
+  }
+
   return (
     <div
       className={
         props.show
-          ? 'side-drawer open createInvoiceSlider'
-          : 'side-drawer createInvoiceSlider'
+          ? 'side-drawerrr open createInvoiceSliderrr'
+          : 'side-drawerrr createInvoiceSliderrr'
       }
     >
       <button className="mt-4 mx-4 backButton" onClick={props.onClose}>
@@ -57,11 +47,11 @@ const CryptoSlider = (props) => {
         <Container className="py-4 px-4">
           <Row>
             <Col>
-              <h5 className="createInvoiceSlider__heading">
-                Add Cryptocurrency
-              </h5>
-              <p className="createInvoiceSlider__content">
-                Save account details for Wire Transfers.
+              <h5 className="createInvoiceSliderrr__heading">Withdraw Funds</h5>
+              <p className="createInvoiceSliderrr__content">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s,
               </p>
             </Col>
           </Row>
@@ -71,7 +61,7 @@ const CryptoSlider = (props) => {
                 <Col lg="10" md="6" sm="12">
                   <Form.Group className="mb-3" controlId=" Invoice Title">
                     <Form.Label className="invoice-label">
-                      Select Currency:
+                      Enter Amount:
                     </Form.Label>
                     <Form.Control
                       onChange={handleTitle}
@@ -83,38 +73,42 @@ const CryptoSlider = (props) => {
                 </Col>
               </Row>
 
-              <Col lg="10" md="6" sm="12">
+              <Col lg="12" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
-                  <Form.Label className="invoice-label">Name: </Form.Label>
-                  <Form.Control
-                    onChange={handleUserName}
-                    value={usern}
-                    className="invoice-input"
-                    maxLength=" 30"
-                  />
-                </Form.Group>
-              </Col>
-
-              <Col lg="10" md="6" sm="12">
-                <Form.Group className="mb-3" controlId="name">
-                  <Form.Label className="invoice-label">Wallet ID :</Form.Label>
-                  <Form.Control
-                    onChange={handleId}
-                    className="invoice-input"
-                    value={wallteid}
-                    maxLength="35"
-                  />
+                  <Form.Label className="invoice-label">
+                    Enter Amount{' '}
+                  </Form.Label>
+                  <Row >
+                      <Col display="flex">
+                    <Form.Control
+                      onChange={handleUserName}
+                      value={usern}
+                      className="invoice-input"
+                      maxLength=" 30"
+                    />
+                    </Col>
+                    <Col display="flex">
+                    <button
+                className="i-button"
+                onClick={props.onClose}
+                type="submit"
+              >
+                Cancel
+              </button>
+                    </Col>
+                  </Row>
                 </Form.Group>
               </Col>
             </Col>
 
+           
             <Col>
               <button
                 className="invoice-button"
                 // onClick={handleSendInvoice}
                 type="submit"
               >
-                Save
+                Withdraw to Bank
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
               <button
@@ -132,4 +126,4 @@ const CryptoSlider = (props) => {
   )
 }
 
-export default CryptoSlider
+export default WithdrawFund

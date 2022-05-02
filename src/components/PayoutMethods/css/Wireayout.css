@@ -1,3 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+@media only screen and (min-width: 700px) {
+  .boxx {
+    margin: 0;
+    padding: 0px 0px 0px 0px;
+  }
+}
+
+.slidein {
+  display: none;
+  position: absolute;
+  background: #f5f5f5;
+  width: 550px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  padding: 40px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  overflow-x: scroll;
+}
+
+#loader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 10000;
+  background-color: transparent;
+  display: block;
+}
+
+#loader .spinner-border {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10001;
+}
+
+//Overlay
+.boxx .overlay {
+  display: none;
+  background: rgba(0, 0, 0, 0);
+  position: absolute;
+  border-color: red;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.boxx .box-1 {
+  padding: 20px 20px 40px 20px;
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+.boxx .red {
+  color: #d36480;
+}
+
+/* .container-fluid{
+    padding: 50px 50px 50px 100px;
+} */
+
+.boxx h1 {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2rem !important;
+  line-height: 43px;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+
+.boxx h2 {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.5rem !important;
+  line-height: 43px;
+  color: #1a1a1a;
+}
+
+.boxx h3 {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.6rem !important;
+  line-height: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: black;
+  margin-top: 8px !important;
+}
+
+.boxx p {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 20px;
+  color: #1a1a1a;
+  padding-top: 0px !important;
+}
+
+.boxx .circle {
+  position: static;
+  width: 110px;
+  height: 110px;
+  border-radius: 100%;
+
+  background: #f5f5f5;
+}
+
+.boxx a {
+  color: #574ae2;
+  text-decoration: none !important;
+}
+
+.boxx a:hover {
+  color: #574ae2;
+  text-decoration: none !important;
+}
+
+/* .container-fluid{
+  padding: 0px 150px 0px 150px;
+} */
+
+.boxx i {
+  margin-right: 6px;
+}
+
+
+.skill {
+  padding: 5px 5px 5px 10px;
+  background-color: rgb(233, 232, 232);
+  border-radius: 6px;
+  margin-right: 5px;
+  margin-top: 20px !important;
+  line-height: 35px;
+}
+
+#skills {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
 .paymentDebitCard {
     margin: 7px;
   }
@@ -29,6 +179,35 @@
     background-color: #fff;
     padding: 40px;
   }
+
+  .paymentDebitCard .contentArea .text{
+    background-color: #fff;
+    padding: 40px;
+  }
+
+  .paymentDebitCard .contentArea .btn1 {
+    border: none;
+  padding: 7px 25px;
+  margin: 10px;
+  background: black;
+  border-radius: 15px;
+  color: yellow;
+  font-weight: 600;
+  }
+
+  .paymentDebitCard .contentArea .text {
+    font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.6rem !important;
+  line-height: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #97999b;
+  margin-top: 8px !important;
+  padding: 0;
+  }
+
   .paymentDebitCard .contentArea label {
     font-size: 14px;
   }

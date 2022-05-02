@@ -22,7 +22,6 @@ const WirePayout = (props) => {
     setSliderOpen(!sliderOpen)
   }
 
-  const { invoiceId } = useParams()
 
   const renderView = () => {
     return (
@@ -86,7 +85,8 @@ const WirePayout = (props) => {
         <div className="tabs">
           <Link
             className="tab"
-            to={`${props.url}/invoices/${invoiceId}/pay/debit-card`}
+            to={`${props.url}/Wireayout`}
+
           >
             <img src={bankicon} alt="bank-icon" /> Wire Payout
           </Link>

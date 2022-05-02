@@ -2,34 +2,20 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Form, Table, Container, Row, Col } from 'react-bootstrap'
-import InputRange from 'react-input-range'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import dateFormat from 'dateformat'
-import { useReactToPrint } from 'react-to-print'
-import * as htmlToImage from 'html-to-image'
-import { jsPDF } from 'jspdf'
 import 'react-input-range/lib/css/index.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTrash,
-  faPlus,
-  faPrint,
-  faArrowLeft,
-} from '@fortawesome/free-solid-svg-icons'
-import './css/CryptoSlider.css'
+import './css/WireSlider.css'
 
 axios.defaults.withCredentials = true
 
-const CryptoSlider = (props) => {
+const WireSlider = (props) => {
   const history = useHistory()
-
-  const [mycrypro, setMyCrypto] = useState("");
 
   const [title, setTitle] = useState('select')
   const [usern, setUsern] = useState('type here...')
   const [wallteid, setWallteid] = useState('type here..')
-  
+  const [ifscCode, setIfscCode] = useState('type here....')
+
   const handleTitle = (e) => {
     setTitle(e.target.value)
   }
@@ -42,12 +28,16 @@ const CryptoSlider = (props) => {
     setWallteid(e.target.value)
   }
 
+  const handleIFscNm = (e) => {
+    setIfscCode(e.target.value)
+  }
+
   return (
     <div
       className={
         props.show
-          ? 'side-drawer open createInvoiceSlider'
-          : 'side-drawer createInvoiceSlider'
+          ? 'side-drawerr open createInvoiceSliderr'
+          : 'side-drawerr createInvoiceSliderr'
       }
     >
       <button className="mt-4 mx-4 backButton" onClick={props.onClose}>
@@ -57,11 +47,9 @@ const CryptoSlider = (props) => {
         <Container className="py-4 px-4">
           <Row>
             <Col>
-              <h5 className="createInvoiceSlider__heading">
-                Add Cryptocurrency
-              </h5>
-              <p className="createInvoiceSlider__content">
-                Save account details for Wire Transfers.
+              <h5 className="createInvoiceSliderr__heading">Add Account</h5>
+              <p className="createInvoiceSliderr__content">
+                Save Account details for Wire Transfers.
               </p>
             </Col>
           </Row>
@@ -71,7 +59,7 @@ const CryptoSlider = (props) => {
                 <Col lg="10" md="6" sm="12">
                   <Form.Group className="mb-3" controlId=" Invoice Title">
                     <Form.Label className="invoice-label">
-                      Select Currency:
+                      Bank Name:
                     </Form.Label>
                     <Form.Control
                       onChange={handleTitle}
@@ -85,7 +73,9 @@ const CryptoSlider = (props) => {
 
               <Col lg="10" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
-                  <Form.Label className="invoice-label">Name: </Form.Label>
+                  <Form.Label className="invoice-label">
+                    Account Number{' '}
+                  </Form.Label>
                   <Form.Control
                     onChange={handleUserName}
                     value={usern}
@@ -97,7 +87,9 @@ const CryptoSlider = (props) => {
 
               <Col lg="10" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
-                  <Form.Label className="invoice-label">Wallet ID :</Form.Label>
+                  <Form.Label className="invoice-label">
+                    Swift Code :
+                  </Form.Label>
                   <Form.Control
                     onChange={handleId}
                     className="invoice-input"
@@ -106,6 +98,24 @@ const CryptoSlider = (props) => {
                   />
                 </Form.Group>
               </Col>
+              <p className="createInvoiceSliderr__content">
+                Required for International Transfers
+              </p>
+
+              <Col lg="10" md="6" sm="12">
+                <Form.Group className="mb-3" controlId="name">
+                  <Form.Label className="invoice-label">IFSC Code :</Form.Label>
+                  <Form.Control
+                    onChange={handleIFscNm}
+                    className="invoice-input"
+                    value={ifscCode}
+                    maxLength="35"
+                  />
+                </Form.Group>
+              </Col>
+              <p className="createInvoiceSliderr__content">
+                Required for Wire Transfers in India
+              </p>
             </Col>
 
             <Col>
@@ -132,4 +142,4 @@ const CryptoSlider = (props) => {
   )
 }
 
-export default CryptoSlider
+export default WireSlider
