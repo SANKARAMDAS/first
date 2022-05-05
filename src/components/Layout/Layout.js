@@ -75,8 +75,7 @@ const Layout = (props) => {
             <span className="tool-tip">
               <img src={question} />{' '}
               <span className="tool-tip-text">
-                Binamite is currently in beta version. In beta version payment
-                and payout methods are inactive.
+                Binamite is currently in beta version.
               </span>
             </span>
           </Container>
