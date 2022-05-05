@@ -54,14 +54,14 @@ const DebitCard = (props) => {
   const handleDebitCardDetailsSubmit = async (e) => {
     e.preventDefault();
 
-    axios.get('http://ip-api.com/json')
+    axios.get('https://geolocation-db.com/json/')
     .then(res => {
       console.log(res);
+      setIpAddress(res.IPv4);
     })
     .catch(err => {
       console.log(err);
     })
-    setIpAddress('127.0.0.1');
 
     axios
       .post(
