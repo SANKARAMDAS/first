@@ -18,6 +18,7 @@ import {
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import './css/CryptoSlider.css'
+import { ConstructorFragment } from 'ethers/lib/utils'
 
 axios.defaults.withCredentials = true
 
@@ -69,17 +70,15 @@ const CryptoSlider = (props) => {
             <Col lg="12">
               <Row>
                 <Col lg="10" md="6" sm="12">
-                  <Form.Group className="mb-3" controlId=" Invoice Title">
-                    <Form.Label className="invoice-label">
-                      Select Currency: 
-                    </Form.Label>
-                    <Form.Control
-                      onChange={handleTitle}
-                      className="invoice-input"
-                      value={title}
-                      maxLength="25"
-                    />
-                  </Form.Group>
+                <Form.Group className="mb-3" controlId="name">
+                <Form.Label className="invoice-label">Select Currency: </Form.Label>
+                    {/* <label style={styles.lbl}>Select Currency</label> */}
+                    <select className="form-select" placeholder="currency">
+                        <option>Select</option>
+                        <option>BTC</option>
+                        <option>ETH</option>
+                    </select>
+                </Form.Group>
                 </Col>
               </Row>
 
@@ -133,4 +132,4 @@ const CryptoSlider = (props) => {
   )
 }
 
-export default CryptoSlider
+export default CryptoSlider;
