@@ -3,10 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import "./css/DebitCard.css";
+import CardIcon from "./icons/Card.svg";
+import AuthModal from "./AuthModal";
+
+axios.defaults.withCredentials = true
 
 const DebitCard = (props) => {
 
   const { invoiceId } = useParams();
+  const [showModal, setShowModal] = useState(false)
   const [debitCard, setDebitCard] = useState({
    number: "",
    year: "",
@@ -24,7 +29,11 @@ const DebitCard = (props) => {
     state: "",
     postalCode: "",
     country: ""
-   });
+  });
+
+  const handleShowModal = () => {
+    setShowModal(true)
+  }
 
   const handleDebitCardChange = (e) => {
     const { name, value } = e.target;
@@ -45,8 +54,14 @@ const DebitCard = (props) => {
   const handleDebitCardDetailsSubmit = async (e) => {
     e.preventDefault();
 
-    //const ip = await axios.get('https://geolocation-db.com/json/');
-    setIpAddress('127.0.0.1');
+    axios.get('https://geolocation-db.com/json/')
+    .then(res => {
+      console.log(res);
+      setIpAddress(res.IPv4);
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
     axios
       .post(
@@ -64,7 +79,14 @@ const DebitCard = (props) => {
       )
       .then((res) => {
         console.log(res);
-        alert('Invoice paid successfully!');
+        axios
+        .post(
+          `${process.env.REACT_APP_BACKEND_API}/wyre-payment/getAuthorization`,
+          {invoiceId}
+        )
+        .then(res2 => {
+          setShowModal(true)
+        })
       })
       .catch(err => {
         console.log(err);
@@ -73,13 +95,16 @@ const DebitCard = (props) => {
   
   return(
     <div className="paymentDebitCard">
+      <AuthModal onClose={() => setShowModal(false)} show={showModal} invoiceId={invoiceId} />
       <h3 className="pb-3 heading">Payment Methods</h3>
       <div className="tabs">
-        <div className="tab active">Card Payment</div>
+        <div className="tab active"><img src={CardIcon} /> Card Payment</div>
+        {/*
         <Link className="tab" to={`${props.url}/invoices/${invoiceId}/pay/ach-transfer`}>ACH</Link>
+        */}
       </div>
       <div className="contentArea">
-        <h4 className="sub-heading">Debit Card</h4>
+        <h4 className="sub-heading">Card Details</h4>
         <Form onSubmit={handleDebitCardDetailsSubmit}>
           <Container>
             <Row>
