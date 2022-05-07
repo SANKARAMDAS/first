@@ -79,7 +79,7 @@ const WirePayout = (props) => {
 
   return (
     <>
-      <div className="paymentDebitCard">
+      <div className="payoutMethods">
         <h3 className="pb-3 heading">Payout Methods</h3>
         <CryptoSlider onClose={() => setSliderOpen(false)} show={sliderOpen} email={props.email} />
         <div className="tabs">

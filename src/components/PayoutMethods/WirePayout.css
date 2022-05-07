@@ -149,21 +149,21 @@
   hyphens: auto;
 }
 
-.paymentDebitCard {
+.payoutMethods {
   margin: 7px;
 }
-.paymentDebitCard .heading {
+.payoutMethods .heading {
   font-weight: 650;
   font-size: 28px;
 }
-.paymentDebitCard .sub-heading {
+.payoutMethods .sub-heading {
   font-weight: 600;
   font-size: 24px;
 }
-.paymentDebitCard .tabs {
+.payoutMethods .tabs {
   display: flex;
 }
-.paymentDebitCard .tabs .tab {
+.payoutMethods .tabs .tab {
   padding: 5px 20px;
   border-radius: 8px;
   background: #f5f5f5;
@@ -171,21 +171,21 @@
   text-decoration: none;
   color: #000;
 }
-.paymentDebitCard .tabs .active {
+.payoutMethods .tabs .active {
   background-color: #fff;
   border: none;
   border-radius: 8px 8px 0 0;
 }
-.paymentDebitCard .contentArea {
+.payoutMethods .contentArea {
   background-color: #fff;
   padding: 10px;
   border-radius: 16px;
   width: 60%;
 }
-.paymentDebitCard .contentArea label {
+.payoutMethods .contentArea label {
   font-size: 14px;
 }
-.paymentDebitCard .contentArea .input {
+.payoutMethods .contentArea .input {
   background: #f5f5f5;
   border: 1px solid #e5e5e5;
   font-size: 14px;
@@ -194,7 +194,7 @@
   display: inline-block;
 }
 
-.paymentDebitCard .contentArea .button {
+.payoutMethods .contentArea .button {
   border: 1px solid grey;
   color: blue;
   padding: 7px 25px;
@@ -203,7 +203,7 @@
   border-radius: 15px;
   font-weight: 600;
 }
-.paymentDebitCard .contentArea .boxxx .box-1 .row .col-sm-8 button {
+.payoutMethods .contentArea .boxxx .box-1 .row .col-sm-8 button {
   border: none;
   padding: 7px 25px;
   margin: 10px;
@@ -213,7 +213,7 @@
   font-weight: 600;
 }
 
-.paymentDebitCard .contentArea .boxxx .box-1 .row .col-sm-8 button .fa-solid{
+.payoutMethods .contentArea .boxxx .box-1 .row .col-sm-8 button .fa-solid{
   color: #F5DF4D;
   margin-right: 10px;
 }

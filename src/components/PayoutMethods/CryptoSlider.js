@@ -71,7 +71,7 @@ const CryptoSlider = (props) => {
                 <Col lg="10" md="6" sm="12">
                   <Form.Group className="mb-3" controlId=" Invoice Title">
                     <Form.Label className="invoice-label">
-                      Select Currency:
+                      Select Currency: 
                     </Form.Label>
                     <Form.Control
                       onChange={handleTitle}
@@ -128,6 +128,7 @@ const CryptoSlider = (props) => {
           </Row>
         </Container>
       </Form>
+      
     </div>
   )
 }
