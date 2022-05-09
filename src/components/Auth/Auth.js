@@ -134,6 +134,11 @@ const Auth = (props) => {
       .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleLogin`, { tokenId: tokenIdLocal })
       .then((response) => {
         console.log(response);
+        if (response.data.role === "freelancer") {
+          history.push('/contractor')
+        } else {
+          history.push('/business')
+        }
       }).catch((err) => {
         console.log(err)
       })
