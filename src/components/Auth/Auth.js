@@ -73,7 +73,12 @@ const Auth = (props) => {
         })
     } else {
       axios
-        .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleSignup`, { name, email, role })
+        .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleSignup`,
+        {
+          role,
+          name,
+          email
+        })
         .then((res) => {
           console.log(res);
           setRenderForm("login")
@@ -105,7 +110,7 @@ const Auth = (props) => {
       })
   }
 
-  const googleSuccessRegister = async (res) => {
+  const googleSignUp = async (res) => {
     const tokenIdLocal = res.tokenId;
     axios
       .post(`${process.env.REACT_APP_BACKEND_API}/google-api/verifyEmailGoogleAuth`, { tokenId: tokenIdLocal })
@@ -122,13 +127,18 @@ const Auth = (props) => {
       })
   }
 
-  const googleSuccess = async (res) => {
+  const googleSignIn = async (res) => {
     const tokenIdLocal = res.tokenId;
     axios.defaults.withCredentials = true;
     axios
       .post(`${process.env.REACT_APP_BACKEND_API}/google-api/googleLogin`, { tokenId: tokenIdLocal })
       .then((response) => {
         console.log(response);
+        if (response.data.role === "freelancer") {
+          history.push('/contractor')
+        } else {
+          history.push('/business')
+        }
       }).catch((err) => {
         console.log(err)
       })
@@ -195,7 +205,6 @@ const Auth = (props) => {
                 />
               </Form.Group>
               <button className="box__button" type="submit">Create an account</button>
-              {/*
               <GoogleLogin
                 clientId="110514586311-8ad5oqee3o0ef3lchqi7004jag9husjj.apps.googleusercontent.com"
                 render={(renderProps) => (
@@ -209,11 +218,10 @@ const Auth = (props) => {
                     <span>Sign up with Google</span>
                   </button>
                 )}
-                onSuccess={googleSuccessRegister}
+                onSuccess={googleSignUp}
                 onFailure={googleFailure}
                 cookiePolicy={'single_host_origin'}
               />
-              */}
             </Form>
           </>
         )
@@ -310,7 +318,6 @@ const Auth = (props) => {
               </Form.Group>
               <Link className="box__forgot-password" to={`${props.url}/forgot-password`} >Forgot Password?</Link>
               <button className="box__button" type="submit">Log in</button>
-              {/*
               <GoogleLogin
                 clientId="110514586311-8ad5oqee3o0ef3lchqi7004jag9husjj.apps.googleusercontent.com"
                 render={(renderProps) => (
@@ -324,11 +331,10 @@ const Auth = (props) => {
                     <span>Log in with Google</span>
                   </button>
                 )}
-                onSuccess={googleSuccess}
+                onSuccess={googleSignIn}
                 onFailure={googleFailure}
                 cookiePolicy={'single_host_origin'}
               />
-              */}
             </Form>
           </>
         )
