@@ -9,28 +9,62 @@ import './css/WireSlider.css'
 axios.defaults.withCredentials = true
 
 const WireSlider = (props) => {
-  const history = useHistory()
 
-  const [title, setTitle] = useState('select')
-  const [usern, setUsern] = useState('type here...')
-  const [wallteid, setWallteid] = useState('type here..')
-  const [ifscCode, setIfscCode] = useState('type here....')
 
-  const handleTitle = (e) => {
-    setTitle(e.target.value)
-  }
+  const [usrname, setUserName] = useState('');
+  const [accname, setAccname] = useState('');
+  const [swiftcode, setSwiftCode] = useState('');
+  const [ifscCode, setIfscCode] = useState('');
+  const [message, setMessage] = useState("");
 
-  const handleUserName = (e) => {
-    setUsern(e.target.value)
-  }
+  const handleUsrnm = (e) => {
+    setUserName(e.target.value)
+  };
 
-  const handleId = (e) => {
-    setWallteid(e.target.value)
-  }
+  const handleAccName = (e) => {
+    setAccname(e.target.value)
+  };
 
-  const handleIFscNm = (e) => {
+  const handleSwiftcode = (e) => {
+    setSwiftCode(e.target.value)
+  };
+
+  const handleIFscCode = (e) => {
     setIfscCode(e.target.value)
-  }
+  };
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const backendObj = {
+
+      name: usrname,
+      accountNumber: accname,
+      swiftBic: swiftcode,
+    };
+
+    console.log('Backendobj: ');
+    console.log(backendObj);
+
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_API}/wyre-payment/createSwiftPaymentMethod`,
+        backendObj
+      )
+      .then((response) => {
+        console.log(response);
+        alert('User details update successfully');
+      })
+      .catch((err) => {
+        console.log('Error: ',err);
+      });
+    }).catch((error) => {
+      console.log(error)
+    })
+  };
 
   return (
     <div
@@ -40,9 +74,6 @@ const WireSlider = (props) => {
           : 'side-drawerr createInvoiceSliderr'
       }
     >
-      <button className="mt-4 mx-4 backButton" onClick={props.onClose}>
-        &#60; Back
-      </button>
       <Form>
         <Container className="py-4 px-4">
           <Row>
@@ -59,13 +90,14 @@ const WireSlider = (props) => {
                 <Col lg="10" md="6" sm="12">
                   <Form.Group className="mb-3" controlId=" Invoice Title">
                     <Form.Label className="invoice-label">
-                      Bank Name:
+                      User Name:
                     </Form.Label>
                     <Form.Control
-                      onChange={handleTitle}
+                      onChange={handleUsrnm}
                       className="invoice-input"
-                      value={title}
+                      value={usrname}
                       maxLength="25"
+                      placeholder="type here"
                     />
                   </Form.Group>
                 </Col>
@@ -77,10 +109,11 @@ const WireSlider = (props) => {
                     Account Number{' '}
                   </Form.Label>
                   <Form.Control
-                    onChange={handleUserName}
-                    value={usern}
+                    onChange={handleAccName}
+                    value={accname}
                     className="invoice-input"
                     maxLength=" 30"
+                    placeholder="type here.."
                   />
                 </Form.Group>
               </Col>
@@ -91,10 +124,11 @@ const WireSlider = (props) => {
                     Swift Code :
                   </Form.Label>
                   <Form.Control
-                    onChange={handleId}
+                    onChange={handleSwiftcode}
                     className="invoice-input"
-                    value={wallteid}
+                    value={swiftcode}
                     maxLength="35"
+                    placeholder="type here.."
                   />
                 </Form.Group>
               </Col>
@@ -102,26 +136,35 @@ const WireSlider = (props) => {
                 Required for International Transfers
               </p>
 
-              <Col lg="10" md="6" sm="12">
+              {/* <Col lg="10" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
                   <Form.Label className="invoice-label">IFSC Code :</Form.Label>
                   <Form.Control
-                    onChange={handleIFscNm}
+                    onChange={handleIFscCode}
                     className="invoice-input"
                     value={ifscCode}
                     maxLength="35"
+                    placeholder="type here.."
                   />
                 </Form.Group>
-              </Col>
-              <p className="createInvoiceSliderr__content">
+              </Col> */}
+              {/* <p className="createInvoiceSliderr__content">
                 Required for Wire Transfers in India
-              </p>
+              </p> */}
             </Col>
-
-            <Col>
+            <hr  style={{
+    color: '#000000',
+    backgroundColor: '#000000',
+    height: .5,
+    borderColor : '#000000'
+}}/>
+          </Row>
+        </Container>
+      </Form>
+      <Col className="butt">
               <button
                 className="invoice-button"
-                // onClick={handleSendInvoice}
+                onClick={handleSubmit}
                 type="submit"
               >
                 Save
@@ -135,9 +178,7 @@ const WireSlider = (props) => {
                 Cancel
               </button>
             </Col>
-          </Row>
-        </Container>
-      </Form>
+            <div className="message">{message ? <p>{message}</p> : null}</div>
     </div>
   )
 }

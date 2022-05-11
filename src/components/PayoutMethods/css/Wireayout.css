@@ -148,21 +148,21 @@
   word-wrap: break-word;
   hyphens: auto;
 }
-.paymentDebitCard {
+.payoutWire {
     margin: 7px;
   }
-  .paymentDebitCard .heading {
+  .payoutWire .heading {
     font-weight: 650;
     font-size: 28px;
   }
-  .paymentDebitCard .sub-heading {
+  .payoutWire .sub-heading {
     font-weight: 600;
     font-size: 24px;
   }
-  .paymentDebitCard .tabs {
+  .payoutWire .tabs {
     display: flex;
   }
-  .paymentDebitCard .tabs .tab {
+  .payoutWire .tabs .tab {
     padding: 5px 20px;
     border-radius: 8px;
     background: #F5F5F5;
@@ -170,22 +170,24 @@
     text-decoration: none;
     color: #000;
   }
-  .paymentDebitCard .tabs .active {
+  .payoutWire .tabs .active {
     background-color: #fff;
     border: none;
     border-radius: 8px 8px 0 0;
   }
-  .paymentDebitCard .contentArea {
+  .payoutWire .contentArea {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    width: 60%;
+  }
+
+  .payoutWire .contentArea .text{
     background-color: #fff;
     padding: 40px;
   }
 
-  .paymentDebitCard .contentArea .text{
-    background-color: #fff;
-    padding: 40px;
-  }
-
-  .paymentDebitCard .contentArea .btn1 {
+  .payoutWire .contentArea .btn1 {
     border: none;
   padding: 7px 25px;
   margin: 10px;
@@ -195,7 +197,7 @@
   font-weight: 600;
   }
 
-  .paymentDebitCard .contentArea .text {
+  .payoutWire .contentArea .text {
     font-family: 'Rubik', sans-serif;
   font-style: normal;
   font-weight: 600;
@@ -208,10 +210,10 @@
   padding: 0;
   }
 
-  .paymentDebitCard .contentArea label {
+  .payoutWire .contentArea label {
     font-size: 14px;
   }
-  .paymentDebitCard .contentArea .input {
+  .payoutWire .contentArea .input {
     background: #F5F5F5;
     border: 1px solid #E5E5E5;
     font-size: 14px;
@@ -219,15 +221,15 @@
     margin-bottom: 10px;
     display: inline-block;
   }
-  .paymentDebitCard .contentArea button {
-    border: none;
-    padding: 7px 25px;
-    margin: 10px;
-    background: #1C448E;
-    border-radius: 15px;
-    color: #fff;
-    font-weight: 600;
+  .payoutWire .contentArea button {
+    border: 1px solid grey;
+  color: blue;
+  padding: 7px 25px;
+  margin: 10px;
+  background: none;
+  border-radius: 15px;
+  font-weight: 600;
   }
-  .paymentDebitCard .contentArea button:disabled {
+  .payoutWire .contentArea button:disabled {
     background: gray;
   }

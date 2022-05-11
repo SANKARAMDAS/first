@@ -133,7 +133,6 @@
   margin-right: 6px;
 }
 
-
 .skill {
   padding: 5px 5px 5px 10px;
   background-color: rgb(233, 232, 232);
@@ -149,21 +148,21 @@
   hyphens: auto;
 }
 
-.payoutMethods {
+.payoutCrypto {
   margin: 7px;
 }
-.payoutMethods .heading {
+.payoutCrypto .heading {
   font-weight: 650;
   font-size: 28px;
 }
-.payoutMethods .sub-heading {
+.payoutCrypto .sub-heading {
   font-weight: 600;
   font-size: 24px;
 }
-.payoutMethods .tabs {
+.payoutCrypto .tabs {
   display: flex;
 }
-.payoutMethods .tabs .tab {
+.payoutCrypto .tabs .tab {
   padding: 5px 20px;
   border-radius: 8px;
   background: #f5f5f5;
@@ -171,21 +170,21 @@
   text-decoration: none;
   color: #000;
 }
-.payoutMethods .tabs .active {
+.payoutCrypto .tabs .active {
   background-color: #fff;
   border: none;
   border-radius: 8px 8px 0 0;
 }
-.payoutMethods .contentArea {
+.payoutCrypto .contentArea {
   background-color: #fff;
-  padding: 10px;
+  padding: 40px;
   border-radius: 16px;
   width: 60%;
 }
-.payoutMethods .contentArea label {
+.payoutCrypto .contentArea label {
   font-size: 14px;
 }
-.payoutMethods .contentArea .input {
+.payoutCrypto .contentArea .input {
   background: #f5f5f5;
   border: 1px solid #e5e5e5;
   font-size: 14px;
@@ -194,7 +193,7 @@
   display: inline-block;
 }
 
-.payoutMethods .contentArea .button {
+.payoutCrypto .contentArea .button {
   border: 1px solid grey;
   color: blue;
   padding: 7px 25px;
@@ -203,17 +202,17 @@
   border-radius: 15px;
   font-weight: 600;
 }
-.payoutMethods .contentArea .boxxx .box-1 .row .col-sm-8 button {
+.payoutCrypto .contentArea .boxxx .box-1 .row .col-sm-8 button {
   border: none;
   padding: 7px 25px;
   margin: 10px;
   background: #000206;
   border-radius: 15px;
-  color: #F5DF4D;
+  color: #f5df4d;
   font-weight: 600;
 }
 
-.payoutMethods .contentArea .boxxx .box-1 .row .col-sm-8 button .fa-solid{
-  color: #F5DF4D;
+.payoutCrypto .contentArea .boxxx .box-1 .row .col-sm-8 button .fa-solid {
+  color: #f5df4d;
   margin-right: 10px;
 }

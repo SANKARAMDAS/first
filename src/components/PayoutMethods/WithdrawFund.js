@@ -11,26 +11,17 @@ axios.defaults.withCredentials = true
 const WithdrawFund = (props) => {
   const history = useHistory()
 
-  const [title, setTitle] = useState('select')
-  const [usern, setUsern] = useState('type here...')
-  const [wallteid, setWallteid] = useState('type here..')
-  const [ifscCode, setIfscCode] = useState('type here....')
+  const [title, setTitle] = useState('')
+  const [amount, setAmount] = useState('')
 
   const handleTitle = (e) => {
     setTitle(e.target.value)
   }
 
-  const handleUserName = (e) => {
-    setUsern(e.target.value)
+  const handleAmount = (e) => {
+    setAmount(e.target.value)
   }
 
-  const handleId = (e) => {
-    setWallteid(e.target.value)
-  }
-
-  const handleIFscNm = (e) => {
-    setIfscCode(e.target.value)
-  }
 
   return (
     <div
@@ -40,9 +31,6 @@ const WithdrawFund = (props) => {
           : 'side-drawerrr createInvoiceSliderrr'
       }
     >
-      <button className="mt-4 mx-4 backButton" onClick={props.onClose}>
-        &#60; Back
-      </button>
       <Form>
         <Container className="py-4 px-4">
           <Row>
@@ -68,6 +56,7 @@ const WithdrawFund = (props) => {
                       className="invoice-input"
                       value={title}
                       maxLength="25"
+                      placeholder="type here.."
                     />
                   </Form.Group>
                 </Col>
@@ -76,33 +65,35 @@ const WithdrawFund = (props) => {
               <Col lg="12" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
                   <Form.Label className="invoice-label">
-                    Enter Amount{' '}
+                    Enter Amount{''}
                   </Form.Label>
                   <Row >
                       <Col display="flex">
                     <Form.Control
-                      onChange={handleUserName}
-                      value={usern}
+                      onChange={handleAmount}
+                      value={amount}
                       className="invoice-input"
                       maxLength=" 30"
+                      placeholder="type amount"
                     />
                     </Col>
                     <Col display="flex">
                     <button
-                className="i-button"
-                onClick={props.onClose}
+                className="i-butt"
+                // onClick={props.onClose}
                 type="submit"
               >
-                Cancel
+                Max Amt.
               </button>
                     </Col>
                   </Row>
                 </Form.Group>
               </Col>
             </Col>
-
-           
-            <Col>
+          </Row>
+        </Container>
+      </Form>
+      <Col className="wire-withdraw-btn">
               <button
                 className="invoice-button"
                 // onClick={handleSendInvoice}
@@ -119,9 +110,6 @@ const WithdrawFund = (props) => {
                 Cancel
               </button>
             </Col>
-          </Row>
-        </Container>
-      </Form>
     </div>
   )
 }

@@ -25,19 +25,8 @@ axios.defaults.withCredentials = true
 const CryptoSlider = (props) => {
   const history = useHistory()
 
-  const [mycrypro, setMyCrypto] = useState("");
-
-  const [title, setTitle] = useState('select')
-  const [usern, setUsern] = useState('type here...')
-  const [wallteid, setWallteid] = useState('type here..')
+  const [wallteid, setWallteid] = useState('')
   
-  const handleTitle = (e) => {
-    setTitle(e.target.value)
-  }
-
-  const handleUserName = (e) => {
-    setUsern(e.target.value)
-  }
 
   const handleId = (e) => {
     setWallteid(e.target.value)
@@ -51,9 +40,7 @@ const CryptoSlider = (props) => {
           : 'side-drawer createInvoiceSlider'
       }
     >
-      <button className="mt-4 mx-4 backButton" onClick={props.onClose}>
-        &#60; Back
-      </button>
+    
       <Form>
         <Container className="py-4 px-4">
           <Row>
@@ -82,9 +69,9 @@ const CryptoSlider = (props) => {
                 </Col>
               </Row>
 
-              <Col lg="10" md="6" sm="12">
+              {/* <Col lg="10" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
-                  <Form.Label className="invoice-label">Name: </Form.Label>
+                  <Form.Label className="invoice-label">Username: </Form.Label>
                   <Form.Control
                     onChange={handleUserName}
                     value={usern}
@@ -92,7 +79,7 @@ const CryptoSlider = (props) => {
                     maxLength=" 30"
                   />
                 </Form.Group>
-              </Col>
+              </Col> */}
 
               <Col lg="10" md="6" sm="12">
                 <Form.Group className="mb-3" controlId="name">
@@ -101,13 +88,27 @@ const CryptoSlider = (props) => {
                     onChange={handleId}
                     className="invoice-input"
                     value={wallteid}
+                    placeholder="type here"
                     maxLength="35"
                   />
                 </Form.Group>
               </Col>
+              <p className="createInvoiceSlider__content">
+                Add Some info...
+              </p>
             </Col>
-
-            <Col>
+          </Row>
+          <hr  style={{
+    color: '#000000',
+    backgroundColor: '#000000',
+    height: .5,
+    borderColor : '#000000'
+}}/>
+        </Container>
+        
+      </Form>
+      
+      <Col className="but">
               <button
                 className="invoice-button"
                 // onClick={handleSendInvoice}
@@ -124,9 +125,6 @@ const CryptoSlider = (props) => {
                 Cancel
               </button>
             </Col>
-          </Row>
-        </Container>
-      </Form>
       
     </div>
   )

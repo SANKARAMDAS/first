@@ -29,7 +29,6 @@ const Wireayout = (props) => {
               <div className="box-1">
                 <div className="row">
                   <div className="col-sm-8">
-                    <h3>Account Name : Abcde {}</h3>
                     <h3>Bank Name : SBI {}</h3>
                     <h3>Account Number : 00030321545787 {}</h3>
                     <h3>SWIFT Code : SBIN07070{}</h3>
@@ -44,8 +43,8 @@ const Wireayout = (props) => {
   }
 
   return (
-    <div className="paymentDebitCard">
-      <h3 className="pb-3 heading">Payment Methods</h3>
+    <div className="payoutWire">
+      <h3 className="pb-3 heading">Payout Methods</h3>
       <WireSlider
         onClose={() => setsliderOpenn(false)}
         show={sliderOpenn}
