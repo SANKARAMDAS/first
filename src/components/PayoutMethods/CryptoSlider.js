@@ -32,10 +32,10 @@ const CryptoSlider = (props) => {
     setWallteid(e.target.value)
   }
 
-  let handleSubmit = text => async (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(text)
+    // console.log(text)
 
     const backendObj = {
       // bitcoin, 
