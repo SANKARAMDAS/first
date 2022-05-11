@@ -14,6 +14,7 @@ const Wireayout = (props) => {
 
   const [owner, setOwner] = useState("");
   const [name, setName] = useState("");
+  const [currency, setCurrency] = useState("")
 
   const sliderToggle = () => {
     setsliderOpenn(!sliderOpenn)
@@ -25,16 +26,31 @@ const Wireayout = (props) => {
 
   useEffect(() => {
     const getProfiledata = () => {
+    // const backendObj = {
+    //   bitcoin:  bitocin,
+    //   ethereum: ethereum,
+    // };
+
+    // console.log('Backendobj: ');
+    // console.log(backendObj);
+
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
       axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-payment/paymentMethods`)   //payment method
       .then(res => {
         console.log(res);
-        setOwner(res.data);
-        setName(res.data);
+        setOwner(res.data[0].status);
+        setName(res.data[0].name);
+        setCurrency(res.data[0].defaultCurrency);
       })
       .catch(err => {
         console.log(err);
       })
       // setIsLoading(false)
+    }).catch((error) => {
+      console.log(error)
+    })
     }
     getProfiledata()
   },[])
@@ -49,7 +65,7 @@ const Wireayout = (props) => {
                   <div className="col-sm-8">
                     <h3>Owner Name : {owner}</h3>
                     <h3>Account Number : {name}</h3>
-                    <h3>SWIFT Code : {}</h3>
+                    <h3>SWIFT Code : {currency}</h3>
                   </div>
                 </div>
               </div>

@@ -25,22 +25,12 @@ axios.defaults.withCredentials = true
 const CryptoSlider = (props) => {
 
   const [wallteid, setWallteid] = useState('');
-  const [crypto, setCrypto] = useState("Select"); 
-  const [bitocin, setBitcoin] = useState("bitcoin"); 
-  const [ethereum, setEthereum] = useState("ethereum"); 
-
+  const [crypto, setCrypto] = useState(" "); 
 
   const handleId = (e) => {
     setWallteid(e.target.value)
   }
 
-  const bitCo = (e) => {
-    setBitcoin(e.target.value)
-  }
-
-  const etheR = (e) => {
-    setEthereum(e.target.value)
-  }
 
   const crypTo = (e) => {
     setCrypto(e.target.value)
@@ -50,9 +40,12 @@ const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(text)
 
-    const backendObj = {
-      bitcoin:  bitocin,
-      ethereum: ethereum,
+    const backendObj = { email: props.email };
+    backendObj[crypto] = wallteid;
+
+    if (!crypto.length) {
+      alert("select wallet")
+      return
     };
 
     console.log('Backendobj: ');
@@ -107,9 +100,9 @@ const handleSubmit = async (e) => {
                 <Form.Label className="invoice-label">Select Currency: </Form.Label>
                     {/* <label style={styles.lbl}>Select Currency</label> */}
                     <select className="form-select" placeholder="currency" value={crypto} onChange={crypTo}>
-                        <option>Select</option>
-                        <option value= "bitcoin" onChange={bitCo}>BTC</option>
-                        <option value= "ethereum" onChange={etheR}>ETH</option>
+                        <option value=" ">Select</option>
+                        <option value= "bitcoin" >BTC</option>
+                        <option value= "ethereum" >ETH</option>
                     </select>
                 </Form.Group>
                 </Col>
