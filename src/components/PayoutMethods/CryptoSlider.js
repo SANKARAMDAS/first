@@ -23,24 +23,36 @@ import { ConstructorFragment } from 'ethers/lib/utils'
 axios.defaults.withCredentials = true
 
 const CryptoSlider = (props) => {
-  const history = useHistory()
 
   const [wallteid, setWallteid] = useState('');
   const [crypto, setCrypto] = useState("Select"); 
+  const [bitocin, setBitcoin] = useState("bitcoin"); 
+  const [ethereum, setEthereum] = useState("ethereum"); 
+
 
   const handleId = (e) => {
     setWallteid(e.target.value)
   }
 
-  let handleSubmit = async (e) => {
-    e.preventDefault();
+  const bitCo = (e) => {
+    setBitcoin(e.target.value)
+  }
 
+  const etheR = (e) => {
+    setEthereum(e.target.value)
+  }
+
+  const crypTo = (e) => {
+    setCrypto(e.target.value)
+  }
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
     // console.log(text)
 
     const backendObj = {
-      // bitcoin, 
-      // ethereum,
-      // walletid,
+      bitcoin:  bitocin,
+      ethereum: ethereum,
     };
 
     console.log('Backendobj: ');
@@ -94,10 +106,10 @@ const CryptoSlider = (props) => {
                 <Form.Group className="mb-3" controlId="name">
                 <Form.Label className="invoice-label">Select Currency: </Form.Label>
                     {/* <label style={styles.lbl}>Select Currency</label> */}
-                    <select className="form-select" placeholder="currency" value={crypto} onChange={e => setCrypto(e.target.value)}>
+                    <select className="form-select" placeholder="currency" value={crypto} onChange={crypTo}>
                         <option>Select</option>
-                        <option>BTC</option>
-                        <option>ETH</option>
+                        <option value= "bitcoin" onChange={bitCo}>BTC</option>
+                        <option value= "ethereum" onChange={etheR}>ETH</option>
                     </select>
                 </Form.Group>
                 </Col>

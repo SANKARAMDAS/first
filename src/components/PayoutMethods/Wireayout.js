@@ -25,7 +25,7 @@ const Wireayout = (props) => {
 
   useEffect(() => {
     const getProfiledata = () => {
-      axios.get(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`)
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-payment/paymentMethods`)   //payment method
       .then(res => {
         console.log(res);
         setOwner(res.data);
