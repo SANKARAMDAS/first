@@ -37,7 +37,7 @@ const WirePayout = (props) => {
                   <div className="col-sm-8">
                     <h3>Available : 2.000005 BTC {}</h3>
                     <h3>Wallet Address: XXXXXXXXXXXXX{}</h3>
-                    <button className="btn btn-sm btn-def" onClick={() => sliderToggle()}>
+                    <button className="btn btn-sm btn-def" >
                       Withdraw
                       <span className="fa-solid fa-arrow-right">
                       </span>
@@ -61,7 +61,7 @@ const WirePayout = (props) => {
                   <div className="col-sm-8">
                     <h3>Available : 0.4447 ETH</h3>
                     <h3>Wallet Address: XXXXXXXXXX</h3>
-                    <button className="btn btn-sm btn-def" onClick={() => sliderToggle()}>
+                    <button className="btn btn-sm btn-def" >
                       Withdraw
                       <i class="fa-solid fa-arrow-right"></i>
                     </button>

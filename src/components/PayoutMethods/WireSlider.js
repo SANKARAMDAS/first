@@ -14,7 +14,7 @@ const WireSlider = (props) => {
   const [usrname, setUserName] = useState('');
   const [accname, setAccname] = useState('');
   const [swiftcode, setSwiftCode] = useState('');
-  const [ifscCode, setIfscCode] = useState('');
+  // const [ifscCode, setIfscCode] = useState('');
   const [message, setMessage] = useState("");
 
   const handleUsrnm = (e) => {
@@ -29,15 +29,16 @@ const WireSlider = (props) => {
     setSwiftCode(e.target.value)
   };
 
-  const handleIFscCode = (e) => {
-    setIfscCode(e.target.value)
-  };
+  // const handleIFscCode = (e) => {
+  //   setIfscCode(e.target.value)
+  // };
 
-  let handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const backendObj = {
+    // console.log(text)
 
+    const backendObj = {
       name: usrname,
       accountNumber: accname,
       swiftBic: swiftcode,
@@ -90,7 +91,7 @@ const WireSlider = (props) => {
                 <Col lg="10" md="6" sm="12">
                   <Form.Group className="mb-3" controlId=" Invoice Title">
                     <Form.Label className="invoice-label">
-                      User Name:
+                      Owner Name:
                     </Form.Label>
                     <Form.Control
                       onChange={handleUsrnm}
@@ -178,7 +179,7 @@ const WireSlider = (props) => {
                 Cancel
               </button>
             </Col>
-            <div className="message">{message ? <p>{message}</p> : null}</div>
+            {/* <div className="message">{message ? <p>{message}</p> : null}</div> */}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import { Container, Row, Col, Form } from 'react-bootstrap'
@@ -12,6 +12,9 @@ const Wireayout = (props) => {
   const [sliderOpenn, setsliderOpenn] = useState(false)
   const [sliderOpennwith, setsliderOpennWith] = useState(false)
 
+  const [owner, setOwner] = useState("");
+  const [name, setName] = useState("");
+
   const sliderToggle = () => {
     setsliderOpenn(!sliderOpenn)
   }
@@ -20,6 +23,21 @@ const Wireayout = (props) => {
     setsliderOpennWith(!sliderOpennwith)
   }
 
+  useEffect(() => {
+    const getProfiledata = () => {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`)
+      .then(res => {
+        console.log(res);
+        setOwner(res.data);
+        setName(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      // setIsLoading(false)
+    }
+    getProfiledata()
+  },[])
   const renderView = () => {
     return (
       <>
@@ -29,9 +47,9 @@ const Wireayout = (props) => {
               <div className="box-1">
                 <div className="row">
                   <div className="col-sm-8">
-                    <h3>Bank Name : SBI {}</h3>
-                    <h3>Account Number : 00030321545787 {}</h3>
-                    <h3>SWIFT Code : SBIN07070{}</h3>
+                    <h3>Owner Name : {owner}</h3>
+                    <h3>Account Number : {name}</h3>
+                    <h3>SWIFT Code : {}</h3>
                   </div>
                 </div>
               </div>

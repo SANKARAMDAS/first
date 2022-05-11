@@ -25,12 +25,46 @@ axios.defaults.withCredentials = true
 const CryptoSlider = (props) => {
   const history = useHistory()
 
-  const [wallteid, setWallteid] = useState('')
-  
+  const [wallteid, setWallteid] = useState('');
+  const [crypto, setCrypto] = useState("Select"); 
 
   const handleId = (e) => {
     setWallteid(e.target.value)
   }
+
+  let handleSubmit = text => async (e) => {
+    e.preventDefault();
+
+    console.log(text)
+
+    const backendObj = {
+      // bitcoin, 
+      // ethereum,
+      // walletid,
+    };
+
+    console.log('Backendobj: ');
+    console.log(backendObj);
+
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_API}/auth/updateProfile`,
+        backendObj
+      )
+      .then((response) => {
+        console.log(response);
+        alert('User details update successfully');
+      })
+      .catch((err) => {
+        console.log('Error: ',err);
+      });
+    }).catch((error) => {
+      console.log(error)
+    })
+  };
 
   return (
     <div
@@ -60,7 +94,7 @@ const CryptoSlider = (props) => {
                 <Form.Group className="mb-3" controlId="name">
                 <Form.Label className="invoice-label">Select Currency: </Form.Label>
                     {/* <label style={styles.lbl}>Select Currency</label> */}
-                    <select className="form-select" placeholder="currency">
+                    <select className="form-select" placeholder="currency" value={crypto} onChange={e => setCrypto(e.target.value)}>
                         <option>Select</option>
                         <option>BTC</option>
                         <option>ETH</option>
@@ -111,7 +145,7 @@ const CryptoSlider = (props) => {
       <Col className="but">
               <button
                 className="invoice-button"
-                // onClick={handleSendInvoice}
+                onClick={handleSubmit}
                 type="submit"
               >
                 Save
