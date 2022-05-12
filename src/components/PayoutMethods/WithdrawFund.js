@@ -4,7 +4,10 @@ import { useHistory } from 'react-router-dom'
 import { Form, Table, Container, Row, Col } from 'react-bootstrap'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-input-range/lib/css/index.css'
+import {Modal, ModalHeader } from "reactstrap";
 import './css/WithdrawFund.css'
+import OTPInput, {ResendOTP} from "react-otp-input"
+// import OTPInput, { ResendOTP } from "otp-input-react";
 
 axios.defaults.withCredentials = true
 
@@ -13,6 +16,8 @@ const WithdrawFund = (props) => {
 
   const [title, setTitle] = useState('')
   const [amount, setAmount] = useState('')
+  const [modal, setModal] = useState(false)
+  const [OTP, setOTP] = useState("");
 
   const handleTitle = (e) => {
     setTitle(e.target.value)
@@ -21,7 +26,6 @@ const WithdrawFund = (props) => {
   const handleAmount = (e) => {
     setAmount(e.target.value)
   }
-
 
   return (
     <div
@@ -96,11 +100,12 @@ const WithdrawFund = (props) => {
       <Col className="wire-withdraw-btn">
               <button
                 className="invoice-button"
-                // onClick={handleSendInvoice}
+                onClick={() => setModal(true)}
                 type="submit"
               >
                 Withdraw to Bank
                 <i class="fa-solid fa-arrow-right"></i>
+                
               </button>
               <button
                 className="i-button"
@@ -110,6 +115,24 @@ const WithdrawFund = (props) => {
                 Cancel
               </button>
             </Col>
+            <Modal size= 'lg' isOpen={modal} toggle={() => setModal(!modal)}>
+             <ModalHeader>
+             {/* <OTPInput
+      value={OTP}
+      onChange={setOTP}
+      autoFocus
+      OTPLength={4}
+      otpType="number"
+      disabled={false}
+      secure
+    /> */}
+    <h1>Verification Code</h1>
+    <h2>Please enter the verification code sent to your mobile</h2>
+
+    
+    {/* <ResendOTP handelResendClick={() => console.log("Resend clicked")} /> */}
+             </ModalHeader>
+            </Modal>
     </div>
   )
 }

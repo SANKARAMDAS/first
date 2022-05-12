@@ -26,14 +26,6 @@ const Wireayout = (props) => {
 
   useEffect(() => {
     const getProfiledata = () => {
-    // const backendObj = {
-    //   bitcoin:  bitocin,
-    //   ethereum: ethereum,
-    // };
-
-    // console.log('Backendobj: ');
-    // console.log(backendObj);
-
     axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
       withCredentials: true
     }).then(() => {

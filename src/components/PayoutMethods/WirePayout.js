@@ -17,10 +17,111 @@ const WirePayout = (props) => {
   
   var $overlay = $('<div class="overlay"></div>')
 
+  const [wallteid, setWallteid] = useState('');
+  const [crypto, setCrypto] = useState(" ");
+  const [bitcoin, setBitcoin] = useState('');
+  const [ethereum, setEthereum] = useState('');
+  const [bitcoinbalance, setBitcoinbalance] = useState('');
+  const [ethereumbalance, setEthereumbalance] = useState('')
+  
+
  
   const sliderToggle = () => {
     setSliderOpen(!sliderOpen)
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(text)
+
+    const backendObj = {
+      // currency,
+    };
+
+    if (!crypto.length) {
+      alert("select wallet")
+      return
+    };
+
+    console.log('Backendobj: ');
+    console.log(backendObj);
+
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_API}/auth/updateProfile`,
+        backendObj
+      )
+      .then((response) => {
+        console.log(response);
+        alert('User details update successfully');
+      })
+      .catch((err) => {
+        console.log('Error: ',err);
+      });
+    }).catch((error) => {
+      console.log(error)
+    })
+  };
+
+  useEffect(() => {
+    const getProfiledata = () => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+        email: props.email
+      })
+      .then(res => {
+        setBitcoin(res.data.data.bitcoin)
+        setEthereum(res.data.data.ethereum)
+        console.log(res);
+        // if() {
+        //   setBitcoinbalance("0")
+        // }
+        
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      // setIsLoading(false)
+    }).catch((error) => {
+      console.log(error)
+    })
+    }
+    getProfiledata()
+  },[])
+
+  useEffect(() => {
+    const getEtheradd = () => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-general/getWallet`)
+      .then(res => {
+        setBitcoinbalance(res.data.availableBalances["BTC"]);
+        setEthereumbalance(res.data.availableBalances["ETH"]);
+        console.log(res);
+        if(!res.data.availableBalances["BTC"]) {
+          setBitcoinbalance("0")
+        }
+        if(!res.data.availableBalances["ETH"]){
+          setEthereumbalance("0")
+        }
+        
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      // setIsLoading(false)
+    }).catch((error) => {
+      console.log(error)
+    })
+    }
+    getEtheradd()
+  },[])
 
 
   const renderView = () => {
@@ -35,9 +136,10 @@ const WirePayout = (props) => {
                     <img src={bitcoinimg} alt="bit-coin-img" /> Bitcoin
                   </div>
                   <div className="col-sm-8">
-                    <h3>Available : 2.000005 BTC {}</h3>
-                    <h3>Wallet Address: XXXXXXXXXXXXX{}</h3>
-                    <button className="btn btn-sm btn-def" >
+                    <h3>Available : {bitcoinbalance} BTC</h3>
+                    <h3>Wallet Address: {bitcoin}</h3>
+                    <button className="btn btn-sm btn-def" onClick={handleSubmit}
+                type="submit">
                       Withdraw
                       <span className="fa-solid fa-arrow-right">
                       </span>
@@ -59,9 +161,10 @@ const WirePayout = (props) => {
                     <img src={ethcoinimg} alt="eth-coin-img" /> Ethereum
                   </div>
                   <div className="col-sm-8">
-                    <h3>Available : 0.4447 ETH</h3>
-                    <h3>Wallet Address: XXXXXXXXXX</h3>
-                    <button className="btn btn-sm btn-def" >
+                    <h3>Available : {ethereumbalance} ETH</h3>
+                    <h3>Wallet Address: {ethereum}</h3>
+                    <button className="btn btn-sm btn-def" onClick={handleSubmit}
+                type="submit">
                       Withdraw
                       <i class="fa-solid fa-arrow-right"></i>
                     </button>
@@ -91,7 +194,7 @@ const WirePayout = (props) => {
             <img src={bankicon} alt="bank-icon" /> Wire Payout
           </Link>
           <div className="tab active">
-            <img src={bitcoin} alt="bit-coin" /> Crypto Payout
+            <img src={bitcoin} alt="" /> Crypto Payout
           </div>
         </div>
         <div className="contentArea">
