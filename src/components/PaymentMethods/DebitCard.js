@@ -53,16 +53,17 @@ const DebitCard = (props) => {
 
   const handleDebitCardDetailsSubmit = async (e) => {
     e.preventDefault();
-
-    axios.get('https://geolocation-db.com/json/')
-    .then(res => {
-      console.log(res);
-      setIpAddress(res.IPv4);
+    setIpAddress("1.1.1.2");
+    console.log({
+      invoiceId,
+      debitCard,
+      currency,
+      givenName,
+      familyName,
+      ipAddress,
+      phone,
+      address
     })
-    .catch(err => {
-      console.log(err);
-    })
-
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_API}/wyre-payment/debitCardQuote`,
