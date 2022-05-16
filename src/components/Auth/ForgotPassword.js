@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Header from "../Header/Header";
 
 const ForgotPassword = () => {
+
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
@@ -14,6 +17,7 @@ const ForgotPassword = () => {
       .then((res) => {
         console.log(res);
         alert('Password Reset Link has been sent successfully to your email!');
+        history.push('/');
       })
       .catch(err => {
         console.log(err);

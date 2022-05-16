@@ -364,19 +364,23 @@ Many Thanks,\n`
     axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
       withCredentials: true
     }).then(() => {
-      axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`,
-        backendObj
-      )
-      .then((response) => {
-        console.log(response);
-        alert('The invoice has been sent to the client');
-        history.push('/contractor/invoices');
-      })
-      .catch((err) => {
-        console.log('Error: ',err);
-      });
+      if(items.length === 0) {
+        alert("Add product service details to proceed!");
+      } else {
+        axios
+        .post(
+          `${process.env.REACT_APP_BACKEND_API}/invoice/invoiceCreation`,
+          backendObj
+        )
+        .then((response) => {
+          console.log(response);
+          alert('The invoice has been sent to the client');
+          history.push('/contractor');
+        })
+        .catch((err) => {
+          console.log('Error: ',err);
+        });
+      }
     }).catch((error) => {
       console.log(error)
     })

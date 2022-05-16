@@ -5,6 +5,7 @@ import ContractorRoutes from './Contractor/ContractorRoutes'
 import BusinessRoutes from './Business/BusinessRoutes';
 import AuthRoutes from './Auth/AuthRoutes';
 import ManageRole from './ManageRole/ManageRole';
+import ResetPassword from './Auth/ResetPassword';
 import ContactUs from './ContactUs/ContactUs';
 import Test from './Test';
 
@@ -20,6 +21,9 @@ const App = () => {
         </Route>
         <Route path={`/confirm/:confirmationCode`}>
           <ManageRole />
+        </Route>
+        <Route path="/passwordreset/:token/:id">
+          <ResetPassword />
         </Route>
         <Route path="/contractor">
           <ContractorRoutes />
