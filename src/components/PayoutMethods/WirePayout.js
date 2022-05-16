@@ -10,6 +10,8 @@ import './WirePayout.css'
 import $ from 'jquery'
 import 'jquery-ui-dist/jquery-ui'
 import CryptoSlider from './CryptoSlider'
+import {Modal, ModalHeader } from "reactstrap";
+import OtpInput from "react-otp-input";
 
 const WirePayout = (props) => {
  
@@ -17,54 +19,65 @@ const WirePayout = (props) => {
   
   var $overlay = $('<div class="overlay"></div>')
 
-  const [wallteid, setWallteid] = useState('');
-  const [crypto, setCrypto] = useState(" ");
   const [bitcoin, setBitcoin] = useState('');
   const [ethereum, setEthereum] = useState('');
   const [bitcoinbalance, setBitcoinbalance] = useState('');
   const [ethereumbalance, setEthereumbalance] = useState('')
-  
+  const [modal, setModal] = useState(false)
 
- 
   const sliderToggle = () => {
     setSliderOpen(!sliderOpen)
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // console.log(text)
+  const [state, setState] = useState({
+    otp: ""
+  });
 
-    const backendObj = {
-      // currency,
-    };
+  const handleChange = (otp) => setState({ otp });
 
-    if (!crypto.length) {
-      alert("select wallet")
-      return
-    };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // console.log(text)
 
-    console.log('Backendobj: ');
-    console.log(backendObj);
+  //   const backendObj = {
+  //     // currency,
+  //   };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
-      withCredentials: true
-    }).then(() => {
-      axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_API}/auth/updateProfile`,
-        backendObj
-      )
-      .then((response) => {
-        console.log(response);
-        alert('User details update successfully');
-      })
-      .catch((err) => {
-        console.log('Error: ',err);
-      });
-    }).catch((error) => {
-      console.log(error)
-    })
-  };
+  //   // if (!crypto.length) {
+  //   //   alert("select wallet")
+  //   //   return
+  //   // };
+
+  //   console.log('Backendobj: ');
+  //   console.log(backendObj);
+
+  //   axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+  //     withCredentials: true
+  //   }).then(() => {
+  //     axios.post(`${process.env.REACT_APP_BACKEND_API}/payoutAuth/enable`,{
+  //       // is2faenabled: true
+  //     }).then(() =>  {
+  //       axios
+  //       .post(
+  //         `${process.env.REACT_APP_BACKEND_API}/auth/updateProfile`,
+  //         backendObj
+  //       )
+  //       .then((response) => {
+  //         console.log(response);
+  //         alert('User details update successfully');
+  //       })
+  //       .catch((err) => {
+  //         console.log('Error: ',err);
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
+  // };
 
   useEffect(() => {
     const getProfiledata = () => {
@@ -138,7 +151,7 @@ const WirePayout = (props) => {
                   <div className="col-sm-8">
                     <h3>Available : {bitcoinbalance} BTC</h3>
                     <h3>Wallet Address: {bitcoin}</h3>
-                    <button className="btn btn-sm btn-def" onClick={handleSubmit}
+                    <button className="btn btn-sm btn-def" onClick={() => setModal(true)}
                 type="submit">
                       Withdraw
                       <span className="fa-solid fa-arrow-right">
@@ -163,7 +176,7 @@ const WirePayout = (props) => {
                   <div className="col-sm-8">
                     <h3>Available : {ethereumbalance} ETH</h3>
                     <h3>Wallet Address: {ethereum}</h3>
-                    <button className="btn btn-sm btn-def" onClick={handleSubmit}
+                    <button className="btn btn-sm btn-def" onClick={() => setModal(true)}
                 type="submit">
                       Withdraw
                       <i class="fa-solid fa-arrow-right"></i>
@@ -174,6 +187,50 @@ const WirePayout = (props) => {
             </Col>
           </Row>
         </div>
+        <Modal size= 'lg' isOpen={modal} toggle={() => setModal(!modal)}>
+             <h1 className="hoding">Verification OTP</h1>
+             {/* <OtpInput
+                separator={
+                  <span>
+                    <strong>.</strong>
+                  </span>
+                }
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 1rem",
+                  fontSize: "2rem",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)"
+                }}
+              /> */}
+              <div className='modalClass'>
+
+<OtpInput 
+                value={state.otp}
+                justifyContent= "center"
+                // className="otp-input bg-white mx-2 text-lg focus:outline-none focus:shadow-outline border-gray-300 rounded-lg  block w-full appearance-none leading-normal"
+                onChange={handleChange}
+                numInputs={4}
+                separator={<span></span>}
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 1rem",
+                  fontSize: "2rem",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)"
+                }}
+              />
+
+</div>
+
+             <button
+                type="submit"
+              >
+                Verify
+              </button>
+            </Modal>
         {/* <button onClick={() => setView('create-payment-methods')}>Create Payout Method</button>
         {paymentMethods} */}
       </>

@@ -143,10 +143,10 @@ const WithdrawFund = (props) => {
               /> */}
               <div className='modalClass'>
 
-<OtpInput 
+              <OtpInput 
                 value={state.otp}
-                justifyContent= "center"
-                // className="otp-input bg-white mx-2 text-lg focus:outline-none focus:shadow-outline border-gray-300 rounded-lg  block w-full appearance-none leading-normal"
+                // justify-content= "center"
+                // className="otp-input bg-white mx-2 text-lg justify-content:center focus:outline-none focus:shadow-outline border-gray-300 rounded-lg  block w-full appearance-none leading-normal"
                 onChange={handleChange}
                 numInputs={4}
                 separator={<span></span>}
@@ -156,13 +156,16 @@ const WithdrawFund = (props) => {
                   margin: "0 1rem",
                   fontSize: "2rem",
                   borderRadius: 4,
-                  border: "1px solid rgba(0,0,0,0.3)"
+                  border: "1px solid rgba(0,0,0,0.3)",
+                  display: "flex",
+                  justifycontent: "center",
+                  
                 }}
               />
 
-</div>
+              </div>
 
-             <button
+             <button className='buttnClass'
                 type="submit"
               >
                 Verify

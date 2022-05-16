@@ -15,6 +15,7 @@ const Wireayout = (props) => {
   const [owner, setOwner] = useState("");
   const [name, setName] = useState("");
   const [currency, setCurrency] = useState("")
+  const [usdbal, setUsdBal] = useState("")
 
   const sliderToggle = () => {
     setsliderOpenn(!sliderOpenn)
@@ -23,6 +24,30 @@ const Wireayout = (props) => {
   const sliderToggle1 = () => {
     setsliderOpennWith(!sliderOpennwith)
   }
+
+  useEffect(() => {
+    const getBal = () => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-general/getWallet`)
+      .then(res => {
+        setUsdBal(res.data.availableBalances["USD"]);
+        console.log(res);
+        if(!res.data.availableBalances["USD"]) {
+          setUsdBal("0")
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      // setIsLoading(false)
+    }).catch((error) => {
+      console.log(error)
+    })
+    }
+    getBal()
+  },[])
 
   useEffect(() => {
     const getProfiledata = () => {
@@ -46,6 +71,8 @@ const Wireayout = (props) => {
     }
     getProfiledata()
   },[])
+  
+  
   const renderView = () => {
     return (
       <>
@@ -116,7 +143,7 @@ const Wireayout = (props) => {
         <h4 className="sub-heading">Wallet Balance</h4>
         <Row> 
           <Col>
-          <h6>$ 20.0045 </h6>
+          <h6>$ {usdbal} </h6>
           </Col>
           <Col>
           <button className="btn1 btn-sm btn-def" onClick={() => sliderToggle1()}>

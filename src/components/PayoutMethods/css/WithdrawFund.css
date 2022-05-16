@@ -132,3 +132,22 @@
   margin-right: 5px;
 }
 
+.buttnClass{
+  background: #1a1a1a;
+  color: #f5df4d;
+  border-radius: 14px;
+  border: none;
+  padding: 7px 15px;
+  font-weight: 600;
+  margin: 10px 100px;
+}
+
+.hoding{
+  text-align: center;
+}
+
+.modalClass{
+  justify-content: center;
+}
+
+
