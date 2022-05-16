@@ -20,6 +20,20 @@ const Auth = (props) => {
   const [otp, setOtp] = useState("");
   const [hash, setHash] = useState("");
 
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [zipCode, setZipCode] = useState("");
+
+  const [taxPayerName, setTaxPayerName] = useState("");
+  const [panNumber, setPanNumber] = useState("");
+  const [gstin, setGstin] = useState("");
+  const [ein, setEin] = useState("");
+  const [isus, setIsus] = useState(false);
+  const [taxClassification, setTaxClassification] = useState("");
+  const [ssn, setSsn] = useState("");
+
   const [renderForm, setRenderForm] = useState("login");
 
   const handleSignUpSubmit = (e) => {
@@ -37,7 +51,8 @@ const Auth = (props) => {
         console.log(res.data);
         setRenderForm("confirmation");
       }).catch((err) => {
-        console.log(err)
+        console.log(err);
+        alert("Error in creating your account! Pls try again later!!");
       })
   }
 
@@ -52,7 +67,8 @@ const Auth = (props) => {
         console.log(res);
         setRenderForm("roleChoice")
       }).catch((err) => {
-        console.log(err.data)
+        console.log(err.data);
+        alert("Incorrect OTP! Pls try entering OTP again!");
       })
   }
 
@@ -66,10 +82,11 @@ const Auth = (props) => {
         .post(`${process.env.REACT_APP_BACKEND_API}/auth/signup`, { name, email, password: hashedPassword, role })
         .then((res) => {
           console.log(res);
-          setRenderForm("login")
-          alert("Account Created Successfully!")
-          setEmail("")
-          setPassword("")
+          setRenderForm("profileCompletion");
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Error in creating your account! Pls try again later!!");
         })
     } else {
       axios
@@ -81,10 +98,11 @@ const Auth = (props) => {
         })
         .then((res) => {
           console.log(res);
-          setRenderForm("login")
-          alert("Account Created Successfully!")
-          setEmail("")
-          setPassword("")
+          setRenderForm("profileCompletion");
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Error in creating your account! Pls try again later!!");
         })
     }
   }
@@ -107,6 +125,7 @@ const Auth = (props) => {
         }
       }).catch((error) => {
         console.log(error.response.data)
+        alert("Error in logging in! Pls try again later!!")
       })
   }
 
@@ -124,6 +143,7 @@ const Auth = (props) => {
         setRenderForm("roleChoice")
       }).catch((err) => {
         console.log(err)
+        alert("Error in creating your account! Pls try again later!!");
       })
   }
 
@@ -140,12 +160,68 @@ const Auth = (props) => {
           history.push('/business')
         }
       }).catch((err) => {
-        console.log(err)
+        console.log(err);
+        alert("Email does not exist! Pls sign up first or try again later!");
       })
   }
   const googleFailure = (error) => {
     console.log(error);
     console.log('Google sign in was unsuccessful! Pls try again later');
+  }
+
+  const handleLegalDetailsSubmit = (e) => {
+    e.preventDefault();
+    setRenderForm("profileCompletion2");
+  }
+
+  const handlePersonalDetailsSubmit = (e) => {
+    e.preventDefault();
+    axios.defaults.withCredentials = true;
+    const hashedPassword = sha256(password);
+    axios
+    .post(`${process.env.REACT_APP_BACKEND_API}/auth/signin`, {
+      email,
+      password: hashedPassword
+    })
+    .then((res) => {
+      console.log(res);
+      axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+        email
+      })
+      .then(res2 => {
+        setName(res2.data.data.name);
+        axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/updateProfile`, {
+          name,
+          email,
+          address,
+          city,
+          state,
+          zipCode,
+          country,
+          taxPayerName,
+          panNumber,
+          gstin,
+          isus,
+          taxClassification,
+          ssn,
+          ein
+        })
+        .then(() => {
+          alert("Account Created Successfully");
+          if (res.data.role === "freelancer") {
+            history.push('/contractor')
+          } else {
+            history.push('/business')
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      })
+    }).catch((error) => {
+      console.log(error.response.data)
+      alert("Error in logging in! Pls try again later!!")
+    })
   }
 
   const handleAuth = () => {
@@ -286,6 +362,200 @@ const Auth = (props) => {
           </>
         )
       }
+      case "profileCompletion": {
+        return (
+          <>
+            <Row className="justify-content-center my-5 profileCompletion py-5 px-2">
+              <h2 className="profileCompletion__heading">Complete your profile</h2>
+              <p className="profileCompletion__tagline">Integer accumsan enim cursus, auctor leo quis, sollicitudin tellus.</p>
+              <Row className="justify-content-center pt-3">
+                <Col lg="8" md="7" sm="12" xs="12">
+                  <div className="profileCompletion__box">
+                    <h6 className="heading">Legal Details</h6>
+                    <Form onSubmit={handleLegalDetailsSubmit}>
+                      <Row>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="taxPayerName">
+                            <Form.Label>Tax Payer Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="taxPayerName"
+                              value={taxPayerName}
+                              className="box__input"
+                              onChange={(e) => setTaxPayerName(e.target.value)}
+                              required
+                              placeholder="Enter Tax Payer Name"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="panNumber">
+                            <Form.Label>PAN Number</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="panNumber"
+                              value={panNumber}
+                              className="box__input"
+                              onChange={(e) => setPanNumber(e.target.value)}
+                              required
+                              placeholder="Enter PAN Number"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="gstin">
+                            <Form.Label>GSTIN</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="gstin"
+                              value={gstin}
+                              className="box__input"
+                              onChange={(e) => setGstin(e.target.value)}
+                              required
+                              placeholder="Enter GSTIN"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="ein">
+                            <Form.Label>EIN, VAT or TAX ID</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="ein"
+                              value={ein}
+                              className="box__input"
+                              onChange={(e) => setEin(e.target.value)}
+                              required
+                              placeholder="Enter EIN, VAT or TAX ID"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="isus">
+                            <Form.Label>Are you a citizen of the US?</Form.Label>
+                            <Form.Check 
+                              type="radio"
+                              id="isus"
+                              label="Yes"
+                              checked={isus === true}
+                              onChange={() => setIsus(true)}
+                            />
+                            <Form.Check 
+                              type="radio"
+                              id="isus"
+                              label="No"
+                              checked={isus === false}
+                              onChange={() => setIsus(false)}
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="12" md="12" sm="12" xs="12">
+                          <button className="box__button" type="submit">Next</button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </div>
+                </Col>
+              </Row>
+            </Row>
+          </>
+        )
+      }
+      case "profileCompletion2": {
+        return (
+          <>
+            <Row className="justify-content-center my-5 profileCompletion py-5 px-2">
+              <h2 className="profileCompletion__heading">Complete your profile</h2>
+              <p className="profileCompletion__tagline">Integer accumsan enim cursus, auctor leo quis, sollicitudin tellus.</p>
+              <Form onSubmit={handlePersonalDetailsSubmit}>
+                <Row className="justify-content-center pt-3">
+                  <Col lg="8" md="7" sm="12" xs="12">
+                    <div className="profileCompletion__box">
+                      <h6 className="heading">Personal Detail</h6>
+                      <p className="tagline">This is your company’s fiscal address.</p>
+                      <Row>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="country">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="country"
+                              value={country}
+                              className="box__input"
+                              onChange={(e) => setCountry(e.target.value)}
+                              required
+                              placeholder="Enter Country"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="state">
+                            <Form.Label>State</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="state"
+                              value={state}
+                              className="box__input"
+                              onChange={(e) => setState(e.target.value)}
+                              required
+                              placeholder="Enter State"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="city">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="city"
+                              value={city}
+                              className="box__input"
+                              onChange={(e) => setCity(e.target.value)}
+                              required
+                              placeholder="Enter City"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="address">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="address"
+                              value={address}
+                              className="box__input"
+                              onChange={(e) => setAddress(e.target.value)}
+                              required
+                              placeholder="Enter Address"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="6" md="6" sm="12" xs="12">
+                          <Form.Group className="box__form-group" controlId="zipCode">
+                            <Form.Label>Zip Code</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="zipCode"
+                              value={zipCode}
+                              className="box__input"
+                              onChange={(e) => setZipCode(e.target.value)}
+                              required
+                              placeholder="Enter Zip Code"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg="12" md="12" sm="12" xs="12">
+                          <button type="submit">Continue</button>
+                        </Col>
+                      </Row>
+                    </div>
+                  </Col>
+                </Row>
+              </Form>
+            </Row>
+          </>
+        )
+      }
       default: {
         return (
           <>
@@ -361,7 +631,7 @@ const Auth = (props) => {
             </Row>
           </>
           : (
-            renderForm === "roleChoice"
+            renderForm === "roleChoice" || renderForm === "profileCompletion" || renderForm === "profileCompletion2"
               ? 
               <>
                 {handleAuth()}
