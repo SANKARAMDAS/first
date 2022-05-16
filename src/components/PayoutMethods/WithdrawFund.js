@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-input-range/lib/css/index.css'
 import {Modal, ModalHeader } from "reactstrap";
 import './css/WithdrawFund.css'
-import OTPInput, {ResendOTP} from "react-otp-input"
+import OtpInput from "react-otp-input";
 // import OTPInput, { ResendOTP } from "otp-input-react";
 
 axios.defaults.withCredentials = true
@@ -26,6 +26,15 @@ const WithdrawFund = (props) => {
   const handleAmount = (e) => {
     setAmount(e.target.value)
   }
+
+  const [state, setState] = useState({
+    otp: ""
+  });
+
+  const setValue = (fieldName) => (evt) =>
+    setState({ [fieldName]: evt.target.value });
+
+  const handleChange = (otp) => setState({ otp });
 
   return (
     <div
@@ -116,22 +125,48 @@ const WithdrawFund = (props) => {
               </button>
             </Col>
             <Modal size= 'lg' isOpen={modal} toggle={() => setModal(!modal)}>
-             <ModalHeader>
-             {/* <OTPInput
-      value={OTP}
-      onChange={setOTP}
-      autoFocus
-      OTPLength={4}
-      otpType="number"
-      disabled={false}
-      secure
-    /> */}
-    <h1>Verification Code</h1>
-    <h2>Please enter the verification code sent to your mobile</h2>
+             <h1 className="hoding">Verification OTP</h1>
+             {/* <OtpInput
+                separator={
+                  <span>
+                    <strong>.</strong>
+                  </span>
+                }
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 1rem",
+                  fontSize: "2rem",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)"
+                }}
+              /> */}
+              <div className='modalClass'>
 
-    
-    {/* <ResendOTP handelResendClick={() => console.log("Resend clicked")} /> */}
-             </ModalHeader>
+<OtpInput 
+                value={state.otp}
+                justifyContent= "center"
+                // className="otp-input bg-white mx-2 text-lg focus:outline-none focus:shadow-outline border-gray-300 rounded-lg  block w-full appearance-none leading-normal"
+                onChange={handleChange}
+                numInputs={4}
+                separator={<span></span>}
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 1rem",
+                  fontSize: "2rem",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)"
+                }}
+              />
+
+</div>
+
+             <button
+                type="submit"
+              >
+                Verify
+              </button>
             </Modal>
     </div>
   )
