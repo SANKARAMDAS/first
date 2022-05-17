@@ -216,3 +216,17 @@
   color: #f5df4d;
   margin-right: 10px;
 }
+
+.btncls{
+  background: #1a1a1a;
+  color: #f5df4d;
+  border-radius: 14px;
+  border: none;
+  padding: 7px 15px;
+  font-weight: 600;
+  margin: 10px 40%;
+}
+
+.hooding{
+  text-align: center;
+}
