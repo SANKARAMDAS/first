@@ -12,10 +12,10 @@ const Wireayout = (props) => {
   const [sliderOpenn, setsliderOpenn] = useState(false)
   const [sliderOpennwith, setsliderOpennWith] = useState(false)
 
-  const [owner, setOwner] = useState("");
-  const [name, setName] = useState("");
-  const [currency, setCurrency] = useState("")
-  const [usdbal, setUsdBal] = useState("")
+  const [owner, setOwner] = useState('')
+  const [name, setName] = useState('')
+  const [currency, setCurrency] = useState('')
+  const [usdbal, setUsdBal] = useState('')
 
   const sliderToggle = () => {
     setsliderOpenn(!sliderOpenn)
@@ -27,52 +27,61 @@ const Wireayout = (props) => {
 
   useEffect(() => {
     const getBal = () => {
-    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
-      withCredentials: true
-    }).then(() => {
-      axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-general/getWallet`)
-      .then(res => {
-        setUsdBal(res.data.availableBalances["USD"]);
-        console.log(res);
-        if(!res.data.availableBalances["USD"]) {
-          setUsdBal("0")
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      // setIsLoading(false)
-    }).catch((error) => {
-      console.log(error)
-    })
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+          withCredentials: true,
+        })
+        .then(() => {
+          axios
+            .get(`${process.env.REACT_APP_BACKEND_API}/wyre-general/getWallet`)
+            .then((res) => {
+              setUsdBal(res.data.availableBalances['USD'])
+              console.log(res)
+              if (!res.data.availableBalances['USD']) {
+                setUsdBal('0')
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          // setIsLoading(false)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
     getBal()
-  },[])
+  }, [])
 
   useEffect(() => {
     const getProfiledata = () => {
-    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
-      withCredentials: true
-    }).then(() => {
-      axios.get(`${process.env.REACT_APP_BACKEND_API}/wyre-payment/paymentMethods`)   //payment method
-      .then(res => {
-        console.log(res);
-        setOwner(res.data[0].status);
-        setName(res.data[0].name);
-        setCurrency(res.data[0].defaultCurrency);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      // setIsLoading(false)
-    }).catch((error) => {
-      console.log(error)
-    })
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+          withCredentials: true,
+        })
+        .then(() => {
+          axios
+            .get(
+              `${process.env.REACT_APP_BACKEND_API}/wyre-payment/paymentMethods`,
+            ) //payment method
+            .then((res) => {
+              console.log(res)
+              setOwner(res.data[0].status)
+              setName(res.data[0].name)
+              setCurrency(res.data[0].defaultCurrency)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          // setIsLoading(false)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
     getProfiledata()
-  },[])
-  
-  
+  }, [])
+
   const renderView = () => {
     return (
       <>
@@ -117,43 +126,56 @@ const Wireayout = (props) => {
         email={props.email}
       />
       <div className="contentArea">
-        <h4 className="sub-heading">Your Account</h4>
+        { name.length === 0 ? 
+        ( <>
+        </>) :
+         (<>
+          <h4 className="sub-heading">Your Account</h4>
         {renderView()}
         <h4 className="text">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s,
         </h4>
-        <hr  style={{
-    color: '#000000',
-    backgroundColor: '#000000',
-    height: .5,
-    borderColor : '#000000'
-}}/>
+        <hr
+          style={{
+            color: '#000000',
+            backgroundColor: '#000000',
+            height: 0.5,
+            borderColor: '#000000',
+          }}
+          />
+        </>) 
+        }
+      
         <h4 className="sub-heading">Your Account</h4>
         <button type="add" className="button" onClick={() => sliderToggle()}>
           + Add Bank Account
         </button>
-        <hr  style={{
-    color: '#000000',
-    backgroundColor: '#000000',
-    height: 1,
-    borderColor : '#000000'
-}}/>
+        <hr
+          style={{
+            color: '#000000',
+            backgroundColor: '#000000',
+            height: 1,
+            borderColor: '#000000',
+          }}
+        />
         <h4 className="sub-heading">Wallet Balance</h4>
-        <Row> 
+        <Row>
           <Col>
-          <h6>$ {usdbal} </h6>
+            <h6>$ {usdbal} </h6>
           </Col>
           <Col>
-          <button className="btn1 btn-sm btn-def" onClick={() => sliderToggle1()}>
-          Withdraw Funds
-          <span className="fa-solid fa-arrow-right"></span>
-          {/* <i class="fa-solid fa-arrow-right"></i> */}
-        </button>
+            <button
+              className="btn1 btn-sm btn-def"
+              onClick={() => sliderToggle1()}
+            >
+              Withdraw Funds
+              <span className="fa-solid fa-arrow-right"></span>
+              {/* <i class="fa-solid fa-arrow-right"></i> */}
+            </button>
           </Col>
         </Row>
-        
       </div>
     </div>
   )
