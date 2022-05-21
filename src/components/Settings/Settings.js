@@ -11,11 +11,10 @@ const Settings = (props) => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [modal, setModal] = useState(false)
-  const [modal2, setModal2] = useState(false)
   const [otp, setOtp] = useState('')
-  const [temp, setTemp] = useState('')
   const [qrcode, setQrCode] = useState('')
   const [src, setSrc] = useState('')
+  
 
   const handleChange = (otp) => setOtp(otp)
 
@@ -72,35 +71,30 @@ const Settings = (props) => {
       })
   }
 
-  // useEffect(() => {
-  //   QRCode.toDataURL(text).then(setSrc);
-  // }, []);
-
-  // const handleEnable = async (e) => {
-  //   e.preventDefault()
-  //   axios
-  //     .post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
-  //       withCredentials: true,
-  //     })
-  //     .then(() => {
-  //       axios
-  //         .post(
-  //           `${process.env.REACT_APP_BACKEND_API}/payoutAuth/enable`,
-  //           backendObj,
-  //         )
-  //         .then((response) => {
-  //           console.log(response)
-  //           // temp: temp_secret.base32,
-  //           data_url: qrcode,  //link   iframe link pass 
-  //         })
-  //         .catch((err) => {
-  //           console.log('Error: ', err)
-  //         })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
+  const handleEnable = async (e) => {
+    e.preventDefault()
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+        withCredentials: true,
+      })
+      .then(() => {
+        axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_API}/payoutAuth/enable`,
+            
+          )
+          .then((response) => {
+            console.log(response)
+            setQrCode(response.data.data_url)
+          })
+          .catch((err) => {
+            console.log('Error: ', err)
+          })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 
   return (
     <Container className="settings">
@@ -154,38 +148,32 @@ const Settings = (props) => {
               <h6 className="settings__boxHeading">
                 Enable 2-step verification
               </h6>
-              <button
+              { otp === 0 ? (
+                <>
+                <button
                 className="settings__button"
                 type="submit"
-                onClick={() => {
-                  setModal(true)
-                }}
-              >
+                onClick={(e) => {
+                  setModal(true);
+                  handleEnable(e);
+                }} >
                 Enable
               </button>
+                </>
+              ) : (
+                <p>
+                 2FA already enable
+                </p>
+              )}
+              
             </div>
           </Col>
         </Col>
       </Row>
       <Modal size="lg" isOpen={modal} toggle={() => setModal(!modal)}>
         <h1 className="hooding">QR Code</h1>
-        <div ><img src={src}/></div>
-        <button
-          className="btnenb"
-          type="submit"
-          onClick={() => {
-            setModal2(true)
-            // handleEnable()
-          }}
-        >
-          Enable
-        </button>
-      </Modal>
-      <Modal size="lg" isOpen={modal2} toggle={() => setModal2(!modal2)}>
-        <h1 className="hooding">Verification</h1>
-        <h3 className="hooding">
-          Enable the 2-step verification code from your authenticator app
-        </h3>
+        <div ><img src={qrcode}/>
+        </div>
         <div className="modalClass">
           <OtpInput
             value={otp}
@@ -204,15 +192,14 @@ const Settings = (props) => {
             }}
           />
         </div>
-
-        <Col className="buttn">
-          <button className="inv-button" onClick={handleConfirm} type="submit">
-            Confirm
-          </button>
-          <button className="i-btn" onClick={props.onClose} type="submit">
-            Cancel
-          </button>
-        </Col>
+        <button
+          className="btnenb"
+          type="submit"
+          
+         onClick={handleConfirm}
+        >
+          Submit
+        </button>
       </Modal>
     </Container>
   )

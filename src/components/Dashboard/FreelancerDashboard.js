@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,Nav,  Navbar, NavDropdown } from "react-bootstrap";
 import "./css/FreelancerDashboard.css";
 import RightArrow from "./images/arrow.svg";
 import WalletIcon from "./images/wallet-outline.svg";
 import BTCIcon from "./images/Icon-BTC.svg";
 import ETHIcon from "./images/Icon-ETH.svg";
 import PreviewInvoiceModal from "../Invoice/PreviewInvoiceModal";
+import bankicon from './images/bank-outline.svg'
 
 const FreelancerDashboard = (props) => {
 
@@ -68,8 +69,80 @@ const FreelancerDashboard = (props) => {
     } else {
       return(
         <Container fluid className="FreelancerDashboard mb-5">
-          <h4 className="page-heading">Dashboard</h4>
+          <Row className="justify-content-md-center">
+            <Col>
+            <h4 className="page-heading">Dashboard</h4>
+            </Col>
+            {/* <Col>
+            <h4 className="page">Dashboard</h4>
+            </Col> */}
+          </Row>
+          
           <Row className="justify-content-center">
+            <Col className="px-3" lg="4" md="12" sm="12" xs="12">
+              <div className="FreelancerDashboard__recentInvoices">
+                <h5 className="FreelancerDashboard__recentInvoices-heading">Binamite Wallet</h5>
+                <div className="FreelancerDashboard__wallet mt-3">
+                  <div className="FreelancerDashboard__availableBalance">
+                    <p className="tagline">Available Balance in USD</p>
+                    <h6 className="amount">0.00</h6>
+                  </div>
+                </div>
+                <div>
+                  <div className="FreelancerDashboard__wallet-balance my-3">
+                    <img className="icon" src={WalletIcon} />
+                    <div className="mx-2">
+                      <p className="tagline">Binamite Wallet Balance</p>
+                      <h6 className="amount">USD 0.00</h6>
+                    </div>
+                  </div>
+                  <div className="FreelancerDashboard__wallet-balance my-3">
+                    <img className="icon" src={BTCIcon} />
+                    <div className="mx-2">
+                      <p className="tagline">BTC Balance</p>
+                      <h6 className="amount">0.00</h6>
+                    </div>
+                  </div>
+                  <div className="FreelancerDashboard__wallet-balance my-3">
+                    <img className="icon" src={ETHIcon} />
+                    <div className="mx-2">
+                      <p className="tagline">ETH Balance</p>
+                      <h6 className="amount">0.00</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="FreelancerDashboard__recentInvoices1 my-4">
+                <h5 className="FreelancerDashboard__recentInvoices-heading">Recent activity</h5>
+                <div className="FreelancerDashboard__wallet mt-2">
+                  <div className="FreelancerDashboard__availableBalance1">
+                  <div className="FreelancerDashboard__wallet-balance my-2">
+                    <img className="icon" src={bankicon} />
+                    <div className="mx-2">
+                      <Row>
+                        <Col>
+                        <p className="tagline1"> Client/Company</p>
+                        <h6 className="amount1">2 days ago</h6>
+                      <h6 className="amount1">Payment Receive</h6>
+          
+                        </Col>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <Col>
+                        <p className=""> $</p>
+                        </Col>
+                      </Row>
+                    
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                
+                <br/>
+                <Link to="/contractor/invoices" className="SmallButton ShowAllButton">Show All <img src={RightArrow} /></Link>
+              </div>
+            </Col>
             <Col className="px-2" lg="8" md="12" sm="12" xs="12">
               <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
               <div className="FreelancerDashboard__recentInvoices">
@@ -137,40 +210,6 @@ const FreelancerDashboard = (props) => {
                       })
                     )}
                   </Row>
-                </div>
-              </div>
-            </Col>
-            <Col className="px-3" lg="4" md="12" sm="12" xs="12">
-              <div className="FreelancerDashboard__recentInvoices">
-                <h5 className="FreelancerDashboard__recentInvoices-heading">Binamite Wallet</h5>
-                <div className="FreelancerDashboard__wallet mt-3">
-                  <div className="FreelancerDashboard__availableBalance">
-                    <p className="tagline">Available Balance in USD</p>
-                    <h6 className="amount">0.00</h6>
-                  </div>
-                </div>
-                <div>
-                  <div className="FreelancerDashboard__wallet-balance my-3">
-                    <img className="icon" src={WalletIcon} />
-                    <div className="mx-2">
-                      <p className="tagline">Binamite Wallet Balance</p>
-                      <h6 className="amount">USD 0.00</h6>
-                    </div>
-                  </div>
-                  <div className="FreelancerDashboard__wallet-balance my-3">
-                    <img className="icon" src={BTCIcon} />
-                    <div className="mx-2">
-                      <p className="tagline">BTC Balance</p>
-                      <h6 className="amount">0.00</h6>
-                    </div>
-                  </div>
-                  <div className="FreelancerDashboard__wallet-balance my-3">
-                    <img className="icon" src={ETHIcon} />
-                    <div className="mx-2">
-                      <p className="tagline">ETH Balance</p>
-                      <h6 className="amount">0.00</h6>
-                    </div>
-                  </div>
                 </div>
               </div>
             </Col>

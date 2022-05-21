@@ -3,6 +3,18 @@
   padding: 20px;
   border-radius: 16px;
 }
+
+.FreelancerDashboard .flex{
+  /* position: flex, */
+  /* padding-right: 20px; */
+}
+
+.FreelancerDashboard .FreelancerDashboard__recentInvoices1 {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+}
+
 .FreelancerDashboard .FreelancerDashboard__recentInvoices-heading {
   font-size: 18px;
   font-style: normal;
@@ -118,6 +130,15 @@ tr td:last-child {
   height: 112px;
   padding: 20px;
 }
+
+.FreelancerDashboard .FreelancerDashboard__wallet .FreelancerDashboard__availableBalance1 {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  height: 112px;
+  padding: 20px;
+}
+
 .FreelancerDashboard .FreelancerDashboard__wallet .FreelancerDashboard__availableBalance .tagline {
   color: #fff;
   font-weight: 400;
@@ -135,6 +156,11 @@ tr td:last-child {
 .FreelancerDashboard .FreelancerDashboard__wallet-balance {
   display: flex;
 }
+
+.FreelancerDashboard .FreelancerDashboard__wallet-balance1 {
+  display: flex;
+}
+
 .FreelancerDashboard .FreelancerDashboard__wallet-balance .icon {
   width: 48px;
   height: 48px;
@@ -150,11 +176,20 @@ tr td:last-child {
   font-size: 16px;
   line-height: 24px;
 }
-.FreelancerDashboard .FreelancerDashboard__wallet-balance .amount {
+
+.FreelancerDashboard .FreelancerDashboard__wallet-balance .tagline1 {
+  margin: 0;
+  color: #1A1A1A;
   font-weight: 600;
   font-size: 18px;
+  line-height: 24px;
+}
+
+.FreelancerDashboard .FreelancerDashboard__wallet-balance .amount1 {
+  font-weight: 400;
+  font-size: 16px;
   line-height: 21px;
-  color: #1A1A1A;
+  color: #97999B;
 }
 
 .FreelancerDashboard .Modal {

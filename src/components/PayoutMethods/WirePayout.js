@@ -23,7 +23,9 @@ const WirePayout = (props) => {
   const [bitcoinbalance, setBitcoinbalance] = useState('')
   const [ethereumbalance, setEthereumbalance] = useState('')
   const [modal, setModal] = useState(false)
+  const [modal2, setModal2] = useState(false)
   const [otp, setOtp] = useState('')
+  const [otp2, setOtp2] = useState('')
   const [selectcurrency, setSelectcurrency] = useState('')
   let b = 'ETH'
   let a = 'BTC'
@@ -33,6 +35,7 @@ const WirePayout = (props) => {
   }
 
   const handleChange = (otp) => setOtp(otp)
+  const handleChange2 = (otp2) => setOtp2(otp2)
 
   useEffect(() => {
     const getProfiledata = () => {
@@ -97,7 +100,7 @@ const WirePayout = (props) => {
     getEtheradd()
   }, [])
 
-  const handleSubmit = async (e) => {
+  const handleVerify = async (e) => {
     e.preventDefault()
     const backendObj = {
       token: otp,
@@ -118,7 +121,7 @@ const WirePayout = (props) => {
           )
           .then((response) => {
             console.log(response)
-            alert('User details update successfully')
+            alert('OPT send to your email')
           })
           .catch((err) => {
             console.log('Error: ', err)
@@ -128,6 +131,40 @@ const WirePayout = (props) => {
         console.log(error)
       })
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const backendObj = {
+      otp: otp2,
+      currency: selectcurrency,
+    }
+    console.log('Backendobj: ')
+    console.log(backendObj)
+
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+        withCredentials: true,
+      })
+      .then(() => {
+        axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_API}/wyre-transfer/externalTransfer`,
+            backendObj,
+          )
+          .then((response) => {
+            console.log(response)
+            alert('Withdraw Successful')
+          })
+          .catch((err) => {
+            console.log('Error: ', err)
+          })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+
 
   const renderView = () => {
     return (
@@ -203,7 +240,7 @@ const WirePayout = (props) => {
               // justifyContent= "center"
               // className="otp-input bg-white mx-2 text-lg focus:outline-none focus:shadow-outline border-gray-300 rounded-lg  block w-full appearance-none leading-normal"
               onChange={handleChange}
-              numInputs={4}
+              numInputs={6}
               separator={<span></span>}
               inputStyle={{
                 width: '3rem',
@@ -216,10 +253,48 @@ const WirePayout = (props) => {
             />
           </div>
 
-          <button className="btncls" type="submit" onClick={handleSubmit}>
+          <button className="btncls" type="submit" 
+          onClick={(e) => {
+            setModal2(true);
+            handleVerify(e);
+          }} 
+          >
             Verify
           </button>
         </Modal>
+        <Modal size="lg" isOpen={modal2} toggle={() => setModal2(!modal2)}>
+        <h1 className="hooding">Verification</h1>
+        <h3 className="hooding">
+          Enable the 2-step verification code from your authenticator app
+        </h3>
+        <div className="modalClass">
+          <OtpInput
+            value={otp2}
+            // justifyContent= "center"
+            // className="otp-input bg-white mx-2 text-lg focus:outline-none focus:shadow-outline border-gray-300 rounded-lg  block w-full appearance-none leading-normal"
+            onChange={handleChange2}
+            numInputs={4}
+            separator={<span></span>}
+            inputStyle={{
+              width: '3rem',
+              height: '3rem',
+              margin: '0 1rem',
+              fontSize: '2rem',
+              borderRadius: 4,
+              border: '1px solid rgba(0,0,0,0.3)',
+            }}
+          />
+        </div>
+
+        <Col className="buttn">
+          <button className="inv-button" onClick={handleSubmit} type="submit">
+            Confirm
+          </button>
+          {/* <button className="i-btn" onClick={props.onClose} type="submit">
+            Cancel
+          </button> */}
+        </Col>
+      </Modal>
         {/* <button onClick={() => setView('create-payment-methods')}>Create Payout Method</button>
         {paymentMethods} */}
       </>

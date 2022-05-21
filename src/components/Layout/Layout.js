@@ -9,6 +9,7 @@ import profile from './Icons/profile.svg'
 import settings from './Icons/settings.svg'
 import logout from './Icons/logout.svg'
 import question from './Icons/question-mark.svg'
+import logo from './Icons/logo.svg'
 import payoutmethods from './Icons/Payment-method-outline.svg'
 
 const Layout = (props) => {
@@ -33,14 +34,18 @@ const Layout = (props) => {
     <div className="layout">
       <div className="dashboard">
         <div className="sidebar">
+          <img src={logo} alt="logo-icon" />
+          &nbsp;
           <Link className="button" to={`${props.url}`}>
             <img src={dashboard} />
             Dashboard
           </Link>
+          
           <Link className="button" to={`${props.url}/invoices`}>
             <img src={invoice} alt="invoice" />
             Invoices
           </Link>
+          
           {props.role === 'freelancer' ? (
             <Link className="button" to={`${props.url}/payout`}>
               <img src={payoutmethods} alt="payout-method" />
@@ -52,14 +57,18 @@ const Layout = (props) => {
               Payment Methods
             </Link>
           )}
+          
           <Link className="button" to={`${props.url}/profile`}>
             <img src={profile} alt="profile" />
             Profile
           </Link>
+          
           <Link className="button" to={`${props.url}/settings`}>
             <img src={settings} alt="settings" />
             Settings
           </Link>
+          &nbsp;
+          
           <button onClick={handleLogout} className="button logout-btn">
             <img src={logout} alt="logout" />
             Logout
