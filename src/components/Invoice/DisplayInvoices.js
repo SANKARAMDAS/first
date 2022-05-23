@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
@@ -8,6 +8,8 @@ import Flag from "./images/Flag.svg";
 import PreviewInvoiceModal from "./PreviewInvoiceModal";
 import CreateInvoiceSlider from "./CreateInvoiceSlider";
 import Backdrop from "./Backdrop";
+import { useDetectOutsideClick } from "./useDetectOutsideClick"
+import Notification from "./images/notifications-outline.svg"
 
 const DisplayInvoices = (props) => {
 
@@ -18,6 +20,10 @@ const DisplayInvoices = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [modalInvoice, setModalInvoice] = useState({})
   const [sliderOpen, setSliderOpen] = useState(false)
+  const onClick = () => setIsActive(!isActive);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [name, setName] = useState("");
 
   const current = new Date();
   let month = "";
@@ -53,6 +59,26 @@ const DisplayInvoices = (props) => {
     }
     getInvoices()
   }, [])
+
+  useEffect(() => {
+    const getProfile = () => {
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+          email: props.email
+        })
+        .then((res) => {
+          setName(res.data.data.name)
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    getProfile()
+  }, []);
 
   const handleFilter = (e) => {
     e.preventDefault();
@@ -97,7 +123,52 @@ const DisplayInvoices = (props) => {
     } else {
       return (
         <Container fluid className="displayInvoices">
-          <h3 className="displayInvoices__heading">Invoices List</h3>
+          <div className="topbarWrapper">
+        <div className="topLeft">
+          <h4 className="logo">Invoices List</h4>
+        </div>
+        <div className="topRight">
+          <div className="notifimenu">
+            <div className="notifi-container">
+            <img src={Notification} alt="" className="topAvatar" />
+            </div>
+          
+          </div>
+          <div className="container">
+      <div className="menu-container">
+        <button onClick={onClick} className="menu-trigger">
+          <span> {name}</span>
+          <img
+            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/df/df7789f313571604c0e4fb82154f7ee93d9989c6.jpg"
+            alt="User avatar"
+          />
+        </button>
+        <nav
+          ref={dropdownRef}
+          className={`menu ${isActive ? "active" : "inactive"}`}
+        >
+          <ul>
+            <li>
+              <a href={`${props.url}/profile`}>Profile</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href={`${props.url}/settings`}>Settings</a>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  
+        </div>
+      
+      
+      
+      </div>
           <PreviewInvoiceModal onClose={() => setShowModal("")} show={showModal} invoice={modalInvoice} role={props.role} />
           <CreateInvoiceSlider onClose={() => setSliderOpen(false)} show={sliderOpen} email={props.email} />
           {sliderOpen ? <Backdrop close={backdropClickHandler} /> : <></>}

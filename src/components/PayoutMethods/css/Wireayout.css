@@ -161,6 +161,8 @@
   }
   .payoutWire .tabs {
     display: flex;
+    margin-left: inherit;
+    padding-left: 10px;
   }
   .payoutWire .tabs .tab {
     padding: 5px 20px;
@@ -180,6 +182,7 @@
     padding: 40px;
     border-radius: 16px;
     width: 60%;
+    margin-left: 15px;
   }
 
   .payoutWire .contentArea .text{

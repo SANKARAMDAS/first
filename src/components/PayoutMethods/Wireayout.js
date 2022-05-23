@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import { Container, Row, Col, Form } from 'react-bootstrap'
@@ -7,6 +7,9 @@ import bankicon from './Icons/bank-outline.svg'
 import bitcoin from './Icons/logo-bitcoin.svg'
 import WireSlider from './WireSlider'
 import WithdrawFund from './WithdrawFund'
+import { useDetectOutsideClick } from "./useDetectOutsideClick"
+import Notification from "./Icons/notifications-outline.svg"
+import Swipe from './Icons/swap-horizontal-outline.svg'
 
 const Wireayout = (props) => {
   const [sliderOpenn, setsliderOpenn] = useState(false)
@@ -16,6 +19,10 @@ const Wireayout = (props) => {
   const [name, setName] = useState('')
   const [currency, setCurrency] = useState('')
   const [usdbal, setUsdBal] = useState('')
+  const onClick = () => setIsActive(!isActive);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [name1, setName1] = useState('')
 
   const sliderToggle = () => {
     setsliderOpenn(!sliderOpenn)
@@ -82,6 +89,36 @@ const Wireayout = (props) => {
     getProfiledata()
   }, [])
 
+  useEffect(() => {
+    const getProfiledata = () => {
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+          withCredentials: true,
+        })
+        .then(() => {
+          axios
+            .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+              email: props.email,
+            })
+            .then((res) => {
+              setName1(res.data.data.name)
+              console.log(res)
+              // if() {
+              //   setBitcoinbalance("0")
+              // }
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          // setIsLoading(false)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    getProfiledata()
+  }, [])
+
   const renderView = () => {
     return (
       <>
@@ -106,7 +143,58 @@ const Wireayout = (props) => {
 
   return (
     <div className="payoutWire">
-      <h3 className="pb-3 heading">Payout Methods</h3>
+     <div className="topbarWrapper">
+        <div className="topLeft">
+          <h4 className="logo">Payout Methods</h4>
+        </div>
+        <div className="topRight">
+          <div className="notifimenu">
+            <div className="notifi-container">
+            <img src={Notification} alt="" className="topAvatar" />
+            </div>
+          </div>
+          &nbsp;
+          &nbsp;
+          <div className="notifimenu">
+            <div className="notifi-container">
+            <img src={Swipe} alt="" className="topAvatar" />
+            </div>
+          </div>
+          <div className="container">
+      <div className="menu-container">
+        <button onClick={onClick} className="menu-trigger">
+          <span> {name1}</span>
+          <img
+            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/df/df7789f313571604c0e4fb82154f7ee93d9989c6.jpg"
+            alt="User avatar"
+          />
+        </button>
+        <nav
+          ref={dropdownRef}
+          className={`menu ${isActive ? "active" : "inactive"}`}
+        >
+          <ul>
+            <li>
+              <a href={`${props.url}/profile`}>Profile</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href={`${props.url}/settings`}>Settings</a>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  
+        </div>
+      
+      
+      
+      </div>
       <WireSlider
         onClose={() => setsliderOpenn(false)}
         show={sliderOpenn}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import axios from 'axios'
@@ -12,6 +12,9 @@ import 'jquery-ui-dist/jquery-ui'
 import CryptoSlider from './CryptoSlider'
 import { Modal, ModalHeader } from 'reactstrap'
 import OtpInput from 'react-otp-input'
+import { useDetectOutsideClick } from "./useDetectOutsideClick"
+import Notification from "./Icons/notifications-outline.svg"
+import Swipe from './Icons/swap-horizontal-outline.svg'
 
 const WirePayout = (props) => {
   const [sliderOpen, setSliderOpen] = useState(false)
@@ -29,6 +32,10 @@ const WirePayout = (props) => {
   const [selectcurrency, setSelectcurrency] = useState('')
   let b = 'ethereum'
   let a = 'bitcoin'
+  const onClick = () => setIsActive(!isActive);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [name, setName] = useState("");
 
   const sliderToggle = () => {
     setSliderOpen(!sliderOpen)
@@ -51,6 +58,7 @@ const WirePayout = (props) => {
             .then((res) => {
               setBitcoin(res.data.data.bitcoin)
               setEthereum(res.data.data.ethereum)
+              setName(res.data.data.name)
               console.log(res)
               // if() {
               //   setBitcoinbalance("0")
@@ -304,7 +312,58 @@ const WirePayout = (props) => {
   return (
     <>
       <div className="payoutCrypto">
-        <h3 className="pb-3 heading">Payout Methods</h3>
+      <div className="topbarWrapper">
+        <div className="topLeft">
+          <h4 className="logo">Payout Methods</h4>
+        </div>
+        <div className="topRight">
+          <div className="notifimenu">
+            <div className="notifi-container">
+            <img src={Notification} alt="" className="topAvatar" />
+            </div>
+          </div>
+          &nbsp;
+          &nbsp;
+          <div className="notifimenu">
+            <div className="notifi-container">
+            <img src={Swipe} alt="" className="topAvatar" />
+            </div>
+          </div>
+          <div className="container">
+      <div className="menu-container">
+        <button onClick={onClick} className="menu-trigger">
+          <span> {name}</span>
+          <img
+            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/df/df7789f313571604c0e4fb82154f7ee93d9989c6.jpg"
+            alt="User avatar"
+          />
+        </button>
+        <nav
+          ref={dropdownRef}
+          className={`menu ${isActive ? "active" : "inactive"}`}
+        >
+          <ul>
+            <li>
+              <a href={`${props.url}/profile`}>Profile</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href={`${props.url}/settings`}>Settings</a>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  
+        </div>
+      
+      
+      
+      </div>
         <CryptoSlider
           onClose={() => setSliderOpen(false)}
           show={sliderOpen}

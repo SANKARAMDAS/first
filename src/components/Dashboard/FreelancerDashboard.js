@@ -139,6 +139,9 @@ const FreelancerDashboard = (props) => {
     </div>
   
         </div>
+      
+      
+      
       </div>
           
           <Row className="justify-content-center">
