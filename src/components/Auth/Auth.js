@@ -137,10 +137,10 @@ const Auth = (props) => {
         //To store tokenId in state
         //Change state to role choice
         console.log(response);
-        setTokenId(tokenIdLocal)
-        setEmail(response.data.data.email)
-        setName(response.data.data.name)
-        setRenderForm("confirmation");
+        setTokenId(tokenIdLocal);
+        setEmail(response.data.data.email);
+        setName(response.data.data.name);
+        setRenderForm("roleChoice");
       }).catch((err) => {
         console.log(err)
         alert("Error in creating your account! Pls try again later!!");

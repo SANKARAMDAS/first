@@ -13,22 +13,22 @@ const DebitCard = (props) => {
   const { invoiceId } = useParams();
   const [showModal, setShowModal] = useState(false)
   const [debitCard, setDebitCard] = useState({
-   number: "",
-   year: "",
-   month: "",
-   cvv: ""
+   number: "4111111111111111",
+   year: "2023",
+   month: "01",
+   cvv: "123"
   });
-  const [currency, setCurrency] = useState('');
-  const [givenName, setGivenName] = useState('');
-  const [familyName, setFamilyName] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
-  const [phone, setPhone] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [givenName, setGivenName] = useState('Crash');
+  const [familyName, setFamilyName] = useState('Bandicoot');
+  const [ipAddress, setIpAddress] = useState('1.1.1.3');
+  const [phone, setPhone] = useState('1-212-456-7880');
   const [address, setAddress] = useState({
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: ""
+    street1: "14 Fak3 St",
+    city: "San huran2",
+    state: "CA",
+    postalCode: "93985",
+    country: "US"
   });
 
   const handleShowModal = () => {
@@ -53,7 +53,6 @@ const DebitCard = (props) => {
 
   const handleDebitCardDetailsSubmit = async (e) => {
     e.preventDefault();
-    setIpAddress("1.1.1.2");
     console.log({
       invoiceId,
       debitCard,
@@ -64,7 +63,10 @@ const DebitCard = (props) => {
       phone,
       address
     })
-    axios
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+      withCredentials: true
+    }).then(() => {
+      axios
       .post(
         `${process.env.REACT_APP_BACKEND_API}/wyre-payment/debitCardQuote`,
         {
@@ -86,12 +88,16 @@ const DebitCard = (props) => {
           {invoiceId}
         )
         .then(res2 => {
+          console.log('Invoice ID: ', invoiceId);
           setShowModal(true)
         })
       })
       .catch(err => {
         console.log(err);
       })
+    }).catch((error) => {
+      console.log(error)
+    })    
   }
   
   return(
@@ -233,8 +239,8 @@ const DebitCard = (props) => {
                   <Form.Label>Street</Form.Label>
                   <Form.Control
                     type="text"
-                    name="street"
-                    value={address.street}
+                    name="street1"
+                    value={address.street1}
                     className="input"
                     placeholder="Street"
                     onChange={handleAddressChange}
