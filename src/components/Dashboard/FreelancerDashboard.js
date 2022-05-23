@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,} from "react-router-dom";
 import { Container, Row, Col,Nav,  Navbar, NavDropdown } from "react-bootstrap";
 import "./css/FreelancerDashboard.css";
 import RightArrow from "./images/arrow.svg";
 import WalletIcon from "./images/wallet-outline.svg";
 import BTCIcon from "./images/Icon-BTC.svg";
+import Notification from "./images/notifications-outline.svg"
 import ETHIcon from "./images/Icon-ETH.svg";
 import PreviewInvoiceModal from "../Invoice/PreviewInvoiceModal";
 import bankicon from './images/bank-outline.svg'
+import { useDetectOutsideClick } from "./useDetectOutsideClick"
+
 
 const FreelancerDashboard = (props) => {
 
@@ -20,6 +23,10 @@ const FreelancerDashboard = (props) => {
   const [businesses, setBusinesses] = useState();
   const [showModal, setShowModal] = useState(false)
   const [modalInvoice, setModalInvoice] = useState({})
+  const onClick = () => setIsActive(!isActive);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -54,6 +61,27 @@ const FreelancerDashboard = (props) => {
     getData()
   }, [])
 
+  useEffect(() => {
+    const getProfile = () => {
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_API}/auth/getUserProfile`, {
+          email: props.email
+        })
+        .then((res) => {
+          setName(res.data.data.name)
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    getProfile()
+  }, []);
+
+
   const handleShowModal = (invoice) => {
     setModalInvoice(invoice)
     setShowModal(true)
@@ -69,14 +97,49 @@ const FreelancerDashboard = (props) => {
     } else {
       return(
         <Container fluid className="FreelancerDashboard mb-5">
-          <Row className="justify-content-md-center">
-            <Col>
-            <h4 className="page-heading">Dashboard</h4>
-            </Col>
-            {/* <Col>
-            <h4 className="page">Dashboard</h4>
-            </Col> */}
-          </Row>
+          <div className="topbarWrapper">
+        <div className="topLeft">
+          <h4 className="logo">Dashboard</h4>
+        </div>
+        <div className="topRight">
+          <div className="notifimenu">
+            <div className="notifi-container">
+            <img src={Notification} alt="" className="topAvatar" />
+            </div>
+          
+          </div>
+          <div className="container">
+      <div className="menu-container">
+        <button onClick={onClick} className="menu-trigger">
+          <span> {name}</span>
+          <img
+            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/df/df7789f313571604c0e4fb82154f7ee93d9989c6.jpg"
+            alt="User avatar"
+          />
+        </button>
+        <nav
+          ref={dropdownRef}
+          className={`menu ${isActive ? "active" : "inactive"}`}
+        >
+          <ul>
+            <li>
+              <a href={`${props.url}/profile`}>Profile</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href={`${props.url}/settings`}>Settings</a>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  
+        </div>
+      </div>
           
           <Row className="justify-content-center">
             <Col className="px-3" lg="4" md="12" sm="12" xs="12">
@@ -130,7 +193,7 @@ const FreelancerDashboard = (props) => {
                         &nbsp;
                         &nbsp;
                         <Col>
-                        <p className=""> $</p>
+                        {/* <p className=""> </p> */}
                         </Col>
                       </Row>
                     

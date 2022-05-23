@@ -27,8 +27,8 @@ const WirePayout = (props) => {
   const [otp, setOtp] = useState('')
   const [otp2, setOtp2] = useState('')
   const [selectcurrency, setSelectcurrency] = useState('')
-  let b = 'ETH'
-  let a = 'BTC'
+  let b = 'ethereum'
+  let a = 'bitcoin'
 
   const sliderToggle = () => {
     setSliderOpen(!sliderOpen)
@@ -78,13 +78,13 @@ const WirePayout = (props) => {
           axios
             .get(`${process.env.REACT_APP_BACKEND_API}/wyre-general/getWallet`)
             .then((res) => {
-              setBitcoinbalance(res.data.availableBalances['BTC'])
-              setEthereumbalance(res.data.availableBalances['ETH'])
+              setBitcoinbalance(res.data.availableBalances['bitcoin'])
+              setEthereumbalance(res.data.availableBalances['ethereum'])
               console.log(res)
-              if (!res.data.availableBalances['BTC']) {
+              if (!res.data.availableBalances['bitcoin']) {
                 setBitcoinbalance('0')
               }
-              if (!res.data.availableBalances['ETH']) {
+              if (!res.data.availableBalances['ethereum']) {
                 setEthereumbalance('0')
               }
             })

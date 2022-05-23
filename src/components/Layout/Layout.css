@@ -71,6 +71,8 @@
     border: none;
     background: none;
     margin-bottom: auto;
+    bottom: 0;
+    position: absolute;
 }
 .layout .dashboard .sidebar .button.logout-btn img {
     background: #574AE2;
