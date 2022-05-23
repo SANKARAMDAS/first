@@ -25,14 +25,14 @@ const CreateInvoiceSlider = (props) => {
 
   const history = useHistory();
 
-  const [title, setTitle] = useState("Invoice Title");
+  const [title, setTitle] = useState("");
 
   //State Variables And Handler Variables for CLIENT DETAILS
 
   const [clientValues, setClientValues] = useState({
-    name: "Client Name",
-    email: "clientname@example.com",
-    company: "Client Company Name",
+    name: "",
+    email: "",
+    company: "",
   });
 
   const [freelancerValues, setFreelancerValues] = useState({
@@ -379,6 +379,7 @@ Many Thanks,\n`
         })
         .catch((err) => {
           console.log('Error: ',err);
+          alert('Please fill the details correctly!');
         });
       }
     }).catch((error) => {
@@ -408,6 +409,8 @@ Many Thanks,\n`
                     className="invoice-input"
                     value={title}
                     maxLength="25"
+                    placeholder="Invoice Title"
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -435,6 +438,8 @@ Many Thanks,\n`
                     value={clientValues["name"]}
                     className="invoice-input"
                     maxLength=" 30"
+                    placeholder="Client Name"
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -446,6 +451,8 @@ Many Thanks,\n`
                     value={clientValues["company"]}
                     className="invoice-input"
                     maxLength="25"
+                    placeholder="Company Name"
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -457,6 +464,8 @@ Many Thanks,\n`
                     className="invoice-input"
                     value={clientValues["email"]}
                     maxLength="35"
+                    placeholder="Company Email"
+                    required
                   />
                 </Form.Group>
               </Col>

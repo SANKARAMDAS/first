@@ -110,7 +110,7 @@ const PreviewInvoiceModal = (props) => {
                 <p className="label">Status</p>
                 <p className="value">Pending</p>
               </div>
-              <button onClick={handleResolveInvoice}>Resolve</button>
+              <button onClick={handleResolveInvoice}>Accept & Pay</button>
               <button onClick={handleCancelInvoice}>Cancel</button>
               <button className="back" onClick={props.onClose}>Back</button>
             </>

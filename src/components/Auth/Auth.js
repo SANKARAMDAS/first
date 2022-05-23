@@ -140,7 +140,7 @@ const Auth = (props) => {
         setTokenId(tokenIdLocal)
         setEmail(response.data.data.email)
         setName(response.data.data.name)
-        setRenderForm("roleChoice")
+        setRenderForm("confirmation");
       }).catch((err) => {
         console.log(err)
         alert("Error in creating your account! Pls try again later!!");
