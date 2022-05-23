@@ -52,10 +52,7 @@ const Layout = (props) => {
               Payout Methods
             </Link>
           ) : (
-            <Link className="button" to={`${props.url}/payment`}>
-              <img src={payoutmethods} alt="payout-method" />
-              Payment Methods
-            </Link>
+            <></>
           )}
           
           <Link className="button" to={`${props.url}/profile`}>
